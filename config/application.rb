@@ -22,6 +22,7 @@ module Ispace
                        controller_specs: false,
                        request_specs: true,
                        system_specs: true
+      g.fixture_replacement :factory_bot, dir: "spec/factories"
       g.system_tests false
       g.style_sheets false
       g.javascripts false
