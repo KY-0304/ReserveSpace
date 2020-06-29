@@ -10,6 +10,25 @@ module Ispace
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
+    # タイムゾーンを東京に設定
+    config.time_zone = 'Tokyo'
+    # ジェネレーターの設定
+    config.generators do |g|
+      g.test_framework :rspec,
+                       fixtures: true,
+                       view_specs: false,
+                       helper_specs: false,
+                       routing_specs: false,
+                       controller_specs: false,
+                       request_specs: true,
+                       system_specs: true
+      g.system_tests false
+      g.style_sheets false
+      g.javascripts false
+      g.helper false
+    end
+
+
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
