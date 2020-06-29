@@ -24,7 +24,7 @@ module Ispace
                        system_specs: true
       g.fixture_replacement :factory_bot, dir: "spec/factories"
       g.system_tests false
-      g.style_sheets false
+      g.stylesheets false
       g.javascripts false
       g.helper false
     end
