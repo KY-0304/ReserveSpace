@@ -12,6 +12,8 @@ module Ispace
     config.load_defaults 5.2
     # タイムゾーンを東京に設定
     config.time_zone = 'Tokyo'
+    # デフォルトの言語を日本語に設定
+    config.i18n.default_locale = :ja
     # ジェネレーターの設定
     config.generators do |g|
       g.test_framework :rspec,
@@ -24,7 +26,7 @@ module Ispace
                        system_specs: true
       g.fixture_replacement :factory_bot, dir: "spec/factories"
       g.system_tests false
-      g.style_sheets false
+      g.stylesheets false
       g.javascripts false
       g.helper false
     end
