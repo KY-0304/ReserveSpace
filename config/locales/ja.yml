@@ -1,6 +1,12 @@
 ---
 ja:
   activerecord:
+    models:
+      owner: オーナー
+    attributes:
+      owner:
+        company_name: 事業者名
+        email: メールアドレス
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
