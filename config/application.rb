@@ -12,7 +12,7 @@ module Ispace
     config.load_defaults 5.2
     # タイムゾーンを東京に設定
     config.time_zone = 'Tokyo'
-    # デフォルトの言語が日本語に設定
+    # デフォルトの言語を日本語に設定
     config.i18n.default_locale = :ja
     # ジェネレーターの設定
     config.generators do |g|
