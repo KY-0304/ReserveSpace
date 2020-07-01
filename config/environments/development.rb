@@ -37,6 +37,8 @@ Rails.application.configure do
 
   # デフォルトのURLオプションを設定（deviseの設定：https://github.com/heartcombo/devise）
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # 送信したメールをletter_opener_webで見れるように設定
+  config.action_mailer.delivery_method = :letter_opener_web
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

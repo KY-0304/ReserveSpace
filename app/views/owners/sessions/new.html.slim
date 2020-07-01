@@ -1,0 +1,11 @@
+= provide(:title, "オーナーログイン")
+.w-50.mx-auto
+  h2.text-center
+    | オーナーログイン
+  = bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレス"
+    = f.password_field :password, autocomplete: "current-password", placeholder: "パスワード"
+    - if devise_mapping.rememberable?
+      = f.check_box :remember_me
+    = f.submit "ログイン", class: "btn btn-success"
+  = render "owners/shared/links"
