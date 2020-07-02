@@ -1,8 +1,8 @@
 = provide(:title, "パスワード再設定メール送信")
 .w-50.mx-auto
   h2.text-center パスワードを再設定
-  = bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+  = bootstrap_form_with model: @owner, url: owner_password_path, method: :post, inline_errors: false, local: true do |f|
     == render "owners/shared/error_messages", resource: resource
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-    = f.submit "メール送信"
-  = render "owners/shared/links"
+    = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレス"
+    = f.submit "メール送信", class: "btn btn-success btn-block"
+  == render "owners/shared/links"

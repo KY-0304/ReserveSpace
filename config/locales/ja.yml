@@ -5,7 +5,7 @@ ja:
       owner: オーナー
     attributes:
       owner:
-        company_name: 事業者名
+        company_name: 会社名
         email: メールアドレス
     errors:
       messages:
