@@ -4,6 +4,7 @@
   = bootstrap_form_with model: @owner, url: owner_registration_path, method: :put, local: true do |f|
     == render "owners/shared/error_messages", resource: resource
     = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレス"
+    = f.text_field :company_name, autocomplete: "organization", placeholder: "会社名"
     = f.password_field :password, autocomplete: "new-password", placeholder: "新しいパスワード",
       help: "変更しない場合は空欄にしてください。"
     = f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "新しいパスワード確認"
