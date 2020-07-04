@@ -20,7 +20,7 @@ RSpec.describe "OwnerSignIn", type: :system do
     click_button "ログイン"
 
     expect(page).to have_content "ログインしました"
-    expect(current_path).to eq root_path
+    expect(current_path).to eq owners_path
 
     # ログアウトできることを確認
     within("header") do

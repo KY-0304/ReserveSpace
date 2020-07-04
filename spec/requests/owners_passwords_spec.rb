@@ -92,8 +92,8 @@ RSpec.describe "OwnersPasswords", type: :request do
           expect(response.status).to eq 302
         end
 
-        it "root_pathにリダイレクトする" do
-          expect(response).to redirect_to root_path
+        it "owners_pathにリダイレクトする" do
+          expect(response).to redirect_to owners_path
         end
       end
 

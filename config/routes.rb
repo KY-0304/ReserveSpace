@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     passwords: 'owners/passwords',
   }
   root 'static_pages#home'
+  resources :owners, only: :index
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end

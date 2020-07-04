@@ -31,7 +31,7 @@ RSpec.describe "OwnerSignUp", type: :system do
     end.to change(Owner, :count).by 1
 
     expect(page).to have_content "ようこそ！ アカウントが登録されました"
-    expect(current_path).to eq root_path
+    expect(current_path).to eq owners_path
 
     within("header") do
       click_link "登録情報編集"
