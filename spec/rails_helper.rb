@@ -68,4 +68,7 @@ RSpec.configure do |config|
   # deviseのテストヘルパーを使用する設定
   config.include RequestSpecHelper, type: :request
   config.include Devise::Test::IntegrationHelpers, type: :system
+
+  # テスト終了時にアップロードした画像を削除する
+  config.after(:all) { FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads_#{Rails.env}/"]) if Rails.env.test? }
 end

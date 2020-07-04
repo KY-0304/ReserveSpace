@@ -5,4 +5,5 @@ class Owner < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :company_name, presence: true, uniqueness: true
+  has_many :rooms, dependent: :destroy
 end

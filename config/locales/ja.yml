@@ -3,10 +3,20 @@ ja:
   activerecord:
     models:
       owner: オーナー
+      room: 会議室
     attributes:
       owner:
         company_name: 会社名
         email: メールアドレス
+      room:
+        name: 名前
+        description: 説明
+        image: イメージ
+        address: 住所
+        phone_number: 連絡先
+        hourly_price: 時間単価
+        business_start_time: 営業開始時間
+        business_end_time: 営業終了時間
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
