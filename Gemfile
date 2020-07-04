@@ -15,7 +15,10 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'slim-rails'
 gem 'html2slim'
 gem 'bootstrap', '~> 4.5.0'
+gem "bootstrap_form", "~> 4.0"
 gem 'jquery-rails'
+gem 'devise'
+gem 'devise-i18n'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -34,6 +37,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec'
   gem 'rubocop-airbnb'
+  gem 'letter_opener_web', '~> 1.0'
 end
 
 group :test do
