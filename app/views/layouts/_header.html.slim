@@ -5,6 +5,8 @@ header.navbar.navbar-expand-lg.navbar-light.bg-light
     ul.navbar-nav.ml-auto
       - if owner_signed_in?
         li.nav-item
+          = link_to "オーナートップ", owners_path, class: "nav-link"
+        li.nav-item
           = link_to "登録情報編集", edit_owner_registration_path, class: "nav-link"
         li.nav-item
           = link_to "ログアウト", destroy_owner_session_path, method: :delete, class: "nav-link"
