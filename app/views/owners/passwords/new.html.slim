@@ -3,6 +3,6 @@
   h2.text-center パスワードを再設定
   = bootstrap_form_with model: @owner, url: owner_password_path, method: :post, inline_errors: false, local: true do |f|
     == render "owners/shared/error_messages", resource: resource
-    = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレス"
+    = f.email_field :email, autofocus: true, placeholder: "メールアドレス"
     = f.submit "メール送信", class: "btn btn-success btn-block"
   == render "owners/shared/links"
