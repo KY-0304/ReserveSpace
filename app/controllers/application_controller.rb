@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   private
 
   # ログイン後のリダイレクト先
