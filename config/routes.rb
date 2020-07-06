@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   }
   root 'static_pages#home'
   resources :owners, only: :index
+  resources :rooms, except: :index
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end
