@@ -7,6 +7,7 @@ h2.text-center 会議室編集
     == render "owners/shared/error_messages", resource: @room
     = f.text_field :name, autofocus: true
     = f.text_area :description, size: "1x10", placeholder: "会議室概要"
+    = f.label :image
     = f.file_field_without_bootstrap :image, class: "filestyle"
     = f.text_field :address
     = f.telephone_field :phone_number, placeholder: "(例)03-1234-5678"
