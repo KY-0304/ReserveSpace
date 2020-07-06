@@ -3,11 +3,12 @@ require 'rails_helper'
 RSpec.describe "ApplicationHelper", type: :helper do
   describe "full_title" do
     context "page_titleがblankの場合" do
+      let(:blank_arguments) { ["", [], {}, nil] }
+
       it "base_titleのみを返す" do
-        expect(helper.full_title("")).to eq "iSpace"
-        expect(helper.full_title([])).to eq "iSpace"
-        expect(helper.full_title({})).to eq "iSpace"
-        expect(helper.full_title(nil)).to eq "iSpace"
+        blank_arguments.each do |blank|
+          expect(helper.full_title(blank)).to eq "iSpace"
+        end
       end
     end
 
