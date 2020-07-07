@@ -1,24 +1,274 @@
 require 'rails_helper'
 
 RSpec.describe "Rooms", type: :request do
-  # describe "GET /new" do
-  #   it "returns http success" do
-  #     get "/rooms/new"
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
+  let(:owner) { create(:owner) }
+  let!(:room) { create(:room, owner: owner, name: "test_room") }
+  let(:other_owner) { create(:owner) }
 
-  # describe "GET /edit" do
-  #   it "returns http success" do
-  #     get "/rooms/edit"
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
+  describe "GET #show" do
+    it "ステータスコード200を返す" do
+      get room_path(room)
+      expect(response.status).to eq 200
+    end
+  end
 
-  # describe "GET /show" do
-  #   it "returns http success" do
-  #     get "/rooms/show"
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
+  describe "GET #new" do
+    context "ログイン済みの場合" do
+      before do
+        sign_in owner
+      end
+
+      it "ステータスコード200を返す" do
+        get new_room_path
+        expect(response.status).to eq 200
+      end
+    end
+
+    context "ログインしていない場合" do
+      before do
+        get new_room_path
+      end
+
+      it "ステータスコード302を返す" do
+        expect(response.status).to eq 302
+      end
+
+      it "new_owner_session_pathにリダイレクトする" do
+        expect(response).to redirect_to new_owner_session_path
+      end
+    end
+  end
+
+  describe "POST #create" do
+    let(:params) { attributes_for(:room) }
+
+    context "ログイン済みの場合" do
+      before do
+        sign_in owner
+      end
+
+      context "パラメータが妥当な場合" do
+        it "ステータスコード302を返す" do
+          post rooms_path, params: { room: params }
+          expect(response.status).to eq 302
+        end
+
+        it "owners_pathにリダイレクトする" do
+          post rooms_path, params: { room: params }
+          expect(response).to redirect_to owners_path
+        end
+
+        it "roomが登録される" do
+          expect do
+            post rooms_path, params: { room: params }
+          end.to change(Room, :count).by 1
+        end
+      end
+
+      context "パラメータが不正な場合" do
+        let(:invalid_params) { attributes_for(:room, name: "") }
+
+        it "ステータスコード200を返す" do
+          post rooms_path, params: { room: invalid_params }
+          expect(response.status).to eq 200
+        end
+
+        it "エラー文を返す" do
+          post rooms_path, params: { room: invalid_params }
+          expect(response.body).to include "この 会議室 を保存できません"
+        end
+
+        it "roomが登録されない" do
+          expect do
+            post rooms_path, params: { room: invalid_params }
+          end.not_to change(Room, :count)
+        end
+      end
+    end
+
+    context "ログインしていない場合" do
+      before do
+        post rooms_path, params: { room: params }
+      end
+
+      it "ステータスコード302を返す" do
+        expect(response.status).to eq 302
+      end
+
+      it "new_owner_sessin_pathにリダイレクトする" do
+        expect(response).to redirect_to new_owner_session_path
+      end
+    end
+  end
+
+  describe "GET #edit" do
+    context "ログイン済みの場合" do
+      before do
+        sign_in owner
+      end
+
+      it "ステータスコード200を返す" do
+        get edit_room_path(room)
+        expect(response.status).to eq 200
+      end
+    end
+
+    context "ログインしていない場合" do
+      before do
+        get edit_room_path(room)
+      end
+
+      it "ステータスコード302を返す" do
+        expect(response.status).to eq 302
+      end
+
+      it "new_owner_session_pathにリダイレクトする" do
+        expect(response).to redirect_to new_owner_session_path
+      end
+    end
+
+    context "他のオーナーがリクエストを送った場合" do
+      before do
+        sign_in other_owner
+        get edit_room_path(room)
+      end
+
+      it "ステータスコード302を返す" do
+        expect(response.status).to eq 302
+      end
+
+      it "owners_pathにリダイレクトする" do
+        expect(response).to redirect_to owners_path
+      end
+    end
+  end
+
+  describe "PUT #update" do
+    let(:params) { attributes_for(:room, name: "update_room") }
+
+    context "ログイン済みの場合" do
+      before do
+        sign_in owner
+        put room_path(room), params: { room: params }
+      end
+
+      context "パラメータが妥当な場合" do
+        it "ステータスコード302を返す" do
+          expect(response.status).to eq 302
+        end
+
+        it "owners_pathにリダイレクトする" do
+          expect(response).to redirect_to owners_path
+        end
+
+        it "roomが変更される" do
+          room.reload
+          expect(room.name).to eq "update_room"
+        end
+      end
+
+      context "パラメータが不正な場合" do
+        let(:params) { attributes_for(:room, name: "") }
+
+        it "ステータスコード200を返す" do
+          expect(response.status).to eq 200
+        end
+
+        it "エラー文を返す" do
+          expect(response.body).to include "この 会議室 を保存できません"
+        end
+
+        it "roomが変更されない" do
+          room.reload
+          expect(room.name).to eq "test_room"
+        end
+      end
+    end
+
+    context "ログインしていない場合" do
+      before do
+        put room_path(room), params: { room: params }
+      end
+
+      it "ステータスコード302を返す" do
+        expect(response.status).to eq 302
+      end
+
+      it "new_owner_sessin_pathにリダイレクトする" do
+        expect(response).to redirect_to new_owner_session_path
+      end
+    end
+
+    context "他のオーナーがリクエストを送った場合" do
+      before do
+        sign_in other_owner
+        put room_path(room), params: { room: params }
+      end
+
+      it "ステータスコード302を返す" do
+        expect(response.status).to eq 302
+      end
+
+      it "owners_pathにリダイレクトする" do
+        expect(response).to redirect_to owners_path
+      end
+    end
+  end
+
+  describe "DELETE #destroy" do
+    context "ログイン済みの場合" do
+      before do
+        sign_in owner
+      end
+
+      it "ステータスコード302を返す" do
+        delete room_path(room)
+        expect(response.status).to eq 302
+      end
+
+      it "owners_pathにリダイレクトする" do
+        delete room_path(room)
+        expect(response).to redirect_to owners_path
+      end
+
+      it "会議室が削除される" do
+        expect do
+          delete room_path(room)
+        end.to change(Room, :count).by(-1)
+      end
+    end
+
+    context "ログインしていない場合" do
+      it "ステータスコード302を返す" do
+        delete room_path(room)
+        expect(response.status).to eq 302
+      end
+
+      it "new_owner_session_pathにリダイレクトする" do
+        delete room_path(room)
+        expect(response).to redirect_to new_owner_session_path
+      end
+
+      it "会議室は削除されない" do
+        expect do
+          delete room_path(room)
+        end.not_to change(Room, :count)
+      end
+    end
+
+    context "他のオーナーがリクエストを送った場合" do
+      before do
+        sign_in other_owner
+        delete room_path(room)
+      end
+
+      it "ステータスコード302を返す" do
+        expect(response.status).to eq 302
+      end
+
+      it "owners_pathにリダイレクトする" do
+        expect(response).to redirect_to owners_path
+      end
+    end
+  end
 end

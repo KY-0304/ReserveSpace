@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   before_action :authenticate_owner!, except: :show
+  before_action :correct_owner, only: [:edit, :update, :destroy]
 
   def show
     @room = Room.find(params[:id])
@@ -12,7 +13,7 @@ class RoomsController < ApplicationController
   def create
     @room = current_owner.rooms.build(room_params)
     if @room.save
-      flash[:notice] = "会議室の登録を完了しました"
+      flash[:success] = "会議室の登録を完了しました"
       redirect_to owners_path
     else
       render :new
@@ -20,13 +21,11 @@ class RoomsController < ApplicationController
   end
 
   def edit
-    @room = current_owner.rooms.find(params[:id])
   end
 
   def update
-    @room = current_owner.rooms.find(params[:id])
     if @room.update_attributes(room_params)
-      flash[:notice] = "会議室の編集が完了しました"
+      flash[:success] = "会議室の編集が完了しました"
       redirect_to owners_path
     else
       render :edit
@@ -34,9 +33,8 @@ class RoomsController < ApplicationController
   end
 
   def destroy
-    @room = current_owner.rooms.find(params[:id])
-    @room.destroy
-    flash[:notice] = "会議室の削除が完了しました"
+    @room.destroy!
+    flash[:success] = "会議室の削除が完了しました"
     redirect_to owners_path
   end
 
@@ -45,5 +43,13 @@ class RoomsController < ApplicationController
   def room_params
     params.require(:room).
       permit(:name, :description, :image, :address, :phone_number, :hourly_price, :business_start_time, :business_end_time)
+  end
+
+  def correct_owner
+    @room = current_owner.rooms.find_by(id: params[:id])
+    unless @room
+      flash[:warning] = "会議室が見つかりませんでした"
+      redirect_to owners_path
+    end
   end
 end

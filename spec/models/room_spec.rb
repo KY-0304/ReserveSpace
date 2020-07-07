@@ -3,6 +3,16 @@ require 'rails_helper'
 RSpec.describe Room, type: :model do
   let(:room) { create(:room) }
 
+  it "有効なファクトリを持つこと" do
+    expect(room).to be_valid
+  end
+
+  it "オーナーIDが無いと無効" do
+    room.owner_id = nil
+    room.valid?
+    expect(room.errors.full_messages).to include "オーナーを入力してください"
+  end
+
   it "名前が無いと無効" do
     room.name = nil
     room.valid?
@@ -36,7 +46,7 @@ RSpec.describe Room, type: :model do
   it "連絡先が指定のフォーマットでないと無効" do
     invalid_numbers = [
       "12-1234-1234", "0-1234-1234", "012345-1234-1234", "01-12345-1234",
-      "01-1234-12345", "060-1234-1234", "0123456789"
+      "01-1234-12345", "060-1234-1234", "0123456789",
     ]
 
     invalid_numbers.each do |num|
