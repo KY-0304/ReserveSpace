@@ -2,7 +2,7 @@
 .w-50.mx-auto
   h2.text-center オーナー登録
   = bootstrap_form_with model: @owner, url: owner_registration_path, local: true, inline_errors: false do |f|
-    == render "owners/shared/error_messages", resource: resource
+    = f.alert_message "以下のエラーが発生しました："
     = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレス"
     = f.text_field :company_name, autocomplete: "organization", placeholder: "会社名"
     = f.password_field :password, autocomplete: "new-password", placeholder: "パスワード（6文字以上）"

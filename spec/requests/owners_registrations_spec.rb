@@ -41,7 +41,7 @@ RSpec.describe "OwnersRegistrations", type: :request do
 
       it "エラー文を返す" do
         post owner_registration_path, params: { owner: invalid_owner_params }
-        expect(response.body).to include "この オーナー を保存できません"
+        expect(response.body).to include "以下のエラーが発生しました："
       end
 
       it "ownerが登録されない" do
@@ -120,7 +120,7 @@ RSpec.describe "OwnersRegistrations", type: :request do
         end
 
         it "エラー文を返す" do
-          expect(response.body).to include "この オーナー を保存できません"
+          expect(response.body).to include "以下のエラーが発生しました："
         end
 
         it "登録情報が更新されない" do

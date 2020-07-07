@@ -75,7 +75,7 @@ RSpec.describe "Rooms", type: :request do
 
         it "エラー文を返す" do
           post rooms_path, params: { room: invalid_params }
-          expect(response.body).to include "この 会議室 を保存できません"
+          expect(response.body).to include "以下のエラーが発生しました："
         end
 
         it "roomが登録されない" do
@@ -175,7 +175,7 @@ RSpec.describe "Rooms", type: :request do
         end
 
         it "エラー文を返す" do
-          expect(response.body).to include "この 会議室 を保存できません"
+          expect(response.body).to include "以下のエラーが発生しました："
         end
 
         it "roomが変更されない" do
