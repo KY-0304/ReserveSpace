@@ -8,8 +8,7 @@ html
   body
     == render 'layouts/header'
     .container
-      p.notice = notice
-      p.alert = alert
+      == render 'layouts/flash'
       = yield
     == render 'layouts/footer'
     = javascript_include_tag 'application'

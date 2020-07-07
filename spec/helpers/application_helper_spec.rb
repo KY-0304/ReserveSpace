@@ -18,4 +18,24 @@ RSpec.describe "ApplicationHelper", type: :helper do
       end
     end
   end
+
+  describe "bootstrap_alert" do
+    context "keyにnoticeが渡された場合" do
+      it "successを返す" do
+        expect(helper.bootstrap_alert("notice")).to eq "success"
+      end
+    end
+
+    context "keyにalertが渡された場合" do
+      it "dangerを返す" do
+        expect(helper.bootstrap_alert("alert")).to eq "danger"
+      end
+    end
+
+    context "notice,alert以外が渡された場合" do
+      it "渡されたkeyを返す" do
+        expect(helper.bootstrap_alert("test")).to eq "test"
+      end
+    end
+  end
 end

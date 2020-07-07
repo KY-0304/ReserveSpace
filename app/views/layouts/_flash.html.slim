@@ -1,0 +1,4 @@
+- flash.each do |key, message|
+  div class="alert alert-#{bootstrap_alert(key)} my-3"
+   = message
+   = button_tag "×", class: "close", data: { dismiss: "alert"}
