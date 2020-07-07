@@ -1,0 +1,5 @@
+/* ===form label require mark=== */
+label.required:after {
+  content: " *";
+  color: red;
+}

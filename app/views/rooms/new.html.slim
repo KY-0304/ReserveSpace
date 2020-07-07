@@ -1,15 +1,17 @@
 = provide(:title, "会議室登録")
-
 .w-50.mx-auto
   h2.text-center 会議室登録
   = bootstrap_form_with model: @room, local: true, inline_errors: false do |f|
     = f.alert_message "以下のエラーが発生しました："
     = f.text_field :name, autofocus: true, placeholder: "会議室名"
-    = f.text_area :description, size: "1x10", placeholder: "会議室概要"
-    = f.label :image
-    = f.file_field_without_bootstrap :image, class: "filestyle"
+    = f.text_area :description, size: "1x5", placeholder: "会議室の説明文"
+
+    .mb-3
+      = f.label :image, class: "required"
+      = f.file_field_without_bootstrap :image, class: "filestyle"
+
     = f.text_field :address, placeholder: "(例)東京都港区三田1-1-1"
-    = f.telephone_field :phone_number, placeholder: "(例)03-1234-5678"
+    = f.telephone_field :phone_number, placeholder: "(例)03-1234-5678", help: "携帯番号可"
     = f.number_field :hourly_price, placeholder: "(例)1000", append: "円/時間"
     = f.time_field :business_start_time
     = f.time_field :business_end_time
