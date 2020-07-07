@@ -65,10 +65,15 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  # deviseのテストヘルパーを使用する設定
+  # deviseのテストヘルパーを使用する
   config.include RequestSpecHelper, type: :request
   config.include Devise::Test::IntegrationHelpers, type: :system
 
   # テスト終了時にアップロードした画像を削除する
   config.after(:all) { FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads_#{Rails.env}/"]) if Rails.env.test? }
+
+  # デフォルトでaggregate_failuresを使用する
+  config.define_derived_metadata do |meta|
+    meta[:aggregate_failures] = true unless meta.key?(:aggregate_failures)
+  end
 end
