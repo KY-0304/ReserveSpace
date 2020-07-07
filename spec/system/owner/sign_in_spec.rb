@@ -10,10 +10,6 @@ RSpec.describe "OwnerSignIn", type: :system do
       click_link "オーナーログイン"
     end
 
-    # エラーが表示されることを確認
-    click_button "ログイン"
-    expect(page).to have_content "メールアドレスまたはパスワードが違います"
-
     # ログインできることを確認
     fill_in "メールアドレス", with: owner.email
     fill_in "パスワード", with: owner.password

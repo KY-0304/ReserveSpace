@@ -22,19 +22,6 @@ RSpec.describe "Rooms", type: :system do
   it "オーナーは会議室を登録&削除できる" do
     click_link "会議室登録"
 
-    # エラーが表示されることを確認
-    click_button "登録"
-    aggregate_failures do
-      expect(page).to have_content "名前を入力してください"
-      expect(page).to have_content "住所を入力してください"
-      expect(page).to have_content "連絡先を入力してください"
-      expect(page).to have_content "連絡先は不正な値です"
-      expect(page).to have_content "時間単価を入力してください"
-      expect(page).to have_content "営業開始時間を入力してください"
-      expect(page).to have_content "営業終了時間を入力してください"
-      expect(page).to have_content "営業終了時間は営業開始時間と同じ値を指定できません"
-    end
-
     # 会議室が登録されることの確認
     expect do
       fill_in "名前", with: "テスト会議室"
@@ -66,12 +53,6 @@ RSpec.describe "Rooms", type: :system do
     click_link room.name
     click_link "編集"
 
-    # エラーが表示されることを確認
-    fill_in "名前", with: ""
-    click_button "変更"
-    expect(page).to have_content "名前を入力してください"
-
-    # アップデートされることの確認
     fill_in "名前", with: "アップデート会議室"
     fill_in "説明", with: "アップデート説明"
     attach_file "イメージ", "#{Rails.root}/public/images/room.jpg"
@@ -82,18 +63,17 @@ RSpec.describe "Rooms", type: :system do
     fill_in "営業終了時間", with: "20:00"
     click_button "変更"
 
-    aggregate_failures do
-      expect(current_path).to eq owners_path
-      expect(page).to have_content "会議室の編集が完了しました"
-      room.reload
-      expect(room.name).to eq "アップデート会議室"
-      expect(room.description).to eq "アップデート説明"
-      # 後ほど画像のテスト追加
-      expect(room.address).to eq "東京都港区三田2-2-2"
-      expect(room.phone_number).to eq "080-1111-1111"
-      expect(room.hourly_price).to eq "1000"
-      expect(room.business_start_time.strftime("%H:%M")).to eq "07:00"
-      expect(room.business_end_time.strftime("%H:%M")).to eq "20:00"
-    end
+    room.reload
+
+    expect(current_path).to eq owners_path
+    expect(page).to have_content "会議室の編集が完了しました"
+    expect(room.name).to eq "アップデート会議室"
+    expect(room.description).to eq "アップデート説明"
+    # 後ほど画像のテスト追加
+    expect(room.address).to eq "東京都港区三田2-2-2"
+    expect(room.phone_number).to eq "080-1111-1111"
+    expect(room.hourly_price).to eq "1000"
+    expect(room.business_start_time.strftime("%H:%M")).to eq "07:00"
+    expect(room.business_end_time.strftime("%H:%M")).to eq "20:00"
   end
 end

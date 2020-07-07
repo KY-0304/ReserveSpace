@@ -27,6 +27,10 @@ RSpec.describe "Owners", type: :request do
       it "new_owner_session_pathにリダイレクトする" do
         expect(response).to redirect_to new_owner_session_path
       end
+
+      it "フラッシュを返す" do
+        expect(flash[:alert]).to eq "ログインまたは登録が必要です"
+      end
     end
   end
 end

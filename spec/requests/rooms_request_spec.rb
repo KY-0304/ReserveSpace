@@ -63,6 +63,11 @@ RSpec.describe "Rooms", type: :request do
             post rooms_path, params: { room: params }
           end.to change(Room, :count).by 1
         end
+
+        it "フラッシュを返す" do
+          post rooms_path, params: { room: params }
+          expect(flash[:success]).to eq "会議室の登録を完了しました"
+        end
       end
 
       context "パラメータが不正な場合" do
@@ -140,6 +145,10 @@ RSpec.describe "Rooms", type: :request do
       it "owners_pathにリダイレクトする" do
         expect(response).to redirect_to owners_path
       end
+
+      it "フラッシュを返す" do
+        expect(flash[:warning]).to eq "会議室が見つかりませんでした"
+      end
     end
   end
 
@@ -164,6 +173,10 @@ RSpec.describe "Rooms", type: :request do
         it "roomが変更される" do
           room.reload
           expect(room.name).to eq "update_room"
+        end
+
+        it "フラッシュを返す" do
+          expect(flash[:success]).to eq "会議室の編集が完了しました"
         end
       end
 
@@ -212,6 +225,10 @@ RSpec.describe "Rooms", type: :request do
       it "owners_pathにリダイレクトする" do
         expect(response).to redirect_to owners_path
       end
+
+      it "フラッシュを返す" do
+        expect(flash[:warning]).to eq "会議室が見つかりませんでした"
+      end
     end
   end
 
@@ -235,6 +252,11 @@ RSpec.describe "Rooms", type: :request do
         expect do
           delete room_path(room)
         end.to change(Room, :count).by(-1)
+      end
+
+      it "フラッシュを返す" do
+        delete room_path(room)
+        expect(flash[:success]).to eq "会議室の削除が完了しました"
       end
     end
 
@@ -268,6 +290,10 @@ RSpec.describe "Rooms", type: :request do
 
       it "owners_pathにリダイレクトする" do
         expect(response).to redirect_to owners_path
+      end
+
+      it "フラッシュを返す" do
+        expect(flash[:warning]).to eq "会議室が見つかりませんでした"
       end
     end
   end
