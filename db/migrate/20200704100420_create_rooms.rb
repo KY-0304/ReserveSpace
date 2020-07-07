@@ -4,7 +4,7 @@ class CreateRooms < ActiveRecord::Migration[5.2]
       t.references :owner, foreign_key: true
       t.string :name, null: false
       t.text :description
-      t.string :image
+      t.string :image, null: false
       t.string :address, null: false
       t.string :phone_number
       t.binary :hourly_price, null: false

@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_100420) do
     t.bigint "owner_id"
     t.string "name", null: false
     t.text "description"
-    t.string "image"
+    t.string "image", null: false
     t.string "address", null: false
     t.string "phone_number"
     t.binary "hourly_price", null: false

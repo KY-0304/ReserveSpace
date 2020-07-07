@@ -19,6 +19,12 @@ RSpec.describe Room, type: :model do
     expect(room.errors.full_messages).to include "名前を入力してください"
   end
 
+  it "イメージが無いと無効" do
+    room.image = nil
+    room.valid?
+    expect(room.errors.full_messages).to include "イメージを入力してください"
+  end
+
   it "住所が無いと無効" do
     room.address = nil
     room.valid?

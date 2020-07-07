@@ -1,6 +1,7 @@
 class Room < ApplicationRecord
   belongs_to :owner
   validates :name, presence: true
+  validates :image, presence: true
   validates :address, presence: true
   validates :phone_number, presence: true, format: { with: VALID_PHONE_NUMBER_REGEX }
   validates :hourly_price, presence: true
