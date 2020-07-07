@@ -5,12 +5,12 @@ module ApplicationHelper
 
   def bootstrap_alert(key)
     case key
-      when "notice"
-        "success"
-      when "alert"
-        "danger"
-      else
-        key
+    when "notice"
+      "success"
+    when "alert"
+      "danger"
+    else
+      key
     end
   end
 end
