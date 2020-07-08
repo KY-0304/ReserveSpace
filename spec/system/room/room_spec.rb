@@ -69,7 +69,7 @@ RSpec.describe "Rooms", type: :system do
     expect(page).to have_content "会議室の編集が完了しました"
     expect(room.name).to eq "アップデート会議室"
     expect(room.description).to eq "アップデート説明"
-    # 後ほど画像のテスト追加
+    expect(room.image.url).to eq "/uploads_test/room/image/#{room.id}/room.jpg"
     expect(room.address).to eq "東京都港区三田2-2-2"
     expect(room.phone_number).to eq "080-1111-1111"
     expect(room.hourly_price).to eq "1000"
