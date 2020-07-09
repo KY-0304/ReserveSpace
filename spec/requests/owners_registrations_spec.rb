@@ -19,9 +19,9 @@ RSpec.describe "OwnersRegistrations", type: :request do
         expect(response.status).to eq 302
       end
 
-      it "owners_pathにリダイレクトする" do
+      it "rooms_pathにリダイレクトする" do
         post owner_registration_path, params: { owner: owner_params }
-        expect(response).to redirect_to owners_path
+        expect(response).to redirect_to rooms_path
       end
 
       it "ownerが登録される" do

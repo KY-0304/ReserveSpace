@@ -41,7 +41,7 @@ RSpec.describe "OwnerResetPassword", type: :system do
     owner.reload
 
     expect(page).to have_content "パスワードを変更しました。ログイン済みです"
-    expect(current_path).to eq owners_path
+    expect(current_path).to eq rooms_path
     expect(owner.encrypted_password).not_to eq current_encrypted_password
   end
 end

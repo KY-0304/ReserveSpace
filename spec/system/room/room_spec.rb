@@ -16,7 +16,7 @@ RSpec.describe "Rooms", type: :system do
 
   before do
     sign_in owner
-    visit owners_path
+    visit rooms_path
   end
 
   it "オーナーは会議室を登録&削除できる" do
@@ -35,7 +35,7 @@ RSpec.describe "Rooms", type: :system do
       click_button "登録"
     end.to change(Room, :count).by 1
 
-    expect(current_path).to eq owners_path
+    expect(current_path).to eq rooms_path
     expect(page).to have_content "会議室の登録を完了しました"
 
     # 会議室が削除されることの確認
@@ -45,7 +45,7 @@ RSpec.describe "Rooms", type: :system do
       click_link "会議室削除"
     end.to change(Room, :count).by(-1)
 
-    expect(current_path).to eq owners_path
+    expect(current_path).to eq rooms_path
     expect(page).to have_content "会議室の削除が完了しました"
   end
 
@@ -65,7 +65,7 @@ RSpec.describe "Rooms", type: :system do
 
     room.reload
 
-    expect(current_path).to eq owners_path
+    expect(current_path).to eq rooms_path
     expect(page).to have_content "会議室の編集が完了しました"
     expect(room.name).to eq "アップデート会議室"
     expect(room.description).to eq "アップデート説明"

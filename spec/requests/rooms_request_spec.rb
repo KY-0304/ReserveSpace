@@ -5,6 +5,37 @@ RSpec.describe "Rooms", type: :request do
   let!(:room) { create(:room, owner: owner, name: "test_room") }
   let(:other_owner) { create(:owner) }
 
+  describe "GET #index" do
+    context "ログイン済みの場合" do
+      before do
+        sign_in owner
+      end
+
+      it "ステータスコード200を返す" do
+        get rooms_path
+        expect(response.status).to eq 200
+      end
+    end
+
+    context "ログインしていない場合" do
+      before do
+        get rooms_path
+      end
+
+      it "ステータスコード302を返す" do
+        expect(response.status).to eq 302
+      end
+
+      it "new_owner_session_pathにリダイレクトする" do
+        expect(response).to redirect_to new_owner_session_path
+      end
+
+      it "フラッシュを返す" do
+        expect(flash[:alert]).to eq "ログインまたは登録が必要です"
+      end
+    end
+  end
+
   describe "GET #show" do
     it "ステータスコード200を返す" do
       get room_path(room)
@@ -53,9 +84,9 @@ RSpec.describe "Rooms", type: :request do
           expect(response.status).to eq 302
         end
 
-        it "owners_pathにリダイレクトする" do
+        it "rooms_pathにリダイレクトする" do
           post rooms_path, params: { room: params }
-          expect(response).to redirect_to owners_path
+          expect(response).to redirect_to rooms_path
         end
 
         it "roomが登録される" do
@@ -142,8 +173,8 @@ RSpec.describe "Rooms", type: :request do
         expect(response.status).to eq 302
       end
 
-      it "owners_pathにリダイレクトする" do
-        expect(response).to redirect_to owners_path
+      it "rooms_pathにリダイレクトする" do
+        expect(response).to redirect_to rooms_path
       end
 
       it "フラッシュを返す" do
@@ -166,8 +197,8 @@ RSpec.describe "Rooms", type: :request do
           expect(response.status).to eq 302
         end
 
-        it "owners_pathにリダイレクトする" do
-          expect(response).to redirect_to owners_path
+        it "rooms_pathにリダイレクトする" do
+          expect(response).to redirect_to rooms_path
         end
 
         it "roomが変更される" do
@@ -222,8 +253,8 @@ RSpec.describe "Rooms", type: :request do
         expect(response.status).to eq 302
       end
 
-      it "owners_pathにリダイレクトする" do
-        expect(response).to redirect_to owners_path
+      it "rooms_pathにリダイレクトする" do
+        expect(response).to redirect_to rooms_path
       end
 
       it "フラッシュを返す" do
@@ -243,9 +274,9 @@ RSpec.describe "Rooms", type: :request do
         expect(response.status).to eq 302
       end
 
-      it "owners_pathにリダイレクトする" do
+      it "rooms_pathにリダイレクトする" do
         delete room_path(room)
-        expect(response).to redirect_to owners_path
+        expect(response).to redirect_to rooms_path
       end
 
       it "会議室が削除される" do
@@ -288,8 +319,8 @@ RSpec.describe "Rooms", type: :request do
         expect(response.status).to eq 302
       end
 
-      it "owners_pathにリダイレクトする" do
-        expect(response).to redirect_to owners_path
+      it "rooms_pathにリダイレクトする" do
+        expect(response).to redirect_to rooms_path
       end
 
       it "フラッシュを返す" do
