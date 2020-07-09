@@ -3,7 +3,7 @@ services:
   web:
     build: .
     volumes:
-      - .:/ispace
+      - .:/reserve_space
     ports:
       - '3000:3000'
     depends_on:
