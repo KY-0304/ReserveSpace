@@ -4,7 +4,7 @@
       .flex-fill.ml-3.d-flex.flex-column.justify-content-around
         p 会議室名: #{room.name}
         p 会社名: #{room.owner.company_name}
-        p 住所: #{room.address}
+        p 住所: #{room.full_address}
         p 連絡先: #{room.phone_number}
         p 時間単価: #{room.hourly_price}円/時間
         p 営業時間: #{room.business_start_time.strftime("%H:%M")} 〜 #{room.business_end_time.strftime("%H:%M")}

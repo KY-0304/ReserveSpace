@@ -10,9 +10,13 @@
       = f.label :image, class: "required"
       = f.file_field_without_bootstrap :image, class: "filestyle"
 
-    = f.text_field :address, placeholder: "(例)東京都港区三田1-1-1"
+    = f.number_field :postcode, placeholder: "(例)1080073", help: "ハイフン無しで入力してください。", prepend: "〒"
+    = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, prompt: "選択してください"
+    = f.text_field :address_city, placeholder: "(例)港区"
+    = f.text_field :address_street, placeholder: "(例)三田1-1-1"
+    = f.text_field :address_building, placeholder: "(例)○○ビル1階"
     = f.telephone_field :phone_number, placeholder: "(例)03-1234-5678", help: "携帯番号可"
     = f.number_field :hourly_price, placeholder: "(例)1000", append: "円/時間"
-    = f.time_field :business_start_time
-    = f.time_field :business_end_time
+    = f.time_select :business_start_time
+    = f.time_select :business_end_time
     = f.submit "登録", class: "btn btn-success btn-block"
