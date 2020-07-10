@@ -53,7 +53,6 @@ RSpec.describe "Rooms", type: :system do
     end.to change(Room, :count).by(-1)
 
     expect(current_path).to eq rooms_path
-
   end
 
   it "オーナーは会議室を編集できる" do
