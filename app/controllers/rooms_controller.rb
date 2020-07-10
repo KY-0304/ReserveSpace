@@ -45,9 +45,9 @@ class RoomsController < ApplicationController
   private
 
   def room_params
-    params.require(:room).permit(:name, :description, :image, :postcode, :prefecture_code, :address_city,
-                                 :address_street, :address_building, :phone_number, :hourly_price,
-                                 :business_start_time, :business_end_time)
+    params.require(:room).permit(:name, :description, :image, :image_cache, :remove_image, :postcode,
+                                 :prefecture_code, :address_city, :address_street, :address_building,
+                                 :phone_number, :hourly_price, :business_start_time, :business_end_time)
   end
 
   def correct_owner

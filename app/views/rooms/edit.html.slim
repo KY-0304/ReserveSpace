@@ -9,6 +9,9 @@
     .mb-3
       = f.label :image, class: "required"
       = f.file_field_without_bootstrap :image, class: "filestyle"
+      = f.hidden_field :image_cache
+      = image_tag @room.image.small_thumb.url, class: "img-thumbnail mt-3"
+      = f.check_box :remove_image
 
     = f.telephone_field :phone_number, placeholder: "(例)03-1234-5678", help: "携帯番号可"
     = f.number_field :hourly_price, placeholder: "(例)1000", append: "円/時間"

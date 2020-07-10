@@ -9,6 +9,9 @@
     .mb-3
       = f.label :image, class: "required"
       = f.file_field_without_bootstrap :image, class: "filestyle"
+      = f.hidden_field :image_cache
+      - if @room.image?
+        = image_tag @room.image.small_thumb.url, class: "img-thumbnail mt-3"
 
     = f.number_field :postcode, placeholder: "(例)1080073", help: "ハイフン無しで入力してください。", prepend: "〒"
     = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, prompt: "選択してください"
