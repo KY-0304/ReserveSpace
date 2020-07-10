@@ -20,6 +20,7 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'jp_prefecture'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
