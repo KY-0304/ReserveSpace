@@ -3,10 +3,26 @@ ja:
   activerecord:
     models:
       owner: オーナー
+      room: 会議室
     attributes:
       owner:
         company_name: 会社名
         email: メールアドレス
+      room:
+        owner: オーナー
+        name: 名前
+        description: 説明
+        image: イメージ
+        remove_image: 登録されているイメージを削除する
+        postcode: 郵便番号
+        prefecture_code: 都道府県
+        address_city: 市区町村
+        address_street: 番地
+        address_building: 建物
+        phone_number: 連絡先
+        hourly_price: 時間単価
+        business_start_time: 営業開始時間
+        business_end_time: 営業終了時間
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

@@ -1,3 +1,5 @@
-#error_explanation {
+/* ===bootstrap_form label 必須印=== */
+label.required:after {
+  content: " *";
   color: red;
 }

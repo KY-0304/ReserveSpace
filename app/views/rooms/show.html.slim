@@ -1,0 +1,5 @@
+= provide(:title, "会議室詳細")
+
+h2.text-center 会議室詳細情報
+
+= link_to "編集", edit_room_path(@room), class: "btn btn-primary" if @room.owner == current_owner

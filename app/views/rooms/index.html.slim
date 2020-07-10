@@ -1,0 +1,8 @@
+= provide(:title, "会議室一覧")
+
+= link_to "会議室登録", new_room_path, class: "btn btn-primary"
+
+- if @rooms.present?
+  == render @rooms
+- else
+  h2.text-center 登録されている会議室はありません

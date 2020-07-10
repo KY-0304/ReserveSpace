@@ -25,6 +25,10 @@ RSpec.describe "OwnersPasswords", type: :request do
       it "new_owner_session_pathにリダイレクトする" do
         expect(response).to redirect_to new_owner_session_path
       end
+
+      it "フラッシュを返す" do
+        expect(flash[:notice]).to eq "パスワードのリセット方法を数分以内にメールでご連絡します"
+      end
     end
 
     context "パラメータが不正な場合" do
@@ -92,8 +96,12 @@ RSpec.describe "OwnersPasswords", type: :request do
           expect(response.status).to eq 302
         end
 
-        it "root_pathにリダイレクトする" do
-          expect(response).to redirect_to root_path
+        it "rooms_pathにリダイレクトする" do
+          expect(response).to redirect_to rooms_path
+        end
+
+        it "フラッシュを返す" do
+          expect(flash[:notice]).to eq "パスワードを変更しました。ログイン済みです"
         end
       end
 

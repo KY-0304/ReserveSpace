@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Ispace
+module ReserveSpace
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
@@ -30,8 +30,6 @@ module Ispace
       g.javascripts false
       g.helper false
     end
-
-
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

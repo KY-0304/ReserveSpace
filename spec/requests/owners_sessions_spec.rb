@@ -22,8 +22,12 @@ RSpec.describe "OwnersSessions", type: :request do
         expect(response.status).to eq 302
       end
 
-      it "root_pathにリダイレクトする" do
-        expect(response).to redirect_to root_path
+      it "rooms_pathにリダイレクトする" do
+        expect(response).to redirect_to rooms_path
+      end
+
+      it "フラッシュを返す" do
+        expect(flash[:notice]).to eq "ログインしました"
       end
     end
 
@@ -34,8 +38,8 @@ RSpec.describe "OwnersSessions", type: :request do
         expect(response.status).to eq 200
       end
 
-      it "エラー文を返す" do
-        expect(response.body).to include "メールアドレスまたはパスワードが違います"
+      it "フラッシュを返す" do
+        expect(flash[:alert]).to eq "メールアドレスまたはパスワードが違います"
       end
     end
   end
@@ -52,6 +56,10 @@ RSpec.describe "OwnersSessions", type: :request do
 
     it "root_pathにリダイレクトする" do
       expect(response).to redirect_to root_path
+    end
+
+    it "フラッシュを返す" do
+      expect(flash[:notice]).to eq "ログアウトしました"
     end
   end
 end

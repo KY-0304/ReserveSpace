@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_30_100552) do
+ActiveRecord::Schema.define(version: 2020_07_04_100420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,4 +29,32 @@ ActiveRecord::Schema.define(version: 2020_06_30_100552) do
     t.index ["reset_password_token"], name: "index_owners_on_reset_password_token", unique: true
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.bigint "owner_id"
+    t.string "name", null: false
+    t.text "description"
+    t.string "image", null: false
+    t.integer "postcode", null: false
+    t.integer "prefecture_code", null: false
+    t.string "address_city", null: false
+    t.string "address_street", null: false
+    t.string "address_building", null: false
+    t.string "phone_number", null: false
+    t.integer "hourly_price", null: false
+    t.time "business_start_time", null: false
+    t.time "business_end_time", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_building"], name: "index_rooms_on_address_building"
+    t.index ["address_city"], name: "index_rooms_on_address_city"
+    t.index ["address_street"], name: "index_rooms_on_address_street"
+    t.index ["business_end_time"], name: "index_rooms_on_business_end_time"
+    t.index ["business_start_time"], name: "index_rooms_on_business_start_time"
+    t.index ["hourly_price"], name: "index_rooms_on_hourly_price"
+    t.index ["owner_id"], name: "index_rooms_on_owner_id"
+    t.index ["postcode"], name: "index_rooms_on_postcode"
+    t.index ["prefecture_code"], name: "index_rooms_on_prefecture_code"
+  end
+
+  add_foreign_key "rooms", "owners"
 end

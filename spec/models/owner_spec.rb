@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe Owner, type: :model do
   let(:owner) { create(:owner) }
 
+  it "有効なファクトリを持つこと" do
+    expect(owner).to be_valid
+  end
+
   it "事業者名が無いと無効" do
     owner.company_name = nil
     owner.valid?

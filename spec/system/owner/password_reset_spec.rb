@@ -17,6 +17,9 @@ RSpec.describe "OwnerResetPassword", type: :system do
     fill_in "メールアドレス", with: owner.email
     click_button "メール送信"
 
+    expect(current_path).to eq new_owner_session_path
+    expect(page).to have_content "パスワードのリセット方法を数分以内にメールでご連絡します"
+
     # メールが１件送られていることの確認
     expect(ActionMailer::Base.deliveries.size).to eq 1
 
@@ -36,7 +39,9 @@ RSpec.describe "OwnerResetPassword", type: :system do
 
     # パスワードが変更されることを確認
     owner.reload
+
     expect(page).to have_content "パスワードを変更しました。ログイン済みです"
+    expect(current_path).to eq rooms_path
     expect(owner.encrypted_password).not_to eq current_encrypted_password
   end
 end

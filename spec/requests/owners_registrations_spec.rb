@@ -19,15 +19,20 @@ RSpec.describe "OwnersRegistrations", type: :request do
         expect(response.status).to eq 302
       end
 
-      it "root_pathにリダイレクトする" do
+      it "rooms_pathにリダイレクトする" do
         post owner_registration_path, params: { owner: owner_params }
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to rooms_path
       end
 
       it "ownerが登録される" do
         expect do
           post owner_registration_path, params: { owner: owner_params }
         end.to change(Owner, :count).by 1
+      end
+
+      it "フラッシュを返す" do
+        post owner_registration_path, params: { owner: owner_params }
+        expect(flash[:notice]).to eq "ようこそ！ アカウントが登録されました"
       end
     end
 
@@ -41,7 +46,7 @@ RSpec.describe "OwnersRegistrations", type: :request do
 
       it "エラー文を返す" do
         post owner_registration_path, params: { owner: invalid_owner_params }
-        expect(response.body).to include "この オーナー を保存できません"
+        expect(response.body).to include "以下のエラーが発生しました："
       end
 
       it "ownerが登録されない" do
@@ -61,14 +66,6 @@ RSpec.describe "OwnersRegistrations", type: :request do
 
       it "ステータスコード200を返す" do
         expect(response.status).to eq 200
-      end
-
-      it "メールアドレスが表示される" do
-        expect(response.body).to include owner.email
-      end
-
-      it "会社名が表示される" do
-        expect(response.body).to include owner.company_name
       end
     end
 
@@ -110,6 +107,10 @@ RSpec.describe "OwnersRegistrations", type: :request do
           expect(owner.company_name).to eq "hoge"
           expect(owner.email).to eq "hoge@example.com"
         end
+
+        it "フラッシュを返す" do
+          expect(flash[:notice]).to eq "アカウントが更新されました"
+        end
       end
 
       context "パラメータが不正な場合" do
@@ -120,7 +121,7 @@ RSpec.describe "OwnersRegistrations", type: :request do
         end
 
         it "エラー文を返す" do
-          expect(response.body).to include "この オーナー を保存できません"
+          expect(response.body).to include "以下のエラーが発生しました："
         end
 
         it "登録情報が更新されない" do
@@ -165,6 +166,11 @@ RSpec.describe "OwnersRegistrations", type: :request do
         expect do
           delete owner_registration_path
         end.to change(Owner, :count).by(-1)
+      end
+
+      it "フラッシュを返す" do
+        delete owner_registration_path
+        expect(flash[:notice]).to eq "ご利用ありがとうございました。アカウントが削除されました。またのご利用をお待ちしています"
       end
     end
 

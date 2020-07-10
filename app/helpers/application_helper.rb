@@ -1,10 +1,16 @@
 module ApplicationHelper
   def full_title(page_title)
-    base_title = "iSpace"
-    if page_title.blank?
-      base_title
+    page_title.blank? ? BASE_TITLE : "#{page_title} - #{BASE_TITLE}"
+  end
+
+  def bootstrap_alert(key)
+    case key
+    when "notice"
+      "success"
+    when "alert"
+      "danger"
     else
-      "#{page_title} - #{base_title}"
+      key
     end
   end
 end

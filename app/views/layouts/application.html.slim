@@ -4,12 +4,11 @@ html
     title = full_title(yield(:title))
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag    'application', media: 'all'
   body
     == render 'layouts/header'
     .container
-      p.notice = notice
-      p.alert = alert
+      == render 'layouts/flash'
       = yield
     == render 'layouts/footer'
+    = javascript_include_tag 'application'
