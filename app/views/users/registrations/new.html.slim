@@ -4,7 +4,7 @@
   = bootstrap_form_with model: @user, url: user_registration_path, local: true, inline_errors: false do |f|
     = f.alert_message "以下のエラーが発生しました："
     = f.email_field :email, autofocus: true, placeholder: "(例) xxx@example.com"
-    = f.text_field :name, placeholder: "フルネーム"
+    = f.text_field :name, placeholder: "(例)山田　太郎"
     = f.telephone_field :phone_number, placeholder: "(例)080-xxxx-xxxx", help: "ハイフンをつけてください"
     = f.select :gender, User.genders_i18n.keys.map { |k| [User.genders_i18n[k], k] }
     = f.password_field :password, autocomplete: "new-password", placeholder: "パスワード（6文字以上）"

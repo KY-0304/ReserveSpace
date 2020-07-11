@@ -5,5 +5,5 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :phone_number, presence: true, format: { with: VALID_PHONE_NUMBER_REGEX }
   validates :gender, presence: true
-  enum gender: { male: 0, female: 1, unanswered: 2 }
+  enum gender: { unanswered: 0, female: 1, male: 2 }
 end
