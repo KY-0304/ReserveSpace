@@ -9,6 +9,7 @@ ja:
       owner:
         company_name: 会社名
         email: メールアドレス
+        reset_password_token: パスワードリセット用トークン
       room:
         owner: オーナー
         name: 名前
