@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     passwords: 'users/passwords',
   }
   root 'static_pages#home'
-  resources :rooms
+  resources :rooms do
+    resources :reservations, except: [:edit, :update], shallow: true
+  end
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end
