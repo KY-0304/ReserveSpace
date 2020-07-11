@@ -5,6 +5,6 @@ FactoryBot.define do
     password_confirmation { "password" }
     sequence(:name) { |n| "テストユーザー#{n}" }
     phone_number { "080-1234-1234" }
-    gender { 1 }
+    gender { :male }
   end
 end

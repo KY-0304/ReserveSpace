@@ -1,18 +1,9 @@
-h2
-  | Log in
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .field
-    = f.label :email
-    br
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    br
-    = f.password_field :password, autocomplete: "current-password"
-  - if devise_mapping.rememberable?
-    .field
-      = f.check_box :remember_me
-      = f.label :remember_me
-  .actions
-    = f.submit "Log in"
-= render "users/shared/links"
+= provide(:title, "ユーザーログイン")
+.w-50.mx-auto
+  h2.text-center ユーザーログイン
+  = bootstrap_form_with model: @user, url: user_session_path, local: true do |f|
+    = f.email_field :email, autofocus: true, placeholder: "(例) xxx@example.com"
+    = f.password_field :password, placeholder: "現在のパスワード"
+    = f.check_box :remember_me
+    = f.submit "ログイン", class: "btn btn-success btn-block mt-3"
+  == render "shared/links"
