@@ -21,6 +21,13 @@ owner.rooms.create!(name: "四田国際ビル地下１階会議室",
                     business_start_time: "09:00",
                     business_end_time: "21:00")
 
+User.create!(email: "fuga@example.com",
+             name: "山田太郎",
+             phone_number: "080-1234-1234",
+             gender: :male,
+             password: "password",
+             password_confirmation: "password")
+
 # 5.times do |n|
 #   Owner.create!(email: "test#{n}@example.com",
 #                 company_name: "テスト#{n}株式会社",

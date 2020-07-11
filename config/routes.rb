@@ -4,6 +4,12 @@ Rails.application.routes.draw do
     sessions: 'owners/sessions',
     passwords: 'owners/passwords',
   }
+
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    sessions: 'users/sessions',
+    passwords: 'users/passwords',
+  }
   root 'static_pages#home'
   resources :rooms
 

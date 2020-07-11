@@ -4,10 +4,12 @@ ja:
     models:
       owner: オーナー
       room: 会議室
+      user: ユーザー
     attributes:
       owner:
         company_name: 会社名
         email: メールアドレス
+        reset_password_token: パスワードリセット用トークン
       room:
         owner: オーナー
         name: 名前
@@ -23,12 +25,23 @@ ja:
         hourly_price: 時間単価
         business_start_time: 営業開始時間
         business_end_time: 営業終了時間
+      user:
+        email: メールアドレス
+        name: 名前
+        phone_number: 連絡先
+        gender: 性別
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+  enums:
+    user:
+      gender:
+        male: 男性
+        female: 女性
+        unanswered: 未回答
   date:
     abbr_day_names:
     - 日

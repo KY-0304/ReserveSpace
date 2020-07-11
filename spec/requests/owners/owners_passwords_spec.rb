@@ -155,7 +155,7 @@ RSpec.describe "OwnersPasswords", type: :request do
       end
 
       it "エラー文を返す" do
-        expect(response.body).to include "Reset password tokenは不正な値です"
+        expect(response.body).to include "パスワードリセット用トークンは不正な値です"
       end
     end
   end

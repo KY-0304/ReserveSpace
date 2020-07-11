@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_04_100420) do
+ActiveRecord::Schema.define(version: 2020_07_10_221456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,21 @@ ActiveRecord::Schema.define(version: 2020_07_04_100420) do
     t.index ["owner_id"], name: "index_rooms_on_owner_id"
     t.index ["postcode"], name: "index_rooms_on_postcode"
     t.index ["prefecture_code"], name: "index_rooms_on_prefecture_code"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name", null: false
+    t.string "phone_number", null: false
+    t.integer "gender", default: 0, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "rooms", "owners"
