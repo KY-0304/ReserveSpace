@@ -278,6 +278,8 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    simple_calendar (2.4.1)
+      rails (>= 3.0)
     simplecov (0.18.5)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -358,6 +360,7 @@ DEPENDENCIES
   rubocop-airbnb
   sass-rails (~> 5.0)
   selenium-webdriver
+  simple_calendar (~> 2.0)
   simplecov
   slim-rails
   spring

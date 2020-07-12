@@ -22,6 +22,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'jp_prefecture'
 gem 'enum_help'
+gem "simple_calendar", "~> 2.0"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
