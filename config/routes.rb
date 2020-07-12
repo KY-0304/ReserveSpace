@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   }
   root 'static_pages#home'
   resources :rooms do
-    resources :reservations, except: [:edit, :update], shallow: true
+    resources :reservations, only: [:index, :show, :create, :destroy], shallow: true
   end
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?

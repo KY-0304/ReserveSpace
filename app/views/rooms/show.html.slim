@@ -3,3 +3,13 @@
 h2.text-center 会議室詳細情報
 
 = link_to "編集", edit_room_path(@room), class: "btn btn-primary" if @room.owner == current_owner
+
+= month_calendar events: @reservations do |date, reservations|
+  = date.day
+
+  - reservations.each do |reservation|
+    small.d-block
+      = "#{reservation.start_time.strftime("%H:%M")}~#{reservation.end_time.strftime("%H:%M")} 予約有り"
+
+
+= link_to "予約する", new_room_reservation_path(@room), class: "btn btn-primary"

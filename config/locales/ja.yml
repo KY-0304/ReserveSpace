@@ -5,6 +5,7 @@ ja:
       owner: オーナー
       room: 会議室
       user: ユーザー
+      reservation: 予約
     attributes:
       owner:
         company_name: 会社名
@@ -30,6 +31,11 @@ ja:
         name: 名前
         phone_number: 連絡先
         gender: 性別
+      reservation:
+        room: 会議室
+        user: ユーザー
+        start_time: 開始時間
+        end_time: 終了時間
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
