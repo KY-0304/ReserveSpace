@@ -23,6 +23,8 @@ gem 'mini_magick'
 gem 'jp_prefecture'
 gem 'enum_help'
 gem "simple_calendar", "~> 2.0"
+gem 'validates_overlap', '0.8.6'
+gem 'validates_timeliness', '~> 5.0.0.beta1'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
