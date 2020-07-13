@@ -14,7 +14,7 @@
       = f.check_box :remove_image
 
     = f.telephone_field :phone_number, placeholder: "(例)03-1234-5678", help: "携帯番号可"
-    = f.number_field :hourly_price, placeholder: "(例)1000", append: "円/時間"
+    = f.number_field :hourly_price, placeholder: "(例)1000", append: "円/時間(税込)", step: 100
     = f.time_select :business_start_time
     = f.time_select :business_end_time
     = f.submit "変更", class: "btn btn-success btn-block"
