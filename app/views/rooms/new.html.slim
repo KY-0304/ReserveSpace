@@ -19,7 +19,7 @@
     = f.text_field :address_street, placeholder: "(例)三田1-1-1"
     = f.text_field :address_building, placeholder: "(例)○○ビル1階"
     = f.telephone_field :phone_number, placeholder: "(例)03-1234-5678", help: "携帯番号可"
-    = f.number_field :hourly_price, placeholder: "(例)1000", append: "円/時間"
-    = f.time_select :business_start_time
-    = f.time_select :business_end_time
+    = f.number_field :hourly_price, placeholder: "(例)1000", append: "円/時間(税込)", step: 100
+    = f.time_select :business_start_time, default: Time.zone.local(2020, 1, 1, 9)
+    = f.time_select :business_end_time, default: Time.zone.local(2020, 1, 1, 18)
     = f.submit "登録", class: "btn btn-success btn-block"

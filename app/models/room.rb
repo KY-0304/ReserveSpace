@@ -1,6 +1,7 @@
 class Room < ApplicationRecord
   include JpPrefecture
   jp_prefecture :prefecture_code
+  has_many :reservations, dependent: :destroy
   belongs_to :owner
   validates :name, presence: true
   validates :image, presence: true
@@ -15,6 +16,7 @@ class Room < ApplicationRecord
   validate :image_size
   validate :price_negative
   validate :not_same_time
+  validate :onehundred_yen_break
 
   mount_uploader :image, ImageUploader
 
@@ -42,5 +44,12 @@ class Room < ApplicationRecord
 
   def not_same_time
     errors.add(:business_end_time, "は営業開始時間と同じ値を指定できません") if business_start_time == business_end_time
+  end
+
+  def onehundred_yen_break
+    return unless hourly_price
+
+    hourly_price_remainder = hourly_price % MINIMUM_UNIT_ROOM_PRICE
+    errors.add(:hourly_price, "は100円単位で設定してください") unless hourly_price_remainder.zero?
   end
 end

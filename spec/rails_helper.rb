@@ -40,4 +40,7 @@ RSpec.configure do |config|
   config.define_derived_metadata do |meta|
     meta[:aggregate_failures] = true unless meta.key?(:aggregate_failures)
   end
+
+  # ActiveSupportのヘルパーを使用する
+  config.include ActiveSupport::Testing::TimeHelpers
 end

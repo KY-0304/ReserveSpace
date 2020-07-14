@@ -93,6 +93,12 @@ RSpec.describe Room, type: :model do
       expect(room.errors.full_messages).to include "時間単価は負の値を指定できません"
     end
 
+    it "時間単価が100円単位でないと無効" do
+      room.hourly_price = "101"
+      room.valid?
+      expect(room.errors.full_messages).to include "時間単価は100円単位で設定してください"
+    end
+
     it "営業開始時間が無いと無効" do
       room.business_start_time = nil
       room.valid?
