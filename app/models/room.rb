@@ -16,7 +16,7 @@ class Room < ApplicationRecord
   validate :image_size
   validate :price_negative
   validate :not_same_time
-  validate :one_hundred_yen_increment
+  validate :onehundred_yen_break
 
   mount_uploader :image, ImageUploader
 
@@ -46,7 +46,7 @@ class Room < ApplicationRecord
     errors.add(:business_end_time, "は営業開始時間と同じ値を指定できません") if business_start_time == business_end_time
   end
 
-  def one_hundred_yen_increment
+  def onehundred_yen_break
     return unless hourly_price
 
     hourly_price_remainder = hourly_price % MINIMUM_UNIT_ROOM_PRICE

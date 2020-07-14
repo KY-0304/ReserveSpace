@@ -7,7 +7,7 @@ class Reservation < ApplicationRecord
   validates :start_time, :end_time, overlap: { scope: "room_id", message_title: "既に予約のある時間帯", message_content: "と被っています" }
   validate :within_business_time
   validate :more_one_hour
-  validate :fifteen_minutes_increment
+  validate :fifteen_minutes_break
   validates_datetime :end_time, after: :start_time
   validates_datetime :start_time, on_or_after: :now
   validates_date :end_time, is_at: :start_time
@@ -27,7 +27,7 @@ class Reservation < ApplicationRecord
     validates_time :end_time, on_or_after: start_time.since(1.hour)
   end
 
-  def fifteen_minutes_increment
+  def fifteen_minutes_break
     return if !(start_time && end_time)
 
     start_time_remainder = (start_time.strftime("%M").to_i * 1.minutes) % 15.minutes
