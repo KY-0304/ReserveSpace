@@ -4,7 +4,8 @@ html
     title = full_title(yield(:title))
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag    'application', media: 'all'
+    = stylesheet_link_tag 'application', media: 'all'
+    = Gon::Base.render_data
   body
     == render 'layouts/header'
     .container
@@ -12,3 +13,4 @@ html
       = yield
     == render 'layouts/footer'
     = javascript_include_tag 'application'
+    = javascript_include_tag src="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_APIKEY']}&callback=initMap", defer: true
