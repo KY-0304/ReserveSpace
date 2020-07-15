@@ -17,6 +17,8 @@ class Room < ApplicationRecord
   validate :price_negative
   validate :not_same_time
   validate :onehundred_yen_break
+  geocoded_by :address
+  after_validation :geocode
 
   mount_uploader :image, ImageUploader
 
@@ -29,7 +31,11 @@ class Room < ApplicationRecord
   end
 
   def full_address
-    [prefecture_name, address_city, address_street, address_building].join
+    [prefecture_name, address_city, address_street, address_building].compact.join
+  end
+
+  def address
+    [prefecture_name, address_city, address_street, address_building].compact.join(', ')
   end
 
   private
