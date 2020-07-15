@@ -11,3 +11,17 @@ $(window).ready(function () {
     }
   });
 });
+
+//GoogleMap表示
+function initMap() {
+  let centerPoint = { lat: gon.lat, lng: gon.lng }
+  let map = new google.maps.Map(document.getElementById('map'), {
+    center: centerPoint,
+    zoom: 16,
+  });
+
+  marker = new google.maps.Marker({
+    position: centerPoint,
+    map: map
+  });
+}
