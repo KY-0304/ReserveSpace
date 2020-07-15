@@ -27,6 +27,7 @@ gem 'validates_overlap', '0.8.6'
 gem 'validates_timeliness', '~> 5.0.0.beta1'
 gem 'dotenv-rails'
 gem 'geocoder'
+gem "gon"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
