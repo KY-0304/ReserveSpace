@@ -1,0 +1,7 @@
+#favorite
+  - if current_user.favorite?(room)
+    = link_to "お気に入り削除", users_favorite_path(@room), method: :delete, class: "btn btn-danger", remote: true
+  - else
+    = bootstrap_form_with url: users_favorites_path, method: :post do |f|
+      = f.hidden_field :room_id, value: room.id
+      = f.submit "お気に入りする", class: "btn btn-success"

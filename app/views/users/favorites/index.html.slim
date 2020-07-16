@@ -1,0 +1,6 @@
+= provide(:title, "お気に入り")
+
+- if @rooms.present?
+  == render partial: 'rooms/room', collection: @rooms
+- else
+  h2.text-center お気に入りの会議室はありません

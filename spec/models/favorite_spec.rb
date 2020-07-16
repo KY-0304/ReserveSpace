@@ -14,9 +14,9 @@ RSpec.describe Favorite, type: :model do
   end
 
   it "room_idが無いと無効" do
-    favorite.user_id = nil
+    favorite.room_id = nil
     favorite.valid?
-    expect(favorite.errors.full_messages).to include "ユーザーを入力してください"
+    expect(favorite.errors.full_messages).to include "会議室を入力してください"
   end
 
   it "room_id, user_idの組み合わせが一意でないと無効" do

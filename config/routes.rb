@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
   namespace :users do
     resources :reservations, only: [:index, :show, :create, :destroy], shallow: true
+    resources :favorites, only: [:index, :create, :destroy], shallow: true
   end
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?

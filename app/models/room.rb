@@ -2,7 +2,7 @@ class Room < ApplicationRecord
   include JpPrefecture
   jp_prefecture :prefecture_code
   has_many :reservations, dependent: :destroy
-  has_many :favorites
+  has_many :favorites, dependent: :destroy
   has_many :users, through: :favorites
   belongs_to :owner
   validates :name, presence: true
