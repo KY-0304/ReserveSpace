@@ -6,6 +6,7 @@ ja:
       room: 会議室
       user: ユーザー
       reservation: 予約
+      favorite: お気に入り
     attributes:
       owner:
         company_name: 会社名
@@ -36,6 +37,9 @@ ja:
         user: ユーザー
         start_time: 開始時間
         end_time: 終了時間
+      favorite:
+        user: ユーザー
+        room: 会議室
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
