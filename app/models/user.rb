@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :reservations, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorite_rooms, through: :favorites, source: :room
+  has_many :reviews
   validates :name, presence: true
   validates :phone_number, presence: true, format: { with: VALID_PHONE_NUMBER_REGEX }
   validates :gender, presence: true

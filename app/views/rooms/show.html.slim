@@ -25,3 +25,15 @@ h2.text-center 会議室詳細情報
 
 
 == render partial: 'rooms/favorite', locals: { room: @room } if user_signed_in?
+
+= bootstrap_form_with model: @review, url: room_reviews_path(@room), method: :post, local: true, id: "star" do |f|
+  = f.alert_message "以下のエラーが発生しました："
+  = f.hidden_field :rate, id: :review_star
+  = f.text_area :comment, size: "1x3"
+  = f.submit "レビュー投稿", class: "btn btn-success"
+
+- @room.reviews.each do |review|
+  div id="review-comment#{review.id}"
+    = review.comment
+    - if user_signed_in? && review.user == current_user
+      = link_to "レビュー削除", review_path(review), method: :delete, class: "btn btn-danger", data: { confirm: "削除しますか" }

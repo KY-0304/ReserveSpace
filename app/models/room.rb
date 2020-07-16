@@ -4,6 +4,7 @@ class Room < ApplicationRecord
   has_many :reservations, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :users, through: :favorites
+  has_many :reviews
   belongs_to :owner
   validates :name, presence: true
   validates :image, presence: true

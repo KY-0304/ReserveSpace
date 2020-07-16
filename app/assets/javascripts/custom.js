@@ -25,3 +25,13 @@ function initMap() {
     map: map
   });
 }
+
+//rate表示
+$('#star').raty({
+  size: 36,
+  starOff: "/images/star-off.png",
+  starOn: "/images/star-on.png",
+  starHalf: "/images/star-half.png",
+  scoreName: 'review[rate]',
+  half: true,
+});
