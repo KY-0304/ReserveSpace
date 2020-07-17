@@ -7,6 +7,7 @@ ja:
       user: ユーザー
       reservation: 予約
       favorite: お気に入り
+      review: レビュー
     attributes:
       owner:
         company_name: 会社名
@@ -40,6 +41,11 @@ ja:
       favorite:
         user: ユーザー
         room: 会議室
+      review:
+        user: ユーザー
+        room: 会議室
+        rate: レート
+        comment: コメント
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

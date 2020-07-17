@@ -3,11 +3,15 @@ class ReviewsController < ApplicationController
 
   def create
     @room = Room.find(params[:room_id])
-    @room.reviews.build(review_params)
-    if @room.save
+    @review = Review.new(review_params)
+    if @review.save
       flash[:success] = "レビューを投稿しました"
       redirect_to room_path(@room)
     else
+      @reservations = @room.reservations
+      @reservation = Reservation.new
+      gon.lat = @room.latitude
+      gon.lng = @room.longitude
       render 'rooms/show'
     end
   end
@@ -21,6 +25,6 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:rate, :comment).merge(user_id: current_user.id)
+    params.require(:review).permit(:rate, :comment, :room_id).merge(user_id: current_user.id)
   end
 end

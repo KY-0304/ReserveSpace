@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :review do
-    room { nil }
-    user { nil }
-    rate { 1.5 }
-    comment { "MyText" }
+    association :room
+    association :user
+    rate { 3.0 }
+    comment { "テストコメント" }
   end
 end
