@@ -7,10 +7,10 @@ html
     = stylesheet_link_tag 'application', media: 'all'
     = Gon::Base.render_data
   body
-    == render 'layouts/header'
-    .container
+    .wrapper
+      == render 'layouts/header'
       == render 'layouts/flash'
       = yield
-    == render 'layouts/footer'
+      == render 'layouts/footer'
     = javascript_include_tag 'application'
     = javascript_include_tag src="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_APIKEY']}&callback=initMap", defer: true

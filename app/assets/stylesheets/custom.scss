@@ -1,3 +1,23 @@
+/* ===レイアウト=== */
+.wrapper {
+  min-height: 95vh;
+  position: relative;
+  padding-bottom: 55px;
+  box-sizing: border-box;
+}
+
+/* ===header=== */
+body {
+  padding-top: 50px;
+}
+
+/* ===footer=== */
+footer{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
 /* ===bootstrap_form label 必須印=== */
 label.required:after {
   content: " *";
@@ -7,7 +27,6 @@ label.required:after {
 /* ===simple-calendar=== */
 .simple-calendar {
   .day {}
-
   .wday-0 {}
   .wday-1 {}
   .wday-2 {}
@@ -15,22 +34,12 @@ label.required:after {
   .wday-4 {}
   .wday-5 {}
   .wday-6 {}
-
   .today {}
   .past {}
   .future {}
-
   .start-date {}
-
   .prev-month {}
   .next-month { }
   .current-month {}
-
   .has-events {}
-}
-
-/* ===header=== */
-
-body {
-  padding-top: 50px;
 }
