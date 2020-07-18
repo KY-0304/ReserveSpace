@@ -2,9 +2,9 @@
 ja:
   activerecord:
     models:
-      owner: オーナー
+      owner: 掲載者
       room: 会議室
-      user: ユーザー
+      user: 利用者
       reservation: 予約
       favorite: お気に入り
       review: レビュー
@@ -14,7 +14,7 @@ ja:
         email: メールアドレス
         reset_password_token: パスワードリセット用トークン
       room:
-        owner: オーナー
+        owner: 掲載者
         name: 名前
         description: 説明
         image: イメージ
@@ -35,14 +35,14 @@ ja:
         gender: 性別
       reservation:
         room: 会議室
-        user: ユーザー
+        user: 利用者
         start_time: 開始時間
         end_time: 終了時間
       favorite:
-        user: ユーザー
+        user: 利用者
         room: 会議室
       review:
-        user: ユーザー
+        user: 利用者
         room: 会議室
         rate: レート
         comment: コメント

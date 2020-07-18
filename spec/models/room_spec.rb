@@ -8,10 +8,10 @@ RSpec.describe Room, type: :model do
       expect(room).to be_valid
     end
 
-    it "オーナーIDが無いと無効" do
+    it "掲載者IDが無いと無効" do
       room.owner_id = nil
       room.valid?
-      expect(room.errors.full_messages).to include "オーナーを入力してください"
+      expect(room.errors.full_messages).to include "掲載者を入力してください"
     end
 
     it "名前が無いと無効" do

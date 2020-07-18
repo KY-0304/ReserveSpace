@@ -162,7 +162,7 @@ RSpec.describe "UsersRegistrations", type: :request do
         expect(response).to redirect_to root_path
       end
 
-      it "ユーザーが削除される" do
+      it "利用者が削除される" do
         expect do
           delete user_registration_path
         end.to change(User, :count).by(-1)
@@ -185,7 +185,7 @@ RSpec.describe "UsersRegistrations", type: :request do
         expect(response).to redirect_to new_user_session_path
       end
 
-      it "ユーザーは削除されない" do
+      it "利用者は削除されない" do
         expect do
           delete user_registration_path
         end.not_to change(User, :count)

@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe "OwnerSignUp", type: :system do
-  it "オーナーはアカウント登録＆削除ができる" do
+  it "掲載者はアカウント登録＆削除ができる" do
     visit root_path
 
     within("header") do
-      click_link "オーナーログイン"
+      click_link "掲載者ログイン"
     end
     click_link "アカウント登録はこちら"
 
-    # オーナーが登録されることを確認
+    # 掲載者が登録されることを確認
     expect do
       fill_in "メールアドレス", with: "test@example.com"
       fill_in "会社名", with: "test_company"
@@ -22,10 +22,10 @@ RSpec.describe "OwnerSignUp", type: :system do
     expect(current_path).to eq rooms_path
 
     within("header") do
-      click_link "登録情報編集"
+      click_link "アカウント編集"
     end
 
-    # オーナーアカウントが削除されることの確認
+    # 掲載者アカウントが削除されることの確認
     expect do
       click_link "アカウント削除"
     end.to change(Owner, :count).by(-1)

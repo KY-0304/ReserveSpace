@@ -8,7 +8,7 @@ RSpec.describe "Owners", type: :system do
                    password_confirmation: "password")
   end
 
-  it "オーナーは登録情報を編集できる" do
+  it "掲載者は登録情報を編集できる" do
     sign_in owner
     visit edit_owner_registration_path
 

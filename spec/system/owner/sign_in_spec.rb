@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe "OwnerSignIn", type: :system do
   let(:owner) { create(:owner) }
 
-  it "オーナーはログイン＆ログアウトできる" do
+  it "掲載者はログイン＆ログアウトできる" do
     visit root_path
 
     within("header") do
-      click_link "オーナーログイン"
+      click_link "掲載者ログイン"
     end
 
     # ログインできることを確認

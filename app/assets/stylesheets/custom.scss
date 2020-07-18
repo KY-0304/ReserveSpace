@@ -4,6 +4,7 @@ label.required:after {
   color: red;
 }
 
+/* ===simple-calendar=== */
 .simple-calendar {
   .day {}
 
@@ -26,4 +27,10 @@ label.required:after {
   .current-month {}
 
   .has-events {}
+}
+
+/* ===header=== */
+
+body {
+  padding-top: 50px;
 }

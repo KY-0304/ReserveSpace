@@ -162,7 +162,7 @@ RSpec.describe "OwnersRegistrations", type: :request do
         expect(response).to redirect_to root_path
       end
 
-      it "オーナーが削除される" do
+      it "掲載者が削除される" do
         expect do
           delete owner_registration_path
         end.to change(Owner, :count).by(-1)
@@ -185,7 +185,7 @@ RSpec.describe "OwnersRegistrations", type: :request do
         expect(response).to redirect_to new_owner_session_path
       end
 
-      it "オーナーは削除されない" do
+      it "掲載者は削除されない" do
         expect do
           delete owner_registration_path
         end.not_to change(Owner, :count)

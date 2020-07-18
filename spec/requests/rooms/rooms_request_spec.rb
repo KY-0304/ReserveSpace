@@ -163,7 +163,7 @@ RSpec.describe "Rooms", type: :request do
       end
     end
 
-    context "他のオーナーがリクエストを送った場合" do
+    context "他の掲載者がリクエストを送った場合" do
       before do
         sign_in other_owner
         get edit_room_path(room)
@@ -243,7 +243,7 @@ RSpec.describe "Rooms", type: :request do
       end
     end
 
-    context "他のオーナーがリクエストを送った場合" do
+    context "他の掲載者がリクエストを送った場合" do
       before do
         sign_in other_owner
         put room_path(room), params: { room: params }
@@ -309,7 +309,7 @@ RSpec.describe "Rooms", type: :request do
       end
     end
 
-    context "他のオーナーがリクエストを送った場合" do
+    context "他の掲載者がリクエストを送った場合" do
       before do
         sign_in other_owner
         delete room_path(room)

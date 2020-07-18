@@ -1,6 +1,6 @@
-= provide(:title, "ユーザーログイン")
+= provide(:title, "利用者ログイン")
 .w-50.mx-auto
-  h2.text-center ユーザーログイン
+  h2.text-center 利用者ログイン
   = bootstrap_form_with model: @user, url: user_session_path, local: true do |f|
     = f.email_field :email, autofocus: true, placeholder: "(例) xxx@example.com"
     = f.password_field :password, placeholder: "現在のパスワード"

@@ -29,7 +29,7 @@ RSpec.describe Reservation, type: :model do
     it "user_idが無いと無効" do
       reservation.user_id = nil
       reservation.valid?
-      expect(reservation.errors.full_messages).to include "ユーザーを入力してください"
+      expect(reservation.errors.full_messages).to include "利用者を入力してください"
     end
 
     it "開始時間が無いと無効" do

@@ -16,7 +16,7 @@ RSpec.describe Review, type: :model do
   it "user_idが無いと無効" do
     review.user_id = nil
     review.valid?
-    expect(review.errors.full_messages).to include "ユーザーを入力してください"
+    expect(review.errors.full_messages).to include "利用者を入力してください"
   end
 
   it "レートが無いと無効" do

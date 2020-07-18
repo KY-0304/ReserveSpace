@@ -179,7 +179,7 @@ RSpec.describe "Users::Reservations", type: :request do
       end
     end
 
-    context "他のユーザーがリクエストを送った場合" do
+    context "他の利用者がリクエストを送った場合" do
       before do
         sign_in other_user
         delete users_reservation_path(reservation)

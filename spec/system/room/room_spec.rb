@@ -18,7 +18,7 @@ RSpec.describe "Rooms", type: :system do
     visit rooms_path
   end
 
-  it "オーナーは会議室を登録&削除できる", js: true do
+  it "掲載者は会議室を登録&削除できる", js: true do
     click_link "会議室登録"
 
     # 会議室が登録されることの確認
@@ -55,7 +55,7 @@ RSpec.describe "Rooms", type: :system do
     expect(current_path).to eq rooms_path
   end
 
-  it "オーナーは会議室を編集できる" do
+  it "掲載者は会議室を編集できる" do
     click_link room.name
     click_link "編集"
 

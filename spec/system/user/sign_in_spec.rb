@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe "UserSignIn", type: :system do
   let(:user) { create(:user) }
 
-  it "ユーザーはログイン＆ログアウトできる" do
+  it "利用者はログイン＆ログアウトできる" do
     visit root_path
 
     within("header") do
-      click_link "ユーザーログイン"
+      click_link "利用者ログイン"
     end
 
     # ログインできることを確認

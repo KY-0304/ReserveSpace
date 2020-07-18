@@ -10,7 +10,7 @@ RSpec.describe Favorite, type: :model do
   it "user_idが無いと無効" do
     favorite.user_id = nil
     favorite.valid?
-    expect(favorite.errors.full_messages).to include "ユーザーを入力してください"
+    expect(favorite.errors.full_messages).to include "利用者を入力してください"
   end
 
   it "room_idが無いと無効" do
