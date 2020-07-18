@@ -28,6 +28,7 @@ gem 'validates_timeliness', '~> 5.0.0.beta1'
 gem 'dotenv-rails'
 gem 'geocoder'
 gem "gon"
+gem 'kaminari'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

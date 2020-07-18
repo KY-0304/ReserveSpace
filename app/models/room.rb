@@ -41,6 +41,10 @@ class Room < ApplicationRecord
     [prefecture_name, address_city, address_street, address_building].compact.join(', ')
   end
 
+  def business_time
+    "#{business_start_time.strftime("%H:%M")} 〜 #{business_end_time.strftime("%H:%M")}"
+  end
+
   private
 
   def image_size
