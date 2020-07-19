@@ -1,12 +1,13 @@
 = provide(:title, "利用者パスワード再設定")
-.w-50.mx-auto
-  h2.text-center パスワード再設定
-  = bootstrap_form_with model: @user, url: user_password_path, method: :put, inline_errors: false, local: true do |f|
-    = f.alert_message "以下のエラーが発生しました："
-    = f.hidden_field :reset_password_token
-    = f.password_field :password, autofocus: true, autocomplete: "new-password", placeholder: "新しいパスワード（6文字以上）"
-    = f.password_field :password_confirmation, autocomplete: "new-password",
-      placeholder: "もう一度、新しいパスワードを入力してください", required: true
+.container.p-5
+  .w-50.mx-auto.pt-5
+    h2.text-center 利用者パスワード再設定
+    = bootstrap_form_with model: @user, url: user_password_path, method: :put, inline_errors: false, local: true do |f|
+      = f.alert_message "以下のエラーが発生しました："
+      = f.hidden_field :reset_password_token
+      = f.password_field :password, autofocus: true, autocomplete: "new-password", placeholder: "新しいパスワード（6文字以上）"
+      = f.password_field :password_confirmation, autocomplete: "new-password",
+        placeholder: "もう一度、新しいパスワードを入力してください", required: true
 
-    = f.submit "パスワード再設定", class: "btn btn-success btn-block"
-  == render "shared/links"
+      = f.submit "パスワード再設定", class: "btn btn-success btn-block"
+    == render "shared/links"
