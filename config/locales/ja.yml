@@ -13,6 +13,7 @@ ja:
         company_name: 会社名
         email: メールアドレス
         reset_password_token: パスワードリセット用トークン
+        agreement: 利用規約に同意する
       room:
         owner: 掲載者
         name: 名前
@@ -33,6 +34,7 @@ ja:
         name: 名前
         phone_number: 連絡先
         gender: 性別
+        agreement: 利用規約に同意する
       reservation:
         room: 会議室
         user: 利用者

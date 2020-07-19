@@ -32,7 +32,7 @@ class Owners::RegistrationsController < Devise::RegistrationsController
 
   # createアクション時のストロングパラメータ
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:company_name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:company_name, :agreement])
   end
 
   # updateアクション時のストロングパラメータ

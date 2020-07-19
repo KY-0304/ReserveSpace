@@ -9,6 +9,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :phone_number, presence: true, format: { with: VALID_PHONE_NUMBER_REGEX }
   validates :gender, presence: true
+  validates :agreement, acceptance: true
   enum gender: { unanswered: 0, female: 1, male: 2 }
 
   def favorite?(room)
