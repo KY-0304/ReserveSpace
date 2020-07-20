@@ -10,9 +10,7 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
     @reservations = @room.reservations
     @reservation = Reservation.new
-    @review = @room.reviews.build
-    gon.lat = @room.latitude
-    gon.lng = @room.longitude
+    @review = Review.new
   end
 
   def new

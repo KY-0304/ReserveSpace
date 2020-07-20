@@ -10,8 +10,6 @@ class ReviewsController < ApplicationController
     else
       @reservations = @room.reservations
       @reservation = Reservation.new
-      gon.lat = @room.latitude
-      gon.lng = @room.longitude
       render 'rooms/show'
     end
   end
@@ -25,6 +23,6 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:rate, :comment, :room_id).merge(user_id: current_user.id)
+    params.require(:review).permit(:rate, :comment, :room_id).merge(user_id: current_user.id, room_id: params[:room_id])
   end
 end
