@@ -47,6 +47,7 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'rubocop-airbnb'
   gem 'letter_opener_web', '~> 1.0'
+  gem 'bullet'
 end
 
 group :test do
