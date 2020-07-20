@@ -3,7 +3,7 @@ class RoomsController < ApplicationController
   before_action :correct_owner, only: [:edit, :update, :destroy]
 
   def index
-    @rooms = current_owner.rooms
+    @rooms = current_owner.rooms.page(params[:page]).per(6)
   end
 
   def show

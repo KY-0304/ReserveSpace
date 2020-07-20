@@ -1,8 +1,11 @@
 = provide(:title, "会議室一覧")
-
-= link_to "会議室登録", new_room_path, class: "btn btn-primary"
-
-- if @rooms.present?
-  == render @rooms
-- else
-  h2.text-center 登録されている会議室はありません
+.container.p-5
+  h2.text-center 会議室一覧
+  .row
+    - if @rooms.present?
+      == render @rooms
+    - else
+      p.text-center.mx-auto 登録されている会議室はありません
+  = paginate @rooms
+  .w-25.mx-auto
+    = link_to "会議室登録", new_room_path, class: "btn btn-primary btn-block"
