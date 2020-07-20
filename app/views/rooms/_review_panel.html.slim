@@ -1,0 +1,53 @@
+.row
+  .col-md-5
+    .w-50.mx-auto
+      h2.mt-5.pt-5 総合評価
+      #average-star
+    javascript:
+      $("#average-star").raty({
+        size: 36,
+        starOff: "#{asset_path('star-off.png')}",
+        starOn: "#{asset_path('star-on.png')}",
+        starHalf: "#{asset_path('star-half.png')}",
+        half: true,
+        readOnly: true,
+        score: #{room.reviews.average(:rate).to_f.round(1)}
+      });
+  .col-md-7
+    = bootstrap_form_with model: review, url: room_reviews_path(room), method: :post, local: true, class: "p-5" do |f|
+      = f.alert_message "以下のエラーが発生しました："
+      = f.hidden_field :room_id, value: room.id
+      = f.hidden_field :rate, id: "review_star"
+      = f.label "評価"
+      #star.mb-3
+      = f.text_area :comment, size: "1x3"
+      = f.submit "レビュー投稿", class: "btn btn-success"
+      javascript:
+        $('#star').raty({
+          size: 36,
+          starOff: "#{asset_path('star-off.png')}",
+          starOn: "#{asset_path('star-on.png')}",
+          starHalf: "#{asset_path('star-half.png')}",
+          scoreName: 'review[rate]',
+          half: true,
+        });
+
+ul.list-group.list-group-flush
+  - room.reviews.each do |review|
+    li.list-group-item.mx-5 id="review-#{review.id}"
+      p 評価:
+      p id="review-star-#{review.id}"
+      p コメント:
+      p = review.comment
+      - if user_signed_in? && current_user == review.user
+        = link_to "削除", review, method: :delete, class: "btn btn-outline-danger float-right", data: { confirm: "削除しますか？" }
+      javascript:
+        $("#review-star-#{review.id}").raty({
+          size: 36,
+          starOff: "#{asset_path('star-off.png')}",
+          starOn: "#{asset_path('star-on.png')}",
+          starHalf: "#{asset_path('star-half.png')}",
+          half: true,
+          readOnly: true,
+          score: #{review.rate}
+        });

@@ -1,0 +1,16 @@
+#map
+
+javascript:
+  function initMap() {
+    let centerPoint = { lat: #{room.latitude}, lng: #{room.longitude} }
+    let map = new google.maps.Map(document.getElementById('map'), {
+      center: centerPoint,
+      zoom: 16,
+    });
+
+    marker = new google.maps.Marker({
+      position: centerPoint,
+      map: map
+    });
+  }
+= javascript_include_tag src="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_APIKEY']}&callback=initMap", defer: true

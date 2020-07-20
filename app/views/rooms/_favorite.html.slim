@@ -1,7 +1,11 @@
-#favorite
-  - if current_user.favorite?(room)
-    = link_to "お気に入り削除", users_favorite_path(room), method: :delete, class: "btn btn-danger", remote: true
-  - else
-    = bootstrap_form_with url: users_favorites_path, method: :post do |f|
-      = f.hidden_field :room_id, value: room.id
-      = f.submit "お気に入りする", class: "btn btn-success"
+#favorite.card
+  .card-header
+    h4.text-center お気に入り
+  .card-body
+    p.text-center #{room.favorites.count}人がお気に入り登録してます
+    - if current_user.favorite?(room)
+      = link_to "お気に入り削除", users_favorite_path(room), method: :delete, class: "btn btn-outline-danger", remote: true
+    - else
+      = bootstrap_form_with url: users_favorites_path, method: :post do |f|
+        = f.hidden_field :room_id, value: room.id
+        = f.submit "お気に入り登録", class: "btn btn-outline-success"
