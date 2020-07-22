@@ -1,11 +1,10 @@
-= month_calendar events: reservations do |date, reservations|
+= month_calendar events: room.reservations do |date, reservations|
   = date.day
-
   - reservations.each do |reservation|
     small.d-block
-      = "#{reservation.start_time.strftime("%H:%M")}~#{reservation.end_time.strftime("%H:%M")} 予約有"
+      | #{reservation.reservation_time} 予約有
 
-= bootstrap_form_with model: reservation, url: users_reservations_path, method: :post, local: true, inline_errors: false do |f|
+= bootstrap_form_with model: reservation, url: users_reservations_path, local: true, inline_errors: false do |f|
   = f.alert_message "以下のエラーが発生しました："
   = f.hidden_field :room_id, value: room.id
   = f.datetime_select :start_time, minute_step: 15, start_year: Time.current.year, end_year: Time.current.next_year.year

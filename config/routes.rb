@@ -7,10 +7,10 @@ Rails.application.routes.draw do
     resources :reviews, only: [:create, :destroy], shallow: true
   end
   namespace :owners do
-    resources :reservations, only: [:index, :show], shallow: true
+    resources :reservations, only: :index, shallow: true
   end
   namespace :users do
-    resources :reservations, only: [:index, :show, :create, :destroy], shallow: true
+    resources :reservations, only: [:index, :create, :destroy], shallow: true
     resources :favorites, only: [:index, :create, :destroy], shallow: true
   end
 
