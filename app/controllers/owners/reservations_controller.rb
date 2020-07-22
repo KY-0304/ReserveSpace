@@ -4,7 +4,4 @@ class Owners::ReservationsController < ApplicationController
   def index
     @rooms = current_owner.rooms.includes(reservations: :user)
   end
-
-  def show
-  end
 end
