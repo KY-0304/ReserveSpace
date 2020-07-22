@@ -14,9 +14,8 @@
         score: #{room.reviews.average(:rate).to_f.round(1)}
       });
   .col-md-7
-    = bootstrap_form_with model: review, url: room_reviews_path(room), method: :post, local: true, class: "p-5" do |f|
+    = bootstrap_form_with model: review, url: room_reviews_path(room), local: true, class: "p-5" do |f|
       = f.alert_message "以下のエラーが発生しました："
-      = f.hidden_field :room_id, value: room.id
       = f.hidden_field :rate, id: "review_star"
       = f.label "評価"
       #star.mb-3

@@ -162,25 +162,6 @@ RSpec.describe "Rooms", type: :request do
         expect(response).to redirect_to new_owner_session_path
       end
     end
-
-    context "他の掲載者がリクエストを送った場合" do
-      before do
-        sign_in other_owner
-        get edit_room_path(room)
-      end
-
-      it "ステータスコード302を返す" do
-        expect(response.status).to eq 302
-      end
-
-      it "rooms_pathにリダイレクトする" do
-        expect(response).to redirect_to rooms_path
-      end
-
-      it "フラッシュを返す" do
-        expect(flash[:warning]).to eq "会議室が見つかりませんでした"
-      end
-    end
   end
 
   describe "PUT #update" do
@@ -242,25 +223,6 @@ RSpec.describe "Rooms", type: :request do
         expect(response).to redirect_to new_owner_session_path
       end
     end
-
-    context "他の掲載者がリクエストを送った場合" do
-      before do
-        sign_in other_owner
-        put room_path(room), params: { room: params }
-      end
-
-      it "ステータスコード302を返す" do
-        expect(response.status).to eq 302
-      end
-
-      it "rooms_pathにリダイレクトする" do
-        expect(response).to redirect_to rooms_path
-      end
-
-      it "フラッシュを返す" do
-        expect(flash[:warning]).to eq "会議室が見つかりませんでした"
-      end
-    end
   end
 
   describe "DELETE #destroy" do
@@ -306,25 +268,6 @@ RSpec.describe "Rooms", type: :request do
         expect do
           delete room_path(room)
         end.not_to change(Room, :count)
-      end
-    end
-
-    context "他の掲載者がリクエストを送った場合" do
-      before do
-        sign_in other_owner
-        delete room_path(room)
-      end
-
-      it "ステータスコード302を返す" do
-        expect(response.status).to eq 302
-      end
-
-      it "rooms_pathにリダイレクトする" do
-        expect(response).to redirect_to rooms_path
-      end
-
-      it "フラッシュを返す" do
-        expect(flash[:warning]).to eq "会議室が見つかりませんでした"
       end
     end
   end

@@ -37,33 +37,6 @@ RSpec.describe "Users::Reservations", type: :request do
     end
   end
 
-  describe "GET #show" do
-    context "ログイン済みの場合" do
-      before do
-        sign_in user
-        get users_reservation_path(reservation)
-      end
-
-      it "ステータスコード200を返す" do
-        expect(response.status).to eq 200
-      end
-    end
-
-    context "ログインしていない場合" do
-      before do
-        get users_reservation_path(reservation)
-      end
-
-      it "ステータスコード302を返す" do
-        expect(response.status).to eq 302
-      end
-
-      it "new_user_session_pathにリダイレクトする" do
-        expect(response).to redirect_to new_user_session_path
-      end
-    end
-  end
-
   describe "POST #create" do
     let(:params) { { room_id: room.id, start_time: Time.current, end_time: Time.current.since(1.hour) } }
 
@@ -78,9 +51,9 @@ RSpec.describe "Users::Reservations", type: :request do
           expect(response.status).to eq 302
         end
 
-        it "root_pathにリダイレクトする" do
+        it "room_pathにリダイレクトする" do
           post users_reservations_path, params: { reservation: params }
-          expect(response).to redirect_to root_path
+          expect(response).to redirect_to room_path(room)
         end
 
         it "reservationが登録される" do
@@ -176,25 +149,6 @@ RSpec.describe "Users::Reservations", type: :request do
         expect do
           delete users_reservation_path(reservation)
         end.not_to change(Reservation, :count)
-      end
-    end
-
-    context "他の利用者がリクエストを送った場合" do
-      before do
-        sign_in other_user
-        delete users_reservation_path(reservation)
-      end
-
-      it "ステータスコード302を返す" do
-        expect(response.status).to eq 302
-      end
-
-      it "root_pathにリダイレクトする" do
-        expect(response).to redirect_to root_path
-      end
-
-      it "フラッシュを返す" do
-        expect(flash[:warning]).to eq "予約が見つかりませんでした"
       end
     end
   end
