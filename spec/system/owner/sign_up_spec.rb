@@ -5,9 +5,8 @@ RSpec.describe "OwnerSignUp", type: :system do
     visit root_path
 
     within("header") do
-      click_link "掲載者ログイン"
+      click_link "掲載者登録"
     end
-    click_link "アカウント登録はこちら"
 
     # 掲載者が登録されることを確認
     expect do
@@ -15,6 +14,7 @@ RSpec.describe "OwnerSignUp", type: :system do
       fill_in "会社名", with: "test_company"
       fill_in "パスワード", with: "password"
       fill_in "確認用パスワード", with: "password"
+      check "利用規約に同意する"
       click_button "登録"
     end.to change(Owner, :count).by 1
 

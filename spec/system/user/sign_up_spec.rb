@@ -5,9 +5,8 @@ RSpec.describe "UserSignUp", type: :system do
     visit root_path
 
     within("header") do
-      click_link "利用者ログイン"
+      click_link "利用者登録"
     end
-    click_link "アカウント登録はこちら"
 
     # 利用者が登録されることを確認
     expect do
@@ -17,6 +16,7 @@ RSpec.describe "UserSignUp", type: :system do
       select "男性", from: "性別"
       fill_in "パスワード", with: "password"
       fill_in "確認用パスワード", with: "password"
+      check "利用規約に同意する"
       click_button "登録"
     end.to change(User, :count).by 1
 
