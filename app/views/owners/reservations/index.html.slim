@@ -1,2 +1,25 @@
-h1 Owners::Reservations#index
-p Find me in app/views/owners/reservations/index.html.slim
+= provide(:title, "予約一覧")
+.container.p-5
+  h2.text-center.mb-3 予約一覧
+
+  table.table.table-striped.table-hover
+    thead
+      tr
+        th scope="col" 会議室名
+        th scope="col" 利用日
+        th scope="col" 利用時間
+        th scope="col" 料金
+        th scope="col" 利用者名
+        th scope="col" 連絡先
+        th scope="col" 性別
+    tbody
+      - @rooms.each do |room|
+        - room.reservations.each do |reservation|
+          tr
+            th = link_to reservation.room.name, reservation.room
+            td = l(reservation.start_time, format: :semi_long)
+            td = reservation.reservation_time
+            td = number_to_currency(reservation.total_price)
+            td = reservation.user.name
+            td = reservation.user.phone_number
+            td = reservation.user.gender_i18n
