@@ -256,5 +256,7 @@ ja:
     formats:
       default: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       long: "%Y/%m/%d %H:%M"
+      semi_long: "%Y/%m/%d"
       short: "%m/%d %H:%M"
+      very_short: "%H:%M"
     pm: 午後

@@ -12,6 +12,14 @@ class Reservation < ApplicationRecord
   validates_datetime :start_time, on_or_after: :now
   validates_date :end_time, is_at: :start_time
 
+  def reservation_time
+    "#{I18n.l(start_time, format: :very_short)}~#{I18n.l(end_time, format: :very_short)}"
+  end
+
+  def total_price
+    (end_time - start_time).floor / 1.hour * room.hourly_price
+  end
+
   private
 
   def within_business_time
