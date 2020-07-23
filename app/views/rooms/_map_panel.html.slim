@@ -13,4 +13,4 @@ javascript:
       map: map
     });
   }
-= javascript_include_tag src="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_APIKEY']}&callback=initMap", defer: true
+= javascript_include_tag GOOGLEMAP_API_JS_URL, defer: true

@@ -48,6 +48,7 @@ group :development do
   gem 'rubocop-airbnb'
   gem 'letter_opener_web', '~> 1.0'
   gem 'bullet'
+  gem 'slim_lint'
 end
 
 group :test do

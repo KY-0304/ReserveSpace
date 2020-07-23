@@ -17,4 +17,5 @@
           td = l(reservation.start_time, format: :semi_long)
           td = reservation.reservation_time
           td = number_to_currency(reservation.total_price)
-          td = link_to "キャンセル", users_reservation_path(reservation), method: :delete, class: "btn btn-outline-danger", data: { confirm: "予約をキャンセルしますか？"}
+          td = link_to "キャンセル", users_reservation_path(reservation), method: :delete,
+                 class: "btn btn-outline-danger", data: { confirm: "予約をキャンセルしますか？" }

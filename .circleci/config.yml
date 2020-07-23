@@ -18,6 +18,9 @@ jobs:
           name: マイグレーション
           command: docker-compose exec web bin/rails db:migrate RAILS_ENV=test
       - run:
+          name: slim-lint実行
+          command: docker-compose exec web bundle exec slim-lint app/views/
+      - run:
           name: rubocop実行
           command: docker-compose exec web bundle exec rubocop --parallel
       - run:

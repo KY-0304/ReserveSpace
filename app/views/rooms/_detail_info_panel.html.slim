@@ -1,7 +1,7 @@
 h2.text-center.mb-3 = room.name
 .row
   .col
-    = image_tag room.image.url, class:"img-fluid d-block mx-auto mb-3"
+    = image_tag room.image.url, class: "img-fluid d-block mx-auto mb-3"
   - if user_signed_in?
     .col-md-4
       == render partial: 'rooms/favorite', locals: { room: room }

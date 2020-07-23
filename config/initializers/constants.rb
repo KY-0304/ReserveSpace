@@ -7,3 +7,5 @@ VALID_HOURLY_PRICE_REGEX = /00\z/
 MINIMUM_UNIT_ROOM_PRICE = 100
 
 CHECK_MINUTES = %w(00 15 30 45)
+
+GOOGLEMAP_API_JS_URL = "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_APIKEY']}&callback=initMap"

@@ -13,8 +13,7 @@
       = f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "もう一度、新しいパスワードを入力してください",
         help: "パスワードを変更しない場合は空欄にしてください。"
 
-      = f.password_field :current_password, placeholder: "現在のパスワード",
-        help: "変更を確定させるには現在のパスワードを入力してください。"
+      = f.password_field :current_password, placeholder: "現在のパスワード", help: "変更を確定させるには現在のパスワードを入力してください。"
 
       = f.submit "変更", class: "btn btn-block btn-success"
 

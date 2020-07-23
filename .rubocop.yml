@@ -4,7 +4,7 @@ inherit_from:
 Rails:
   Enabled: true
 
-LineLength:
+Metrics/LineLength:
   Max: 130
 
 AllCops:

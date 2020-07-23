@@ -8,8 +8,8 @@
     #panel-1.tab-pane.fade.show.active.border.border-top-0.p-5
       == render partial: 'rooms/detail_info_panel', locals: { room: @room }
     #panel-2.tab-pane.fade.border.border-top-0.p-5
-      == render partial: 'rooms/reservation_panel', locals: { reservation: @reservation, room: @room}
+      == render partial: 'rooms/reservation_panel', locals: { reservation: @reservation, room: @room }
     #panel-3.tab-pane.fade.border.border-top-0
       == render partial: 'rooms/map_panel', locals: { room: @room }
     #panel-4.tab-pane.fade.border.border-top-0
-      == render partial: 'rooms/review_panel', locals: { room: @room , review: @review}
+      == render partial: 'rooms/review_panel', locals: { room: @room, review: @review }
