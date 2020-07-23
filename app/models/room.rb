@@ -23,7 +23,7 @@ class Room < ApplicationRecord
 
   validates :phone_number, format: { with: VALID_PHONE_NUMBER_REGEX }
   validates :hourly_price, numericality: { only_integer: true, greater_than_or_equal_to: MINIMUM_UNIT_ROOM_PRICE },
-                           format: { with: VALID_HOURLY_PRICE_REGEX, message: "は100円単位で設定してください"}
+                           format: { with: VALID_HOURLY_PRICE_REGEX, message: "は100円単位で設定してください" }
   validates_time :business_end_time, after: :business_start_time
 
   geocoded_by :address

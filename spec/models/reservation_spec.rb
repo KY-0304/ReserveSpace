@@ -4,12 +4,8 @@ RSpec.describe Reservation, type: :model do
   let(:user) { create(:user) }
   let(:room) { create(:room, business_start_time: "09:00:00", business_end_time: "18:00:00", hourly_price: 1000) }
   let(:reservation) do
-    build(:reservation,
-      room: room,
-      user: user,
-      start_time: Time.current.since(1.hour),
-      end_time: Time.current.since(4.hours))
-    end
+    build(:reservation, room: room, user: user, start_time: Time.current.since(1.hour), end_time: Time.current.since(4.hours))
+  end
 
   before { travel_to Time.zone.local(2020, 7, 1, 10) }
 
