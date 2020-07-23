@@ -36,4 +36,4 @@ linters:
       - Style/Next
       - Style/WhileUntilModifier
       - Layout/TrailingBlankLines
-      # - Layout/AlignHash
+      - Layout/AlignHash
