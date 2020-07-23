@@ -82,4 +82,23 @@ RSpec.describe User, type: :model do
       expect(user.errors.full_messages).to include "性別を入力してください"
     end
   end
+
+  describe "favorite?(room)" do
+    let(:user) { create(:user) }
+    let(:room) { create(:room) }
+
+    context "利用者が会議室をお気に入りしていた場合" do
+      let!(:favorite) { create(:favorite, user: user, room: room) }
+
+      it "trueを返す" do
+        expect(user.favorite?(room)).to eq true
+      end
+    end
+
+    context "利用者が会議室をお気に入りにしていない場合" do
+      it "falseを返す" do
+        expect(user.favorite?(room)).to eq false
+      end
+    end
+  end
 end

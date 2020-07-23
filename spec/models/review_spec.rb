@@ -37,6 +37,12 @@ RSpec.describe Review, type: :model do
     expect(review.errors.full_messages).to include "レートは0より大きい値にしてください"
   end
 
+  it "コメントが無いと無効" do
+    review.comment = nil
+    review.valid?
+    expect(review.errors.full_messages).to include "コメントを入力してください"
+  end
+
   it "コメントが101文字以上だと無効" do
     review.comment = "a" * 101
     review.valid?

@@ -87,14 +87,20 @@ RSpec.describe Room, type: :model do
       expect(room.errors.full_messages).to include "時間単価を入力してください"
     end
 
-    it "時間単価が負の値だと無効" do
-      room.hourly_price = "-1"
+    it "時間単価が整数でないと無効" do
+      room.hourly_price = 100.1
       room.valid?
-      expect(room.errors.full_messages).to include "時間単価は負の値を指定できません"
+      expect(room.errors.full_messages).to include "時間単価は整数で入力してください"
+    end
+
+    it "時間単価は100円以上じゃないと無効" do
+      room.hourly_price = 99
+      room.valid?
+      expect(room.errors.full_messages).to include "時間単価は100以上の値にしてください"
     end
 
     it "時間単価が100円単位でないと無効" do
-      room.hourly_price = "101"
+      room.hourly_price = 101
       room.valid?
       expect(room.errors.full_messages).to include "時間単価は100円単位で設定してください"
     end
@@ -111,11 +117,11 @@ RSpec.describe Room, type: :model do
       expect(room.errors.full_messages).to include "営業終了時間を入力してください"
     end
 
-    it "営業開始時間と営業終了時間が同じだと無効" do
+    it "営業終了時間は営業開始時間より後でないと無効" do
       room.business_start_time = "09:00"
-      room.business_end_time = "09:00"
+      room.business_end_time = "08:00"
       room.valid?
-      expect(room.errors.full_messages).to include "営業終了時間は営業開始時間と同じ値を指定できません"
+      expect(room.errors.full_messages).to include "営業終了時間は09:00より後にしてください。"
     end
   end
 
@@ -155,6 +161,16 @@ RSpec.describe Room, type: :model do
     end
   end
 
+  describe "address" do
+    let(:room) { create(:room, prefecture_code: 13, address_city: "千代田区", address_street: "千代田1-1-1", address_building: "千代田ビル") }
+
+    it "(, )で結合した住所を返す" do
+      expect(room.address).to eq "東京都, 千代田区, 千代田1-1-1, 千代田ビル"
+      room.address_building = nil
+      expect(room.address).to eq "東京都, 千代田区, 千代田1-1-1"
+    end
+  end
+
   describe "full_address" do
     let(:room) { create(:room, prefecture_code: 13, address_city: "千代田区", address_street: "千代田1-1-1", address_building: "千代田ビル") }
 
@@ -162,6 +178,14 @@ RSpec.describe Room, type: :model do
       expect(room.full_address).to eq "東京都千代田区千代田1-1-1千代田ビル"
       room.address_building = nil
       expect(room.full_address).to eq "東京都千代田区千代田1-1-1"
+    end
+  end
+
+  describe "business_time" do
+    let(:room) { create(:room, business_start_time: "09:00", business_end_time: "18:00") }
+
+    it "営業開始時間 〜 営業終了時間の形にして返す" do
+      expect(room.business_time).to eq "09:00 〜 18:00"
     end
   end
 end

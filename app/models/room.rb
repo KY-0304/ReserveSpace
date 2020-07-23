@@ -1,25 +1,31 @@
 class Room < ApplicationRecord
   include JpPrefecture
   jp_prefecture :prefecture_code
+
+  belongs_to :owner
   has_many :reservations, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  has_many :users, through: :favorites
-  has_many :reviews
-  belongs_to :owner
-  validates :name, presence: true
-  validates :image, presence: true
-  validates :postcode, presence: true
-  validates :prefecture_code, presence: true
-  validates :address_city, presence: true
-  validates :address_street, presence: true
-  validates :phone_number, presence: true, format: { with: VALID_PHONE_NUMBER_REGEX }
-  validates :hourly_price, presence: true
-  validates :business_start_time, presence: true
-  validates :business_end_time, presence: true
-  validate :image_size
-  validate :price_negative
-  validate :not_same_time
-  validate :onehundred_yen_break
+  has_many :favorited_users, through: :favorites, source: :user
+  has_many :reviews, dependent: :destroy
+
+  with_options presence: true do
+    validates :name
+    validates :image
+    validates :postcode
+    validates :prefecture_code
+    validates :address_city
+    validates :address_street
+    validates :phone_number
+    validates :hourly_price
+    validates :business_start_time
+    validates :business_end_time
+  end
+
+  validates :phone_number, format: { with: VALID_PHONE_NUMBER_REGEX }
+  validates :hourly_price, numericality: { only_integer: true, greater_than_or_equal_to: MINIMUM_UNIT_ROOM_PRICE },
+                           format: { with: VALID_HOURLY_PRICE_REGEX, message: "は100円単位で設定してください"}
+  validates_time :business_end_time, after: :business_start_time
+
   geocoded_by :address
   after_validation :geocode
 
@@ -42,27 +48,6 @@ class Room < ApplicationRecord
   end
 
   def business_time
-    "#{business_start_time.strftime("%H:%M")} 〜 #{business_end_time.strftime("%H:%M")}"
-  end
-
-  private
-
-  def image_size
-    errors.add(:image, "は5MB以下にしてください") if image.size > 5.megabytes
-  end
-
-  def price_negative
-    errors.add(:hourly_price, "は負の値を指定できません") if hourly_price.to_i.negative?
-  end
-
-  def not_same_time
-    errors.add(:business_end_time, "は営業開始時間と同じ値を指定できません") if business_start_time == business_end_time
-  end
-
-  def onehundred_yen_break
-    return unless hourly_price
-
-    hourly_price_remainder = hourly_price % MINIMUM_UNIT_ROOM_PRICE
-    errors.add(:hourly_price, "は100円単位で設定してください") unless hourly_price_remainder.zero?
+    "#{I18n.l(business_start_time, format: :very_short)} 〜 #{I18n.l(business_end_time, format: :very_short)}"
   end
 end
