@@ -1,9 +1,10 @@
-= provide(:title, "オーナーログイン")
-.w-50.mx-auto
-  h2.text-center オーナーログイン
-  = bootstrap_form_with model: @owner, url: owner_session_path, local: true do |f|
-    = f.email_field :email, autofocus: true, placeholder: "(例) xxx@example.com"
-    = f.password_field :password, placeholder: "現在のパスワード"
-    = f.check_box :remember_me
-    = f.submit "ログイン", class: "btn btn-success btn-block mt-3"
-  == render "shared/links"
+= provide(:title, "掲載者ログイン")
+.container.p-5
+  .w-50.mx-auto.pt-5
+    h2.text-center 掲載者ログイン
+    = bootstrap_form_with model: @owner, url: owner_session_path, local: true do |f|
+      = f.email_field :email, autofocus: true
+      = f.password_field :password
+      = f.check_box :remember_me
+      = f.submit "ログイン", class: "btn btn-success btn-block mt-3"
+    == render "shared/links"

@@ -2,34 +2,23 @@ class Users::ReservationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @reservations = current_user.reservations
-  end
-
-  def show
-    @reservation = current_user.reservations.find(params[:id])
+    @reservations = current_user.reservations.includes(:room)
   end
 
   def create
     @reservation = current_user.reservations.build(reservation_params)
     if @reservation.save
       flash[:success] = "予約が完了しました"
-      redirect_to root_path
+      redirect_to room_path(@reservation.room)
     else
-      @room = Room.find(params[:reservation][:room_id])
-      @reservations = @room.reservations
+      @room = Room.includes(reviews: :user).find(params[:reservation][:room_id])
+      @review = Review.new
       render 'rooms/show'
     end
   end
 
   def destroy
-    @reservation = current_user.reservations.find_by(id: params[:id])
-    unless @reservation
-      flash[:warning] = "予約が見つかりませんでした"
-      redirect_to root_path
-      return
-    end
-
-    @reservation.destroy!
+    current_user.reservations.find(params[:id]).destroy!
     flash[:success] = "予約の削除が完了しました。"
     redirect_to root_path
   end

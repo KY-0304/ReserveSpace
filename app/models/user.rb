@@ -5,10 +5,17 @@ class User < ApplicationRecord
   has_many :reservations, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorite_rooms, through: :favorites, source: :room
-  has_many :reviews
-  validates :name, presence: true
-  validates :phone_number, presence: true, format: { with: VALID_PHONE_NUMBER_REGEX }
-  validates :gender, presence: true
+  has_many :reviews, dependent: :destroy
+
+  with_options presence: true do
+    validates :name
+    validates :phone_number
+    validates :gender
+  end
+
+  validates :phone_number, format: { with: VALID_PHONE_NUMBER_REGEX }
+  validates :agreement, acceptance: true
+
   enum gender: { unanswered: 0, female: 1, male: 2 }
 
   def favorite?(room)

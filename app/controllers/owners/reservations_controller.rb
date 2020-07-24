@@ -2,8 +2,6 @@ class Owners::ReservationsController < ApplicationController
   before_action :authenticate_owner!
 
   def index
-  end
-
-  def show
+    @rooms = current_owner.rooms.includes(reservations: :user)
   end
 end

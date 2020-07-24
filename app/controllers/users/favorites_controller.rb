@@ -15,10 +15,9 @@ class Users::FavoritesController < ApplicationController
   end
 
   def destroy
-    @room = Room.find(params[:id])
-    current_user.favorites.find_by(room_id: @room.id).destroy!
+    @favorite = current_user.favorites.find(params[:id]).destroy!
     respond_to do |format|
-      format.html { redirect_to room_path(@room) }
+      format.html { redirect_to room_path(@favorite.room) }
       format.js
     end
   end

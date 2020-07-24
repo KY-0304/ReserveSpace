@@ -1,6 +1,8 @@
-= provide(:title, "お気に入り")
-
-- if @rooms.present?
-  == render partial: 'rooms/room', collection: @rooms
-- else
-  h2.text-center お気に入りの会議室はありません
+= provide(:title, "お気に入り一覧")
+.container.p-5
+  - if @rooms.present?
+    h2.text-center お気に入り一覧
+    .row
+      == render partial: 'rooms/room', collection: @rooms
+  - else
+    h2.text-center お気に入りの会議室はありません

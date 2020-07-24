@@ -2,16 +2,13 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @room = Room.find(params[:room_id])
-    @review = Review.new(review_params)
+    @review = current_user.reviews.build(review_params)
     if @review.save
       flash[:success] = "レビューを投稿しました"
-      redirect_to room_path(@room)
+      redirect_to room_path(params[:room_id])
     else
-      @reservations = @room.reservations
+      @room = Room.includes(reviews: :user).find(params[:room_id])
       @reservation = Reservation.new
-      gon.lat = @room.latitude
-      gon.lng = @room.longitude
       render 'rooms/show'
     end
   end
@@ -25,6 +22,6 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:rate, :comment, :room_id).merge(user_id: current_user.id)
+    params.require(:review).permit(:rate, :comment).merge(room_id: params[:room_id])
   end
 end

@@ -2,9 +2,9 @@
 ja:
   activerecord:
     models:
-      owner: オーナー
+      owner: 掲載者
       room: 会議室
-      user: ユーザー
+      user: 利用者
       reservation: 予約
       favorite: お気に入り
       review: レビュー
@@ -13,8 +13,9 @@ ja:
         company_name: 会社名
         email: メールアドレス
         reset_password_token: パスワードリセット用トークン
+        agreement: 利用規約に同意する
       room:
-        owner: オーナー
+        owner: 掲載者
         name: 名前
         description: 説明
         image: イメージ
@@ -33,16 +34,17 @@ ja:
         name: 名前
         phone_number: 連絡先
         gender: 性別
+        agreement: 利用規約に同意する
       reservation:
         room: 会議室
-        user: ユーザー
+        user: 利用者
         start_time: 開始時間
         end_time: 終了時間
       favorite:
-        user: ユーザー
+        user: 利用者
         room: 会議室
       review:
-        user: ユーザー
+        user: 利用者
         room: 会議室
         rate: レート
         comment: コメント
@@ -254,5 +256,7 @@ ja:
     formats:
       default: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       long: "%Y/%m/%d %H:%M"
+      semi_long: "%Y/%m/%d"
       short: "%m/%d %H:%M"
+      very_short: "%H:%M"
     pm: 午後

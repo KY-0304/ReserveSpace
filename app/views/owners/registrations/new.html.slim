@@ -1,13 +1,14 @@
-= provide(:title, "オーナー登録")
-.w-50.mx-auto
-  h2.text-center オーナー登録
-  = bootstrap_form_with model: @owner, url: owner_registration_path, local: true, inline_errors: false do |f|
-    = f.alert_message "以下のエラーが発生しました："
-    = f.email_field :email, autofocus: true, placeholder: "(例) xxx@example.com"
-    = f.text_field :company_name, placeholder: "(例) 〇〇株式会社"
-    = f.password_field :password, autocomplete: "new-password", placeholder: "パスワード（6文字以上）"
-    = f.password_field :password_confirmation, autocomplete: "new-password",
-      placeholder: "もう一度、パスワードを入力してください", required: true
-
-    = f.submit "登録", class: "btn btn-success btn-block"
-  == render "shared/links"
+= provide(:title, "掲載者登録")
+.container.p-5
+  .w-50.mx-auto.pt-5
+    h2.text-center 掲載者登録
+    = bootstrap_form_with model: @owner, url: owner_registration_path, local: true, inline_errors: false do |f|
+      = f.alert_message "以下のエラーが発生しました："
+      = f.email_field :email, autofocus: true, placeholder: "(例) xxx@example.com"
+      = f.text_field :company_name, placeholder: "(例) 〇〇株式会社"
+      = f.password_field :password, placeholder: "パスワード（6文字以上）"
+      = f.password_field :password_confirmation, placeholder: "もう一度、パスワードを入力してください", required: true
+      = f.text_area "利用規約", size: "1x4", value: TERMS_OF_SERVICE, readonly: true, disabled: true
+      = f.check_box :agreement
+      = f.submit "登録", class: "btn btn-success btn-block mt-3"
+    == render "shared/links"

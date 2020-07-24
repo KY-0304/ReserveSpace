@@ -9,7 +9,7 @@ RSpec.describe "Users", type: :system do
                   password_confirmation: "password")
   end
 
-  it "ユーザーは登録情報を編集できる" do
+  it "利用者は登録情報を編集できる" do
     sign_in user
     visit edit_user_registration_path
     expect(page).to have_no_content "性別"

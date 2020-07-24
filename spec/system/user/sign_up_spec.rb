@@ -1,15 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "UserSignUp", type: :system do
-  it "ユーザーはアカウント登録＆削除ができる" do
+  it "利用者はアカウント登録＆削除ができる" do
     visit root_path
 
     within("header") do
-      click_link "ユーザーログイン"
+      click_link "利用者登録"
     end
-    click_link "アカウント登録はこちら"
 
-    # ユーザーが登録されることを確認
+    # 利用者が登録されることを確認
     expect do
       fill_in "メールアドレス", with: "test@example.com"
       fill_in "名前", with: "test_name"
@@ -17,6 +16,7 @@ RSpec.describe "UserSignUp", type: :system do
       select "男性", from: "性別"
       fill_in "パスワード", with: "password"
       fill_in "確認用パスワード", with: "password"
+      check "利用規約に同意する"
       click_button "登録"
     end.to change(User, :count).by 1
 
@@ -24,10 +24,10 @@ RSpec.describe "UserSignUp", type: :system do
     expect(current_path).to eq root_path
 
     within("header") do
-      click_link "登録情報編集"
+      click_link "アカウント編集"
     end
 
-    # ユーザーアカウントが削除されることの確認
+    # 利用者アカウントが削除されることの確認
     expect do
       click_link "アカウント削除"
     end.to change(User, :count).by(-1)

@@ -1,24 +1,15 @@
-header.navbar.navbar-expand-lg.navbar-light.bg-light
-  .container
-    = link_to "ReserveSpace", root_path, class: "navbar-brand"
-
-    ul.navbar-nav.ml-auto
-      - if owner_signed_in?
-        li.nav-item
-          = link_to "会議室一覧", rooms_path, class: "nav-link"
-        li.nav-item
-          = link_to "登録情報編集", edit_owner_registration_path, class: "nav-link"
-        li.nav-item
-          = link_to "ログアウト", destroy_owner_session_path, method: :delete, class: "nav-link"
-      - elsif user_signed_in?
-        li.nav-item
-          = link_to "お気に入り", users_favorites_path, class: "nav-link"
-        li.nav-item
-          = link_to "登録情報編集", edit_user_registration_path, class: "nav-link"
-        li.nav-item
-          = link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link"
-      - else
-        li.nav-item
-          = link_to "オーナーログイン", new_owner_session_path, class: "nav-link"
-        li.nav-item
-          = link_to "ユーザーログイン", new_user_session_path, class: "nav-link"
+header
+  nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
+    .container
+      = link_to "ReserveSpace", root_path, class: "navbar-brand"
+      = button_tag type: "button", class: "navbar-toggler", data: { toggle: "collapse", target: "#nav-menu" },
+                   aria: { controls: "nav-menu", expanded: "false", label: "Toggle navigation" } do
+        span.navbar-toggler-icon
+      div class="collapse navbar-collapse" id="nav-menu"
+        ul.navbar-nav.ml-auto
+          - if owner_signed_in?
+            == render 'layouts/owner_nav_links'
+          - elsif user_signed_in?
+            == render 'layouts/user_nav_links'
+          - else
+            == render 'layouts/default_nav_links'

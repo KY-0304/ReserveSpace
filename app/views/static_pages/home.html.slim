@@ -1,4 +1,10 @@
-- if @rooms.present?
-  == render @rooms
-- else
-  h2.text-center 登録されている会議室はありません
+.jumbotron.jumbotron-fluid.bg-dark
+  h1.text-center.font-italic.text-white.py-4 ミーティングからイベントまで
+  p.text-center.text-white.py-4 ReserveSpaceでかんたん予約
+.container
+  .row
+    - if @rooms.present?
+      == render @rooms
+    - else
+      h2.text-center 登録されている会議室はありません
+  = paginate @rooms

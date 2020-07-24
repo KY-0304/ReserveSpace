@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe "OwnerResetPassword", type: :system do
   let(:owner) { create(:owner, password: "password", password_confirmation: "password") }
 
-  it "オーナーはパスワードをリセットすることができる" do
+  it "掲載者はパスワードをリセットすることができる" do
     # 送信メールのリセット
     ActionMailer::Base.deliveries.clear
 
     visit root_path
 
     within("header") do
-      click_link "オーナーログイン"
+      click_link "掲載者ログイン"
     end
     click_link "パスワードを忘れた方はこちら"
 

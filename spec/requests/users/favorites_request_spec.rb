@@ -92,25 +92,25 @@ RSpec.describe "Users::Favorites", type: :request do
       end
 
       it "ステータスコード302を返す" do
-        delete users_favorite_path(room)
+        delete users_favorite_path(favorite)
         expect(response.status).to eq 302
       end
 
       it "room_pathにリダイレクトする" do
-        delete users_favorite_path(room)
+        delete users_favorite_path(favorite)
         expect(response).to redirect_to room_path(room)
       end
 
       it "favoriteが削除される" do
         expect do
-          delete users_favorite_path(room)
+          delete users_favorite_path(favorite)
         end.to change(user.favorites, :count).by(-1)
       end
     end
 
     context "ログインしていない場合" do
       before do
-        delete users_favorite_path(room)
+        delete users_favorite_path(favorite)
       end
 
       it "ステータスコード302を返す" do

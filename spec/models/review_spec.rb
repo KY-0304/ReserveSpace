@@ -16,7 +16,7 @@ RSpec.describe Review, type: :model do
   it "user_idが無いと無効" do
     review.user_id = nil
     review.valid?
-    expect(review.errors.full_messages).to include "ユーザーを入力してください"
+    expect(review.errors.full_messages).to include "利用者を入力してください"
   end
 
   it "レートが無いと無効" do
@@ -35,6 +35,12 @@ RSpec.describe Review, type: :model do
     review.rate = 0
     review.valid?
     expect(review.errors.full_messages).to include "レートは0より大きい値にしてください"
+  end
+
+  it "コメントが無いと無効" do
+    review.comment = nil
+    review.valid?
+    expect(review.errors.full_messages).to include "コメントを入力してください"
   end
 
   it "コメントが101文字以上だと無効" do

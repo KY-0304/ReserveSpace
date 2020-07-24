@@ -14,8 +14,8 @@ ja:
         password_confirmation: "確認用パスワード"
         remember_me: "ログインをしたままにする"
     models:
-      owner: "オーナー"
-      user: "ユーザー"
+      owner: "掲載者"
+      user: "利用者"
   devise:
     confirmations:
       new:

@@ -3,13 +3,13 @@
     = link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view
     - if calendar.number_of_weeks == 1
       span.calendar-title
-        | Week 
+        | Week
         = calendar.week_number
     - else
       span.calendar-title
-        | Week 
+        | Week
         = calendar.week_number
-        |  - 
+        |  -
         = calendar.end_week
     = link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view
   table.table.table-striped

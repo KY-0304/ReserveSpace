@@ -1,0 +1,8 @@
+li.nav-item
+  = link_to "会議室一覧", rooms_path, class: "nav-link"
+li.nav-item
+  = link_to "予約一覧", owners_reservations_path, class: "nav-link"
+li.nav-item
+  = link_to "アカウント編集", edit_owner_registration_path, class: "nav-link"
+li.nav-item
+  = link_to "ログアウト", destroy_owner_session_path, method: :delete, class: "nav-link"

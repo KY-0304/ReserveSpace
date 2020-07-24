@@ -1,8 +1,9 @@
-= provide(:title, "オーナーパスワードリセット")
-.w-50.mx-auto
-  h2.text-center パスワードリセット
-  = bootstrap_form_with model: @owner, url: owner_password_path, method: :post, inline_errors: false, local: true do |f|
-    = f.alert_message "以下のエラーが発生しました："
-    = f.email_field :email, autofocus: true, placeholder: "(例) xxx@example.com"
-    = f.submit "メール送信", class: "btn btn-success btn-block"
-  == render "shared/links"
+= provide(:title, "掲載者パスワードリセット")
+.container.p-5
+  .w-50.mx-auto.pt-5
+    h2.text-center.pb-3 掲載者パスワードリセット
+    = bootstrap_form_with model: @owner, url: owner_password_path, method: :post, inline_errors: false, local: true do |f|
+      = f.alert_message "以下のエラーが発生しました："
+      = f.email_field :email, autofocus: true
+      = f.submit "メール送信", class: "btn btn-success btn-block"
+    == render "shared/links"
