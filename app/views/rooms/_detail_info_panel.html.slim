@@ -4,7 +4,7 @@ h2.text-center.mb-3 = room.name
     = image_tag room.image.url, class: "img-fluid d-block mx-auto mb-3"
   - if user_signed_in?
     .col-md-4
-      == render partial: 'rooms/favorite', locals: { room: room }
+      == render 'rooms/favorite', room: room
 .card
   .card-header
     h3.text-center 会議室詳細情報

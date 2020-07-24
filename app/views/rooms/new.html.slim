@@ -6,14 +6,12 @@
       = f.alert_message "以下のエラーが発生しました："
       = f.text_field :name, autofocus: true, placeholder: "会議室名"
       = f.text_area :description, size: "1x5", placeholder: "会議室の説明文"
-
       .mb-3
         = f.label :image, class: "required"
         = f.file_field_without_bootstrap :image, class: "filestyle"
         = f.hidden_field :image_cache
         - if @room.image?
           = image_tag @room.image.small_thumb.url, class: "img-thumbnail mt-3"
-
       .form-row
         .col-md-6
           = f.number_field :postcode, placeholder: "(例)1080073", help: "ハイフン無しで入力してください。", prepend: "〒"

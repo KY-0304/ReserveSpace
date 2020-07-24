@@ -2,7 +2,7 @@
   .card-header
     h4.text-center お気に入り
   .card-body
-    p.text-center #{room.favorites.count}人がお気に入り登録してます
+    p.text-center #{room.favorites.size}人がお気に入り登録してます
     - if current_user.favorite?(room)
       = form_with url: users_favorite_path(current_user.favorites.find_by(room_id: room.id)), method: :delete do |f|
         = f.submit "お気に入り削除", class: "btn btn-outline-danger"

@@ -1,9 +1,7 @@
 = month_calendar events: room.reservations do |date, reservations|
   = date.day
   - reservations.each do |reservation|
-    small.d-block
-      | #{reservation.reservation_time} 予約有
-
+    small.d-block #{reservation.reservation_time} 予約有
 = bootstrap_form_with model: reservation, url: users_reservations_path, local: true, inline_errors: false do |f|
   = f.alert_message "以下のエラーが発生しました："
   = f.hidden_field :room_id, value: room.id

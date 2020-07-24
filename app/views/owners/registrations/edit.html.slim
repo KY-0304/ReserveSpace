@@ -6,17 +6,12 @@
       = f.alert_message "以下のエラーが発生しました："
       = f.email_field :email, autofocus: true
       = f.text_field :company_name
-      = f.password_field :password, autocomplete: "new-password", placeholder: "新しいパスワード(6文字以上)", help: "変更しない場合は空欄にしてください。"
-
-      = f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "もう一度、新しいパスワードを入力してください",
-        help: "パスワードを変更しない場合は空欄にしてください。"
-
+      = f.password_field :password, placeholder: "新しいパスワード(6文字以上)", help: "変更しない場合は空欄にしてください。"
+      = f.password_field :password_confirmation, placeholder: "もう一度、新しいパスワードを入力してください",
+                                                 help: "パスワードを変更しない場合は空欄にしてください。"
       = f.password_field :current_password, placeholder: "現在のパスワード", help: "変更を確定させるには現在のパスワードを入力してください。"
-
       = f.submit "変更", class: "btn btn-block btn-success"
-
     = link_to "戻る", :back, class: "btn btn-outline-primary btn-block mt-3"
-
     .w-50.mx-auto.mt-5
       = link_to "アカウント削除", owner_registration_path, data: { confirm: "アカウントを削除します。本当によろしいですか。" },
-        method: :delete, class: "btn btn-danger btn-sm btn-block"
+                                                         method: :delete, class: "btn btn-danger btn-sm btn-block"

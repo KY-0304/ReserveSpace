@@ -6,14 +6,12 @@
       = f.alert_message "以下のエラーが発生しました："
       = f.text_field :name, autofocus: true
       = f.text_area :description, size: "1x5", placeholder: "会議室の説明文"
-
       .mb-3
         = f.label :image, class: "required"
         = f.file_field_without_bootstrap :image, class: "filestyle"
         = f.hidden_field :image_cache
         = image_tag @room.image.small_thumb.url, class: "img-thumbnail mt-3"
         = f.check_box :remove_image
-
       .row
         .col-md-6
           = f.telephone_field :phone_number, placeholder: "(例)03-1234-5678"
@@ -24,7 +22,6 @@
         .col-md-6
           = f.time_select :business_end_time
       = f.submit "変更", class: "btn btn-success btn-block"
-
     .w-50.mx-auto.mt-5
-      = link_to "会議室削除", room_path, data: { confirm: "会議室を削除します。本当によろしいでしょうか。" },
-        method: :delete, class: "btn btn-danger btn-sm btn-block"
+      = link_to "会議室削除", @room, data: { confirm: "会議室を削除します。本当によろしいでしょうか。" },
+                                       method: :delete, class: "btn btn-danger btn-sm btn-block"
