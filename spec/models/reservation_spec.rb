@@ -11,6 +11,22 @@ RSpec.describe Reservation, type: :model do
 
   after { travel_back }
 
+  describe "relation" do
+    before { reservation.save }
+
+    it "roomを削除するとreservationも削除される" do
+      expect do
+        room.destroy
+      end.to change(Reservation, :count).by(-1)
+    end
+
+    it "userを削除するとreservationも削除される" do
+      expect do
+        user.destroy
+      end.to change(Reservation, :count).by(-1)
+    end
+  end
+
   describe "validation" do
     it "有効なファクトリを持つこと" do
       expect(reservation).to be_valid

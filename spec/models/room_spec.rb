@@ -1,6 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe Room, type: :model do
+  describe "relation" do
+    let(:owner) { create(:owner) }
+    let!(:room) { create(:room, owner: owner) }
+
+    it "ownerを削除するとroomも削除される" do
+      expect do
+        owner.destroy
+      end.to change(Room, :count).by(-1)
+    end
+  end
+
   describe "validation" do
     let(:room) { create(:room) }
 
