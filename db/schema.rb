@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
     t.integer "prefecture_code", null: false
     t.string "address_city", null: false
     t.string "address_street", null: false
-    t.string "address_building", null: false
+    t.string "address_building"
     t.string "phone_number", null: false
     t.integer "hourly_price", null: false
     t.time "business_start_time", null: false
