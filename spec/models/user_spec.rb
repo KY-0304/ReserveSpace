@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe "validation" do
-    let(:user) { create(:user) }
+  let(:user) { create(:user) }
 
+  describe "validation" do
     it "有効なファクトリを持つこと" do
       expect(user).to be_valid
     end
@@ -83,8 +83,32 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "enum" do
+    context "genderが0〜2の時" do
+      let(:enum) { { unanswered: 0, female: 1, male: 2 } }
+
+      it "enumを返す" do
+        enum.each do |key, value|
+          user.gender = value
+          expect(user.gender).to eq key.to_s
+        end
+      end
+    end
+
+    context "genderが0~2以外の時" do
+      let(:invalid_enum) { [-1, 1.1, 3] }
+
+      it "例外が発生する" do
+        invalid_enum.each do |n|
+          expect do
+            user.gender = n
+          end.to raise_error(ArgumentError)
+        end
+      end
+    end
+  end
+
   describe "favorite?(room)" do
-    let(:user) { create(:user) }
     let(:room) { create(:room) }
 
     context "利用者が会議室をお気に入りしていた場合" do

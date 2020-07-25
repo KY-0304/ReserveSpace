@@ -46,7 +46,7 @@ ja:
       review:
         user: 利用者
         room: 会議室
-        rate: レート
+        rate: 評価
         comment: コメント
     errors:
       messages:
@@ -60,6 +60,13 @@ ja:
         male: 男性
         female: 女性
         unanswered: 未回答
+    review:
+      rate:
+        very_good: とても良い
+        good: 良い
+        normal: 普通
+        bad: 悪い
+        very_bad: とても悪い
   date:
     abbr_day_names:
     - 日

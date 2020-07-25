@@ -5,7 +5,7 @@ RSpec.describe "Reviews", type: :request do
   let(:room) { create(:room) }
 
   describe "POST #create" do
-    let(:params) { { user: user, room_id: room.id, rate: 3, comment: "テストコメント" } }
+    let(:params) { { user: user, room_id: room.id, rate: :very_good, comment: "テストコメント" } }
 
     context "ログイン済みの場合" do
       before do
@@ -36,7 +36,7 @@ RSpec.describe "Reviews", type: :request do
       end
 
       context "パラメータが不正な場合" do
-        let(:invalid_params) { { user: user, room: room, rate: 0, comment: "テストコメント" } }
+        let(:invalid_params) { { user: user, room: room, rate: "", comment: "" } }
 
         it "ステータスコード200を返す" do
           post room_reviews_path(room), params: { review: invalid_params }

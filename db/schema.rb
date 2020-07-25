@@ -55,8 +55,8 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
   create_table "reviews", force: :cascade do |t|
     t.bigint "room_id"
     t.bigint "user_id"
-    t.float "rate", default: 0.0, null: false
-    t.text "comment"
+    t.integer "rate", null: false
+    t.text "comment", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_reviews_on_room_id"

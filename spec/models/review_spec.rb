@@ -34,22 +34,10 @@ RSpec.describe Review, type: :model do
       expect(review.errors.full_messages).to include "利用者を入力してください"
     end
 
-    it "レートが無いと無効" do
+    it "評価が無いと無効" do
       review.rate = nil
       review.valid?
-      expect(review.errors.full_messages).to include "レートを入力してください"
-    end
-
-    it "レートが5.0より上だと無効" do
-      review.rate = 5.1
-      review.valid?
-      expect(review.errors.full_messages).to include "レートは5以下の値にしてください"
-    end
-
-    it "レートが0だと無効" do
-      review.rate = 0
-      review.valid?
-      expect(review.errors.full_messages).to include "レートは0より大きい値にしてください"
+      expect(review.errors.full_messages).to include "評価を入力してください"
     end
 
     it "コメントが無いと無効" do
@@ -57,11 +45,30 @@ RSpec.describe Review, type: :model do
       review.valid?
       expect(review.errors.full_messages).to include "コメントを入力してください"
     end
+  end
 
-    it "コメントが101文字以上だと無効" do
-      review.comment = "a" * 101
-      review.valid?
-      expect(review.errors.full_messages).to include "コメントは100文字以内で入力してください"
+  describe "enum" do
+    context "rateが0〜4の時" do
+      let(:enum) { { very_good: 0, good: 1, normal: 2, bad: 3, very_bad: 4 } }
+
+      it "enumを返す" do
+        enum.each do |key, value|
+          review.rate = value
+          expect(review.rate).to eq key.to_s
+        end
+      end
+    end
+
+    context "rateが0~4以外の時" do
+      let(:invalid_enum) { [-1, 1.1, 5] }
+
+      it "例外が発生する" do
+        invalid_enum.each do |n|
+          expect do
+            review.rate = n
+          end.to raise_error(ArgumentError)
+        end
+      end
     end
   end
 end

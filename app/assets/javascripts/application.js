@@ -15,6 +15,5 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require bootstrap-filestyle
-//= require jquery_raty
 //= require activestorage
 //= require_tree .
