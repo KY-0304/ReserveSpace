@@ -18,6 +18,7 @@ class User < ApplicationRecord
 
   enum gender: { unanswered: 0, female: 1, male: 2 }
 
+  # スペースをお気に入りしているか確認する
   def favorite?(space)
     favorite_spaces.include?(space)
   end

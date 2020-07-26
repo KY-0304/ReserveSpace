@@ -178,9 +178,9 @@ RSpec.describe Space, type: :model do
     end
 
     it "(, )で結合した住所を返す" do
-      expect(space.address).to eq "東京都, 千代田区, 千代田1-1-1, 千代田ビル"
+      expect(space.send(:geocode_address)).to eq "東京都, 千代田区, 千代田1-1-1, 千代田ビル"
       space.address_building = nil
-      expect(space.address).to eq "東京都, 千代田区, 千代田1-1-1"
+      expect(space.send(:geocode_address)).to eq "東京都, 千代田区, 千代田1-1-1"
     end
   end
 
