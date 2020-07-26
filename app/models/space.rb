@@ -26,7 +26,7 @@ class Space < ApplicationRecord
                            format: { with: VALID_HOURLY_PRICE_REGEX, message: "は100円単位で設定してください" }
   validates_time :business_end_time, after: :business_start_time
 
-  geocoded_by :address
+  geocoded_by :geocode_address
   after_validation :geocode
 
   mount_uploader :image, ImageUploader
@@ -43,7 +43,7 @@ class Space < ApplicationRecord
     [prefecture_name, address_city, address_street, address_building].compact.join
   end
 
-  def address
+  def geocode_address
     [prefecture_name, address_city, address_street, address_building].compact.join(', ')
   end
 
