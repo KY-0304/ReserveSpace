@@ -1,7 +1,7 @@
 class CreateSpaces < ActiveRecord::Migration[5.2]
   def change
     create_table :spaces do |t|
-      t.references :owner, foreign_key: true
+      t.references :owner, foreign_key: true, null: false
       t.string :name, null: false
       t.text :description
       t.string :image, null: false

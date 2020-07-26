@@ -40,8 +40,8 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
   end
 
   create_table "reservations", force: :cascade do |t|
-    t.bigint "space_id"
-    t.bigint "user_id"
+    t.bigint "space_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "start_time", null: false
     t.datetime "end_time", null: false
     t.datetime "created_at", null: false
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.bigint "space_id"
-    t.bigint "user_id"
+    t.bigint "space_id", null: false
+    t.bigint "user_id", null: false
     t.integer "rate", null: false
     t.text "comment", null: false
     t.datetime "created_at", null: false
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
   end
 
   create_table "spaces", force: :cascade do |t|
-    t.bigint "owner_id"
+    t.bigint "owner_id", null: false
     t.string "name", null: false
     t.text "description"
     t.string "image", null: false
