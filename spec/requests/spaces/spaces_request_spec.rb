@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "Rooms", type: :request do
+RSpec.describe "Spaces", type: :request do
   let(:owner) { create(:owner) }
-  let!(:room) { create(:room, owner: owner, name: "test_room") }
+  let!(:space) { create(:space, owner: owner, name: "test_space") }
   let(:other_owner) { create(:owner) }
 
   describe "GET #index" do
@@ -12,14 +12,14 @@ RSpec.describe "Rooms", type: :request do
       end
 
       it "ステータスコード200を返す" do
-        get rooms_path
+        get spaces_path
         expect(response.status).to eq 200
       end
     end
 
     context "ログインしていない場合" do
       before do
-        get rooms_path
+        get spaces_path
       end
 
       it "ステータスコード302を返す" do
@@ -38,7 +38,7 @@ RSpec.describe "Rooms", type: :request do
 
   describe "GET #show" do
     it "ステータスコード200を返す" do
-      get room_path(room)
+      get space_path(space)
       expect(response.status).to eq 200
     end
   end
@@ -50,14 +50,14 @@ RSpec.describe "Rooms", type: :request do
       end
 
       it "ステータスコード200を返す" do
-        get new_room_path
+        get new_space_path
         expect(response.status).to eq 200
       end
     end
 
     context "ログインしていない場合" do
       before do
-        get new_room_path
+        get new_space_path
       end
 
       it "ステータスコード302を返す" do
@@ -71,7 +71,7 @@ RSpec.describe "Rooms", type: :request do
   end
 
   describe "POST #create" do
-    let(:params) { attributes_for(:room) }
+    let(:params) { attributes_for(:space) }
 
     context "ログイン済みの場合" do
       before do
@@ -80,51 +80,51 @@ RSpec.describe "Rooms", type: :request do
 
       context "パラメータが妥当な場合" do
         it "ステータスコード302を返す" do
-          post rooms_path, params: { room: params }
+          post spaces_path, params: { space: params }
           expect(response.status).to eq 302
         end
 
-        it "rooms_pathにリダイレクトする" do
-          post rooms_path, params: { room: params }
-          expect(response).to redirect_to rooms_path
+        it "spaces_pathにリダイレクトする" do
+          post spaces_path, params: { space: params }
+          expect(response).to redirect_to spaces_path
         end
 
-        it "roomが登録される" do
+        it "spaceが登録される" do
           expect do
-            post rooms_path, params: { room: params }
-          end.to change(Room, :count).by 1
+            post spaces_path, params: { space: params }
+          end.to change(Space, :count).by 1
         end
 
         it "フラッシュを返す" do
-          post rooms_path, params: { room: params }
-          expect(flash[:success]).to eq "会議室の登録を完了しました"
+          post spaces_path, params: { space: params }
+          expect(flash[:success]).to eq "スペースの登録を完了しました"
         end
       end
 
       context "パラメータが不正な場合" do
-        let(:invalid_params) { attributes_for(:room, name: "") }
+        let(:invalid_params) { attributes_for(:space, name: "") }
 
         it "ステータスコード200を返す" do
-          post rooms_path, params: { room: invalid_params }
+          post spaces_path, params: { space: invalid_params }
           expect(response.status).to eq 200
         end
 
         it "エラー文を返す" do
-          post rooms_path, params: { room: invalid_params }
+          post spaces_path, params: { space: invalid_params }
           expect(response.body).to include "以下のエラーが発生しました："
         end
 
-        it "roomが登録されない" do
+        it "spaceが登録されない" do
           expect do
-            post rooms_path, params: { room: invalid_params }
-          end.not_to change(Room, :count)
+            post spaces_path, params: { space: invalid_params }
+          end.not_to change(Space, :count)
         end
       end
     end
 
     context "ログインしていない場合" do
       before do
-        post rooms_path, params: { room: params }
+        post spaces_path, params: { space: params }
       end
 
       it "ステータスコード302を返す" do
@@ -144,14 +144,14 @@ RSpec.describe "Rooms", type: :request do
       end
 
       it "ステータスコード200を返す" do
-        get edit_room_path(room)
+        get edit_space_path(space)
         expect(response.status).to eq 200
       end
     end
 
     context "ログインしていない場合" do
       before do
-        get edit_room_path(room)
+        get edit_space_path(space)
       end
 
       it "ステータスコード302を返す" do
@@ -165,12 +165,12 @@ RSpec.describe "Rooms", type: :request do
   end
 
   describe "PUT #update" do
-    let(:params) { attributes_for(:room, name: "update_room") }
+    let(:params) { attributes_for(:space, name: "update_space") }
 
     context "ログイン済みの場合" do
       before do
         sign_in owner
-        put room_path(room), params: { room: params }
+        put space_path(space), params: { space: params }
       end
 
       context "パラメータが妥当な場合" do
@@ -178,22 +178,22 @@ RSpec.describe "Rooms", type: :request do
           expect(response.status).to eq 302
         end
 
-        it "rooms_pathにリダイレクトする" do
-          expect(response).to redirect_to rooms_path
+        it "spaces_pathにリダイレクトする" do
+          expect(response).to redirect_to spaces_path
         end
 
-        it "roomが変更される" do
-          room.reload
-          expect(room.name).to eq "update_room"
+        it "spaceが変更される" do
+          space.reload
+          expect(space.name).to eq "update_space"
         end
 
         it "フラッシュを返す" do
-          expect(flash[:success]).to eq "会議室の編集が完了しました"
+          expect(flash[:success]).to eq "スペースの編集が完了しました"
         end
       end
 
       context "パラメータが不正な場合" do
-        let(:params) { attributes_for(:room, name: "") }
+        let(:params) { attributes_for(:space, name: "") }
 
         it "ステータスコード200を返す" do
           expect(response.status).to eq 200
@@ -203,16 +203,16 @@ RSpec.describe "Rooms", type: :request do
           expect(response.body).to include "以下のエラーが発生しました："
         end
 
-        it "roomが変更されない" do
-          room.reload
-          expect(room.name).to eq "test_room"
+        it "spaceが変更されない" do
+          space.reload
+          expect(space.name).to eq "test_space"
         end
       end
     end
 
     context "ログインしていない場合" do
       before do
-        put room_path(room), params: { room: params }
+        put space_path(space), params: { space: params }
       end
 
       it "ステータスコード302を返す" do
@@ -232,42 +232,42 @@ RSpec.describe "Rooms", type: :request do
       end
 
       it "ステータスコード302を返す" do
-        delete room_path(room)
+        delete space_path(space)
         expect(response.status).to eq 302
       end
 
-      it "rooms_pathにリダイレクトする" do
-        delete room_path(room)
-        expect(response).to redirect_to rooms_path
+      it "spaces_pathにリダイレクトする" do
+        delete space_path(space)
+        expect(response).to redirect_to spaces_path
       end
 
-      it "会議室が削除される" do
+      it "スペースが削除される" do
         expect do
-          delete room_path(room)
-        end.to change(Room, :count).by(-1)
+          delete space_path(space)
+        end.to change(Space, :count).by(-1)
       end
 
       it "フラッシュを返す" do
-        delete room_path(room)
-        expect(flash[:success]).to eq "会議室の削除が完了しました"
+        delete space_path(space)
+        expect(flash[:success]).to eq "スペースの削除が完了しました"
       end
     end
 
     context "ログインしていない場合" do
       it "ステータスコード302を返す" do
-        delete room_path(room)
+        delete space_path(space)
         expect(response.status).to eq 302
       end
 
       it "new_owner_session_pathにリダイレクトする" do
-        delete room_path(room)
+        delete space_path(space)
         expect(response).to redirect_to new_owner_session_path
       end
 
-      it "会議室は削除されない" do
+      it "スペースは削除されない" do
         expect do
-          delete room_path(room)
-        end.not_to change(Room, :count)
+          delete space_path(space)
+        end.not_to change(Space, :count)
       end
     end
   end

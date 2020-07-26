@@ -4,9 +4,9 @@ RSpec.describe Favorite, type: :model do
   let!(:favorite) { create(:favorite) }
 
   describe "relation" do
-    it "roomを削除するとfavoriteも削除される" do
+    it "spaceを削除するとfavoriteも削除される" do
       expect do
-        favorite.room.destroy
+        favorite.space.destroy
       end.to change(Favorite, :count).by(-1)
     end
 
@@ -28,13 +28,13 @@ RSpec.describe Favorite, type: :model do
       expect(favorite.errors.full_messages).to include "利用者を入力してください"
     end
 
-    it "room_idが無いと無効" do
-      favorite.room_id = nil
+    it "space_idが無いと無効" do
+      favorite.space_id = nil
       favorite.valid?
-      expect(favorite.errors.full_messages).to include "会議室を入力してください"
+      expect(favorite.errors.full_messages).to include "スペースを入力してください"
     end
 
-    it "room_id, user_idの組み合わせが一意でないと無効" do
+    it "space_id, user_idの組み合わせが一意でないと無効" do
       other_favorite = favorite.dup
       other_favorite.valid?
       expect(other_favorite.errors.full_messages).to include "Userはすでに存在します"

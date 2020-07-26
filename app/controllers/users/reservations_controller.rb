@@ -2,18 +2,18 @@ class Users::ReservationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @reservations = current_user.reservations.includes(:room)
+    @reservations = current_user.reservations.includes(:space)
   end
 
   def create
     @reservation = current_user.reservations.build(reservation_params)
     if @reservation.save
       flash[:success] = "予約が完了しました"
-      redirect_to room_path(@reservation.room)
+      redirect_to space_path(@reservation.space)
     else
-      @room = Room.includes(reviews: :user).find(params[:reservation][:room_id])
+      @space = Space.includes(reviews: :user).find(params[:reservation][:space_id])
       @review = Review.new
-      render 'rooms/show'
+      render 'spaces/show'
     end
   end
 
@@ -26,6 +26,6 @@ class Users::ReservationsController < ApplicationController
   private
 
   def reservation_params
-    params.require(:reservation).permit(:room_id, :start_time, :end_time)
+    params.require(:reservation).permit(:space_id, :start_time, :end_time)
   end
 end

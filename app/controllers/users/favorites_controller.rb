@@ -2,14 +2,14 @@ class Users::FavoritesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @rooms = current_user.favorite_rooms
+    @spaces = current_user.favorite_spaces
   end
 
   def create
-    @room = Room.find(params[:room_id])
-    current_user.favorites.create!(room_id: @room.id)
+    @space = Space.find(params[:space_id])
+    current_user.favorites.create!(space_id: @space.id)
     respond_to do |format|
-      format.html { redirect_to room_path(@room) }
+      format.html { redirect_to space_path(@space) }
       format.js
     end
   end
@@ -17,7 +17,7 @@ class Users::FavoritesController < ApplicationController
   def destroy
     @favorite = current_user.favorites.find(params[:id]).destroy!
     respond_to do |format|
-      format.html { redirect_to room_path(@favorite.room) }
+      format.html { redirect_to space_path(@favorite.space) }
       format.js
     end
   end

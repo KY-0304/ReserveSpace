@@ -1,0 +1,15 @@
+= provide(:title, "スペース詳細")
+.container.p-5
+  = link_to "編集", edit_space_path(@space), class: "btn btn-primary float-right" if @space.owner == current_owner
+  h2.mb-3.text-center スペース詳細
+  .nav.nav-tabs
+    == render 'spaces/nav_tabs'
+  .tab-content
+    #panel-1.tab-pane.fade.show.active.border.border-top-0.p-5
+      == render 'spaces/detail_info_panel', space: @space
+    #panel-2.tab-pane.fade.border.border-top-0.p-5
+      == render 'spaces/reservation_panel', reservation: @reservation, space: @space
+    #panel-3.tab-pane.fade.border.border-top-0
+      == render 'spaces/map_panel', space: @space
+    #panel-4.tab-pane.fade.border.border-top-0
+      == render 'spaces/review_panel', space: @space, review: @review

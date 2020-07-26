@@ -1,5 +1,5 @@
 .w-50.mr-auto
-  = bootstrap_form_with model: review, url: room_reviews_path(room), local: true, class: "p-5" do |f|
+  = bootstrap_form_with model: review, url: space_reviews_path(space), local: true, class: "p-5" do |f|
     = f.alert_message "以下のエラーが発生しました："
     = f.select :rate, Review.rates_i18n.keys.map { |k| [Review.rates_i18n[k], k] }
     = f.text_area :comment, size: "1x3"
@@ -7,4 +7,4 @@
     = f.submit "レビュー投稿", class: "btn btn-success"
 
 ul.list-group.list-group-flush
-  == render room.reviews
+  == render space.reviews

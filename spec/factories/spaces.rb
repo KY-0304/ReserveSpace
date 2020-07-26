@@ -1,9 +1,9 @@
 FactoryBot.define do
-  factory :room do
+  factory :space do
     association :owner
-    name { "テスト貸会議室" }
-    description { "貸会議室の説明" }
-    image { Rack::Test::UploadedFile.new(File.join(Rails.root, 'public/images/room.jpg')) }
+    name { "テスト貸スペース" }
+    description { "貸スペースの説明" }
+    image { Rack::Test::UploadedFile.new(File.join(Rails.root, 'public/images/space.jpg')) }
     postcode { 1080073 }
     prefecture_code { 13 }
     address_city { "港区" }

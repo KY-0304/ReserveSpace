@@ -1,31 +1,31 @@
-h2.text-center.mb-3 = room.name
+h2.text-center.mb-3 = space.name
 .row
   .col
-    = image_tag room.image.url, class: "img-fluid d-block mx-auto mb-3"
+    = image_tag space.image.url, class: "img-fluid d-block mx-auto mb-3"
   - if user_signed_in?
     .col-md-4
-      == render 'rooms/favorite', room: room
+      == render 'spaces/favorite', space: space
 .card
   .card-header
-    h3.text-center 会議室詳細情報
+    h3.text-center スペース詳細情報
   .card-body
     .card-title
       h4.font-weight-bold 住所
     .card-text
-      p.text-left = room.full_address
+      p.text-left = space.full_address
     .card-title
       h4.font-weight-bold 料金
     .card-text
-      p.text-left #{room.hourly_price}円/時間
+      p.text-left #{space.hourly_price}円/時間
     .card-title
       h4.font-weight-bold 営業時間
     .card-text
-      p.text-left = room.business_time
+      p.text-left = space.business_time
     .card-title
       h4.font-weight-bold 運営会社
     .card-text
-      p.text-left = room.owner.company_name
+      p.text-left = space.owner.company_name
     .card-title
       h4.font-weight-bold 説明
     .card-text
-      p.text-left = room.description
+      p.text-left = space.description

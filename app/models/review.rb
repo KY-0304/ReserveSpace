@@ -1,5 +1,5 @@
 class Review < ApplicationRecord
-  belongs_to :room
+  belongs_to :space
   belongs_to :user
 
   with_options presence: true do

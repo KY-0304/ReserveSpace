@@ -1,4 +1,4 @@
-class Room < ApplicationRecord
+class Space < ApplicationRecord
   include JpPrefecture
   jp_prefecture :prefecture_code
 

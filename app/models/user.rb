@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   has_many :reservations, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  has_many :favorite_rooms, through: :favorites, source: :room
+  has_many :favorite_spaces, through: :favorites, source: :space
   has_many :reviews, dependent: :destroy
 
   with_options presence: true do
@@ -18,7 +18,7 @@ class User < ApplicationRecord
 
   enum gender: { unanswered: 0, female: 1, male: 2 }
 
-  def favorite?(room)
-    favorite_rooms.include?(room)
+  def favorite?(space)
+    favorite_spaces.include?(space)
   end
 end

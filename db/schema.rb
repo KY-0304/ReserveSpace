@@ -17,11 +17,11 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
 
   create_table "favorites", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "room_id", null: false
+    t.bigint "space_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["room_id"], name: "index_favorites_on_room_id"
-    t.index ["user_id", "room_id"], name: "index_favorites_on_user_id_and_room_id", unique: true
+    t.index ["space_id"], name: "index_favorites_on_space_id"
+    t.index ["user_id", "space_id"], name: "index_favorites_on_user_id_and_space_id", unique: true
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
@@ -40,30 +40,30 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
   end
 
   create_table "reservations", force: :cascade do |t|
-    t.bigint "room_id"
+    t.bigint "space_id"
     t.bigint "user_id"
     t.datetime "start_time", null: false
     t.datetime "end_time", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["end_time"], name: "index_reservations_on_end_time", unique: true
-    t.index ["room_id"], name: "index_reservations_on_room_id"
+    t.index ["space_id"], name: "index_reservations_on_space_id"
     t.index ["start_time"], name: "index_reservations_on_start_time", unique: true
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.bigint "room_id"
+    t.bigint "space_id"
     t.bigint "user_id"
     t.integer "rate", null: false
     t.text "comment", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["room_id"], name: "index_reviews_on_room_id"
+    t.index ["space_id"], name: "index_reviews_on_space_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
-  create_table "rooms", force: :cascade do |t|
+  create_table "spaces", force: :cascade do |t|
     t.bigint "owner_id"
     t.string "name", null: false
     t.text "description"
@@ -81,15 +81,15 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
     t.datetime "updated_at", null: false
     t.float "latitude"
     t.float "longitude"
-    t.index ["address_building"], name: "index_rooms_on_address_building"
-    t.index ["address_city"], name: "index_rooms_on_address_city"
-    t.index ["address_street"], name: "index_rooms_on_address_street"
-    t.index ["business_end_time"], name: "index_rooms_on_business_end_time"
-    t.index ["business_start_time"], name: "index_rooms_on_business_start_time"
-    t.index ["hourly_price"], name: "index_rooms_on_hourly_price"
-    t.index ["owner_id"], name: "index_rooms_on_owner_id"
-    t.index ["postcode"], name: "index_rooms_on_postcode"
-    t.index ["prefecture_code"], name: "index_rooms_on_prefecture_code"
+    t.index ["address_building"], name: "index_spaces_on_address_building"
+    t.index ["address_city"], name: "index_spaces_on_address_city"
+    t.index ["address_street"], name: "index_spaces_on_address_street"
+    t.index ["business_end_time"], name: "index_spaces_on_business_end_time"
+    t.index ["business_start_time"], name: "index_spaces_on_business_start_time"
+    t.index ["hourly_price"], name: "index_spaces_on_hourly_price"
+    t.index ["owner_id"], name: "index_spaces_on_owner_id"
+    t.index ["postcode"], name: "index_spaces_on_postcode"
+    t.index ["prefecture_code"], name: "index_spaces_on_prefecture_code"
   end
 
   create_table "users", force: :cascade do |t|
@@ -107,11 +107,11 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "favorites", "rooms"
+  add_foreign_key "favorites", "spaces"
   add_foreign_key "favorites", "users"
-  add_foreign_key "reservations", "rooms"
+  add_foreign_key "reservations", "spaces"
   add_foreign_key "reservations", "users"
-  add_foreign_key "reviews", "rooms"
+  add_foreign_key "reviews", "spaces"
   add_foreign_key "reviews", "users"
-  add_foreign_key "rooms", "owners"
+  add_foreign_key "spaces", "owners"
 end

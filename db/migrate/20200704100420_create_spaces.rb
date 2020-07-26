@@ -1,6 +1,6 @@
-class CreateRooms < ActiveRecord::Migration[5.2]
+class CreateSpaces < ActiveRecord::Migration[5.2]
   def change
-    create_table :rooms do |t|
+    create_table :spaces do |t|
       t.references :owner, foreign_key: true
       t.string :name, null: false
       t.text :description
@@ -17,13 +17,13 @@ class CreateRooms < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
-    add_index :rooms, :postcode
-    add_index :rooms, :prefecture_code
-    add_index :rooms, :address_city
-    add_index :rooms, :address_street
-    add_index :rooms, :address_building
-    add_index :rooms, :hourly_price
-    add_index :rooms, :business_start_time
-    add_index :rooms, :business_end_time
+    add_index :spaces, :postcode
+    add_index :spaces, :prefecture_code
+    add_index :spaces, :address_city
+    add_index :spaces, :address_street
+    add_index :spaces, :address_building
+    add_index :spaces, :hourly_price
+    add_index :spaces, :business_start_time
+    add_index :spaces, :business_end_time
   end
 end

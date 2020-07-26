@@ -6,12 +6,12 @@ Owner.create!(email: "hoge@example.com",
 owner = Owner.first
 
 6.times do
-  owner.rooms.create!(name: "四田国際ビル地下１階会議室",
+  owner.spaces.create!(name: "四田国際ビル地下１階スペース",
                       description: "JR新宿駅新南口から1分！新宿三丁目駅E6出口から徒歩30秒！
                                     新宿高島屋の目の前で1階にファミリーマートがあって超便利！
                                     24時間いつでも利用可能最大10名ご利用可能な完全個室。
-                                    レイアウト変更が可能な可動式のホワイトボード完備コンパクトで清潔な会議室です。",
-                      image: open('./public/images/room.jpg'),
+                                    レイアウト変更が可能な可動式のホワイトボード完備コンパクトで清潔なスペースです。",
+                      image: open('./public/images/space.jpg'),
                       postcode: "1080073",
                       prefecture_code: "13",
                       address_city: "港区",

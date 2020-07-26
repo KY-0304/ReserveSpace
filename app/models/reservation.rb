@@ -1,10 +1,10 @@
 class Reservation < ApplicationRecord
-  belongs_to :room
+  belongs_to :space
   belongs_to :user
 
   validates :start_time, presence: true
   validates :end_time, presence: true
-  validates :start_time, :end_time, overlap: { scope: "room_id", message_title: "既に予約のある時間帯", message_content: "と被っています" }
+  validates :start_time, :end_time, overlap: { scope: "space_id", message_title: "既に予約のある時間帯", message_content: "と被っています" }
   validate :within_business_time
   validate :more_one_hour
   validate :by_fifteen_minutes
@@ -17,16 +17,16 @@ class Reservation < ApplicationRecord
   end
 
   def total_price
-    (end_time - start_time).floor / 1.hour * room.hourly_price
+    (end_time - start_time).floor / 1.hour * space.hourly_price
   end
 
   private
 
   def within_business_time
-    room_business_time = [room&.business_start_time, room&.business_end_time]
+    space_business_time = [space&.business_start_time, space&.business_end_time]
 
-    validates_time :start_time, between: room_business_time
-    validates_time :end_time, between: room_business_time
+    validates_time :start_time, between: space_business_time
+    validates_time :end_time, between: space_business_time
   end
 
   def more_one_hour

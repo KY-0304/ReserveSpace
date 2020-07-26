@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Users::Favorites", type: :request do
   let(:user) { create(:user) }
-  let(:room) { create(:room) }
+  let(:space) { create(:space) }
 
   describe "GET #index" do
     context "ログイン済みの場合" do
@@ -32,7 +32,7 @@ RSpec.describe "Users::Favorites", type: :request do
   end
 
   describe "POSE #create" do
-    let(:params) { { room_id: room.id } }
+    let(:params) { { space_id: space.id } }
 
     context "ログイン済みの場合" do
       before do
@@ -45,9 +45,9 @@ RSpec.describe "Users::Favorites", type: :request do
           expect(response.status).to eq 302
         end
 
-        it "room_pathにリダイレクトする" do
+        it "space_pathにリダイレクトする" do
           post users_favorites_path, params: params
-          expect(response).to redirect_to room_path(room)
+          expect(response).to redirect_to space_path(space)
         end
 
         it "favoriteが登録される" do
@@ -58,7 +58,7 @@ RSpec.describe "Users::Favorites", type: :request do
       end
 
       context "パラメータが不正な場合" do
-        let(:invalid_params) { { room_id: nil } }
+        let(:invalid_params) { { space_id: nil } }
 
         it "例外が発生する" do
           expect do
@@ -84,7 +84,7 @@ RSpec.describe "Users::Favorites", type: :request do
   end
 
   describe "DELETE #destroy" do
-    let!(:favorite) { create(:favorite, user: user, room: room) }
+    let!(:favorite) { create(:favorite, user: user, space: space) }
 
     context "ログイン済みの場合" do
       before do
@@ -96,9 +96,9 @@ RSpec.describe "Users::Favorites", type: :request do
         expect(response.status).to eq 302
       end
 
-      it "room_pathにリダイレクトする" do
+      it "space_pathにリダイレクトする" do
         delete users_favorite_path(favorite)
-        expect(response).to redirect_to room_path(room)
+        expect(response).to redirect_to space_path(space)
       end
 
       it "favoriteが削除される" do

@@ -1,6 +1,6 @@
 class Favorite < ApplicationRecord
   belongs_to :user
-  belongs_to :room
+  belongs_to :space
 
-  validates :user_id, uniqueness: { scope: :room_id }
+  validates :user_id, uniqueness: { scope: :space_id }
 end

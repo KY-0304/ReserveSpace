@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Users::Reservations", type: :request do
-  let(:room) { create(:room) }
+  let(:space) { create(:space) }
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
-  let(:reservation) { create(:reservation, user: user, room: room) }
+  let(:reservation) { create(:reservation, user: user, space: space) }
 
   before { travel_to Time.zone.local(2020, 7, 1, 10) }
 
@@ -38,7 +38,7 @@ RSpec.describe "Users::Reservations", type: :request do
   end
 
   describe "POST #create" do
-    let(:params) { { room_id: room.id, start_time: Time.current, end_time: Time.current.since(1.hour) } }
+    let(:params) { { space_id: space.id, start_time: Time.current, end_time: Time.current.since(1.hour) } }
 
     context "ログイン済みの場合" do
       before do
@@ -51,9 +51,9 @@ RSpec.describe "Users::Reservations", type: :request do
           expect(response.status).to eq 302
         end
 
-        it "room_pathにリダイレクトする" do
+        it "space_pathにリダイレクトする" do
           post users_reservations_path, params: { reservation: params }
-          expect(response).to redirect_to room_path(room)
+          expect(response).to redirect_to space_path(space)
         end
 
         it "reservationが登録される" do
@@ -69,7 +69,7 @@ RSpec.describe "Users::Reservations", type: :request do
       end
 
       context "パラメータが不正な場合" do
-        let(:invalid_params) { { room_id: room.id, start_time: "", end_time: "" } }
+        let(:invalid_params) { { space_id: space.id, start_time: "", end_time: "" } }
 
         it "ステータスコード200を返す" do
           post users_reservations_path, params: { reservation: invalid_params }

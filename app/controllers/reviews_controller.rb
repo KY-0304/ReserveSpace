@@ -5,23 +5,23 @@ class ReviewsController < ApplicationController
     @review = current_user.reviews.build(review_params)
     if @review.save
       flash[:success] = "レビューを投稿しました"
-      redirect_to room_path(params[:room_id])
+      redirect_to space_path(params[:space_id])
     else
-      @room = Room.includes(reviews: :user).find(params[:room_id])
+      @space = Space.includes(reviews: :user).find(params[:space_id])
       @reservation = Reservation.new
-      render 'rooms/show'
+      render 'spaces/show'
     end
   end
 
   def destroy
     review = current_user.reviews.find(params[:id]).destroy!
     flash[:success] = "レビューを削除しました"
-    redirect_to room_path(review.room)
+    redirect_to space_path(review.space)
   end
 
   private
 
   def review_params
-    params.require(:review).permit(:rate, :comment).merge(room_id: params[:room_id])
+    params.require(:review).permit(:rate, :comment).merge(space_id: params[:space_id])
   end
 end

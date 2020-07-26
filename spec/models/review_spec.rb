@@ -4,9 +4,9 @@ RSpec.describe Review, type: :model do
   let!(:review) { create(:review) }
 
   describe "relation" do
-    it "roomを削除するとreviewも削除される" do
+    it "spaceを削除するとreviewも削除される" do
       expect do
-        review.room.destroy
+        review.space.destroy
       end.to change(Review, :count).by(-1)
     end
 
@@ -22,10 +22,10 @@ RSpec.describe Review, type: :model do
       expect(review).to be_valid
     end
 
-    it "room_idが無いと無効" do
-      review.room_id = nil
+    it "space_idが無いと無効" do
+      review.space_id = nil
       review.valid?
-      expect(review.errors.full_messages).to include "会議室を入力してください"
+      expect(review.errors.full_messages).to include "スペースを入力してください"
     end
 
     it "user_idが無いと無効" do

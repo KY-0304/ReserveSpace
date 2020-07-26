@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Owners::Reservations", type: :request do
   let(:owner) { create(:owner) }
-  let(:room) { create(:room, owner: owner) }
-  let(:reservation) { create(:reservation, room: room) }
+  let(:space) { create(:space, owner: owner) }
+  let(:reservation) { create(:reservation, space: space) }
 
   describe "GET #index" do
     context "ログイン済みの場合" do

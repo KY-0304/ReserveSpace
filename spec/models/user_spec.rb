@@ -108,20 +108,20 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "favorite?(room)" do
-    let(:room) { create(:room) }
+  describe "favorite?(space)" do
+    let(:space) { create(:space) }
 
-    context "利用者が会議室をお気に入りしていた場合" do
-      let!(:favorite) { create(:favorite, user: user, room: room) }
+    context "利用者がスペースをお気に入りしていた場合" do
+      let!(:favorite) { create(:favorite, user: user, space: space) }
 
       it "trueを返す" do
-        expect(user.favorite?(room)).to eq true
+        expect(user.favorite?(space)).to eq true
       end
     end
 
-    context "利用者が会議室をお気に入りにしていない場合" do
+    context "利用者がスペースをお気に入りにしていない場合" do
       it "falseを返す" do
-        expect(user.favorite?(room)).to eq false
+        expect(user.favorite?(space)).to eq false
       end
     end
   end
