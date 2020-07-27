@@ -31,12 +31,6 @@ RSpec.describe Space, type: :model do
       expect(space.errors.full_messages).to include "名前を入力してください"
     end
 
-    it "イメージが無いと無効" do
-      space.image = nil
-      space.valid?
-      expect(space.errors.full_messages).to include "イメージを入力してください"
-    end
-
     it "郵便番号が無いと無効" do
       space.postcode = nil
       space.valid?

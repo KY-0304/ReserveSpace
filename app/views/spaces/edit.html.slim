@@ -7,10 +7,11 @@
       = f.text_field :name, autofocus: true
       = f.text_area :description, size: "1x5", placeholder: "スペースの説明文"
       .mb-3
-        = f.label :image, class: "required"
+        = f.label :image
         = f.file_field_without_bootstrap :image, class: "filestyle"
         = f.hidden_field :image_cache
-        = image_tag @space.image.small_thumb.url, class: "img-thumbnail mt-3"
+        - if @space.image?
+          = image_tag @space.image.small_thumb.url, class: "img-thumbnail mt-3"
         = f.check_box :remove_image
       .row
         .col-md-6

@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
     t.bigint "owner_id", null: false
     t.string "name", null: false
     t.text "description"
-    t.string "image", null: false
+    t.string "image"
     t.integer "postcode", null: false
     t.integer "prefecture_code", null: false
     t.string "address_city", null: false

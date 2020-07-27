@@ -11,7 +11,6 @@ class Space < ApplicationRecord
 
   with_options presence: true do
     validates :name
-    validates :image
     validates :postcode
     validates :prefecture_code
     validates :address_city

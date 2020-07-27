@@ -7,7 +7,7 @@
       = f.text_field :name, autofocus: true, placeholder: "スペース名"
       = f.text_area :description, size: "1x5", placeholder: "スペースの説明文"
       .mb-3
-        = f.label :image, class: "required"
+        = f.label :image
         = f.file_field_without_bootstrap :image, class: "filestyle"
         = f.hidden_field :image_cache
         - if @space.image?
