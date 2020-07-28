@@ -3,7 +3,7 @@ FactoryBot.define do
     association :owner
     name { "テスト貸スペース" }
     description { "貸スペースの説明" }
-    image { Rack::Test::UploadedFile.new(File.join(Rails.root, 'public/images/space.jpg')) }
+    images { [Rack::Test::UploadedFile.new(File.join(Rails.root, 'public/images/space.jpg'))] }
     postcode { 1080073 }
     prefecture_code { 13 }
     address_city { "港区" }

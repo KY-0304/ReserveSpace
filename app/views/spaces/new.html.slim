@@ -7,11 +7,12 @@
       = f.text_field :name, autofocus: true, placeholder: "スペース名"
       = f.text_area :description, size: "1x5", placeholder: "スペースの説明文"
       .mb-3
-        = f.label :image
-        = f.file_field_without_bootstrap :image, class: "filestyle", accept: 'image/jpeg,image/png'
-        = f.hidden_field :image_cache
-        - if @space.image?
-          = image_tag @space.image.small_thumb.url, class: "img-thumbnail mt-3"
+        = f.label :images
+        = f.file_field_without_bootstrap :images, class: "filestyle", accept: 'image/jpeg,image/png', multiple: true
+        = f.hidden_field :images_cache
+        - if @space.images?
+          - @space.images.each_index do |i|
+            = image_tag @space.images[i].small_thumb.url, class: "img-thumbnail mt-3"
       .form-row
         .col-md-6
           = f.number_field :postcode, placeholder: "(例)1080073", help: "ハイフン無しで入力してください。", prepend: "〒"

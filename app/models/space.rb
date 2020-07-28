@@ -32,7 +32,7 @@ class Space < ApplicationRecord
   geocoded_by :geocode_address
   after_validation :geocode
 
-  mount_uploader :image, ImageUploader
+  mount_uploaders :images, ImageUploader
 
   # 都道府県名のゲッターメソッド
   def prefecture_name

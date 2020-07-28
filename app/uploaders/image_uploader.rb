@@ -35,9 +35,9 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   # spaceのimageがnilの時、表示する画像
-  def default_url(*args)
-    "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  end
+  # def default_url(*args)
+  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
+  # end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.

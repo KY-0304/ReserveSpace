@@ -18,8 +18,8 @@ ja:
         owner: 掲載者
         name: 名前
         description: 説明
-        image: イメージ
-        remove_image: 登録されているイメージを削除する
+        images: イメージ
+        remove_images: 登録されているイメージを削除する
         postcode: 郵便番号
         prefecture_code: 都道府県
         address_city: 市区町村

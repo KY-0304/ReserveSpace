@@ -7,12 +7,14 @@
       = f.text_field :name, autofocus: true
       = f.text_area :description, size: "1x5", placeholder: "スペースの説明文"
       .mb-3
-        = f.label :image
-        = f.file_field_without_bootstrap :image, class: "filestyle", accept: 'image/jpeg,image/png'
-        = f.hidden_field :image_cache
-        - if @space.image?
-          = image_tag @space.image.small_thumb.url, class: "img-thumbnail mt-3"
-        = f.check_box :remove_image
+        = f.label :images
+        = f.file_field_without_bootstrap :images, class: "filestyle", accept: 'image/jpeg,image/png', multiple: true
+        = f.hidden_field :images_cache
+        - if @space.images?
+          - @space.images.each_index do |i|
+            = image_tag @space.images[i].small_thumb.url, class: "img-thumbnail mt-3"
+            = f.hidden_field :images, multiple: true, value: @space.images[i].identifier
+        = f.check_box :remove_images
       .row
         .col-md-6
           = f.telephone_field :phone_number, placeholder: "(例)03-1234-5678"

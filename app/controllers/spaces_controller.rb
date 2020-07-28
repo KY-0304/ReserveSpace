@@ -48,7 +48,7 @@ class SpacesController < ApplicationController
   private
 
   def space_params
-    params.require(:space).permit(:name, :description, :image, :image_cache, :remove_image, :postcode,
+    params.require(:space).permit(:name, :description, { images: [] }, :images_cache, :remove_images, :postcode,
                                   :prefecture_code, :address_city, :address_street, :address_building,
                                   :phone_number, :hourly_price, :business_start_time, :business_end_time)
   end

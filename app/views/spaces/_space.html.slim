@@ -3,7 +3,10 @@
       = link_to space_path(space), class: "list-group-item list-group-item-action" do
         .row
           .col-4
-            = image_tag space.image.thumb.url, class: "img-fluid"
+            - if space.images?
+              = image_tag space.images[0].thumb.url, class: "img-fluid"
+            - else
+              = image_tag 'thumb_default.png', class: "img-fluid"
           .col-8
             p スペース名: #{space.name}
             p 住所: #{space.full_address}

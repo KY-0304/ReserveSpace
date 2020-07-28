@@ -76,7 +76,7 @@ RSpec.describe "Spaces", type: :system do
     expect(page).to have_content "スペースの編集が完了しました"
     expect(space.name).to eq "アップデートスペース"
     expect(space.description).to eq "アップデート説明"
-    expect(space.image.url).to eq "/uploads_test/space/image/#{space.id}/space.jpg"
+    expect(space.images[0].url).to eq "/uploads_test/space/images/#{space.id}/space.jpg"
     expect(space.phone_number).to eq "080-1111-1111"
     expect(space.hourly_price).to eq 1000
     expect(space.business_start_time.strftime("%H:%M")).to eq "07:00"

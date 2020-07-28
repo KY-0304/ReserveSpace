@@ -1,7 +1,10 @@
 h2.text-center.mb-3 = space.name
 .row
   .col
-    = image_tag space.image.url, class: "img-fluid d-block mx-auto mb-3"
+    - if space.images?
+      = image_tag space.images[0].url, class: "img-fluid d-block mx-auto mb-3"
+    - else
+      = image_tag 'default.png', class: "img-fluid d-block mx-auto mb-3"
   - if user_signed_in?
     .col-md-4
       == render 'spaces/favorite', space: space

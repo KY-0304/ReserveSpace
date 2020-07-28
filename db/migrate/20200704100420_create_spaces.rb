@@ -4,7 +4,7 @@ class CreateSpaces < ActiveRecord::Migration[5.2]
       t.references :owner, foreign_key: true, null: false
       t.string :name, null: false
       t.text :description
-      t.string :image
+      t.json :images
       t.integer :postcode, null: false
       t.integer :prefecture_code, null: false
       t.string :address_city, null: false
