@@ -8,7 +8,7 @@
       = f.text_area :description, size: "1x5", placeholder: "スペースの説明文"
       .mb-3
         = f.label :image
-        = f.file_field_without_bootstrap :image, class: "filestyle"
+        = f.file_field_without_bootstrap :image, class: "filestyle", accept: 'image/jpeg,image/png'
         = f.hidden_field :image_cache
         - if @space.image?
           = image_tag @space.image.small_thumb.url, class: "img-thumbnail mt-3"
