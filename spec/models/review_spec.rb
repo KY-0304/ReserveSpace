@@ -45,6 +45,12 @@ RSpec.describe Review, type: :model do
       review.valid?
       expect(review.errors.full_messages).to include "コメントを入力してください"
     end
+
+    it "コメントが1001文字以上だと無効" do
+      review.comment = "a" * 1001
+      review.valid?
+      expect(review.errors.full_messages).to include "コメントは1000文字以内で入力してください"
+    end
   end
 
   describe "enum" do
