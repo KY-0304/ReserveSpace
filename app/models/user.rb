@@ -3,19 +3,17 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :reservations, dependent: :destroy
-  has_many :favorites, dependent: :destroy
+  has_many :reviews,      dependent: :destroy
+  has_many :favorites,    dependent: :destroy
   has_many :favorite_spaces, through: :favorites, source: :space
-  has_many :reviews, dependent: :destroy
 
   with_options presence: true do
-    validates :name
-    validates :phone_number
+    validates :name,         length: { maximum: 30 }
+    validates :phone_number, format: { with: VALID_PHONE_NUMBER_REGEX }
     validates :gender
   end
 
   validates :email, length: { maximum: 255 }
-  validates :name, length: { maximum: 30 }
-  validates :phone_number, format: { with: VALID_PHONE_NUMBER_REGEX }
   validates :agreement, acceptance: true
 
   enum gender: { unanswered: 0, female: 1, male: 2 }

@@ -4,7 +4,7 @@ class Owner < ApplicationRecord
 
   has_many :spaces, dependent: :destroy
 
-  validates :email, length: { maximum: 255 }
-  validates :company_name, presence: true, uniqueness: true, length: { maximum: 140 }
+  validates :company_name, length: { maximum: 140 }, presence: true, uniqueness: true
+  validates :email,        length: { maximum: 255 }
   validates :agreement, acceptance: true
 end
