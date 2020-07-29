@@ -14,6 +14,12 @@ RSpec.describe User, type: :model do
       expect(user.errors.full_messages).to include "メールアドレスを入力してください"
     end
 
+    it "メールアドレスが256文字以上だと無効" do
+      user.email = "a" * 256
+      user.valid?
+      expect(user.errors.full_messages).to include "メールアドレスは255文字以内で入力してください"
+    end
+
     it "同じメールアドレスは無効" do
       other_user = user.dup
       other_user.valid?
@@ -43,6 +49,12 @@ RSpec.describe User, type: :model do
       user.name = nil
       user.valid?
       expect(user.errors.full_messages).to include "名前を入力してください"
+    end
+
+    it "名前が31文字以上だと無効" do
+      user.name = "a" * 31
+      user.valid?
+      expect(user.errors.full_messages).to include "名前は30文字以内で入力してください"
     end
 
     it "連絡先が無いと無効" do

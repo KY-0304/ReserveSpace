@@ -13,6 +13,8 @@ class User < ApplicationRecord
     validates :gender
   end
 
+  validates :email, length: { maximum: 255 }
+  validates :name, length: { maximum: 30 }
   validates :phone_number, format: { with: VALID_PHONE_NUMBER_REGEX }
   validates :agreement, acceptance: true
 

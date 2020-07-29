@@ -32,6 +32,12 @@ RSpec.describe Owner, type: :model do
       expect(owner.errors.full_messages).to include "メールアドレスを入力してください"
     end
 
+    it "メールアドレスが256文字以上だと無効" do
+      owner.email = "a" * 256
+      owner.valid?
+      expect(owner.errors.full_messages).to include "メールアドレスは255文字以内で入力してください"
+    end
+
     it "同じメールアドレスは無効" do
       other_owner = owner.dup
       other_owner.valid?
