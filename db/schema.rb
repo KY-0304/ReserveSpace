@@ -20,9 +20,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
     t.bigint "space_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["space_id"], name: "index_favorites_on_space_id"
     t.index ["user_id", "space_id"], name: "index_favorites_on_user_id_and_space_id", unique: true
-    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "owners", force: :cascade do |t|
