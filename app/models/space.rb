@@ -5,26 +5,26 @@ class Space < ApplicationRecord
 
   belongs_to :owner
   has_many :reservations, dependent: :destroy
-  has_many :favorites, dependent: :destroy
+  has_many :reviews,      dependent: :destroy
+  has_many :favorites,    dependent: :destroy
   has_many :favorited_users, through: :favorites, source: :user
-  has_many :reviews, dependent: :destroy
 
   with_options presence: true do
-    validates :name
+    validates :name,           length: { maximum: 100 }
+    validates :address_city,   length: { maximum: 20 }
+    validates :address_street, length: { maximum: 30 }
+    validates :phone_number,   format: { with: VALID_PHONE_NUMBER_REGEX }
+    validates :hourly_price,   format: { with: VALID_HOURLY_PRICE_REGEX, message: "は100円単位で設定してください" },
+                               numericality: { only_integer: true, greater_than_or_equal_to: MINIMUM_UNIT_ROOM_PRICE }
     validates :postcode
     validates :prefecture_code
-    validates :address_city
-    validates :address_street
-    validates :phone_number
-    validates :hourly_price
     validates :business_start_time
     validates :business_end_time
   end
 
-  validates :phone_number, format: { with: VALID_PHONE_NUMBER_REGEX }
-  # 料金単価は100円以上、100円単位、整数になるよう検証する
-  validates :hourly_price, numericality: { only_integer: true, greater_than_or_equal_to: MINIMUM_UNIT_ROOM_PRICE },
-                           format: { with: VALID_HOURLY_PRICE_REGEX, message: "は100円単位で設定してください" }
+  validates :description,      length: { maximum: 3000 }
+  validates :address_building, length: { maximum: 50 }
+
   # 営業終了時間が営業開始時間より後になっていることを検証する
   validates_time :business_end_time, after: :business_start_time
 

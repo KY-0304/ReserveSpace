@@ -31,6 +31,18 @@ RSpec.describe Space, type: :model do
       expect(space.errors.full_messages).to include "名前を入力してください"
     end
 
+    it "名前が101文字以上だと無効" do
+      space.name = "a" * 101
+      space.valid?
+      expect(space.errors.full_messages).to include "名前は100文字以内で入力してください"
+    end
+
+    it "説明が3001文字以上だと無効" do
+      space.description = "a" * 3001
+      space.valid?
+      expect(space.errors.full_messages).to include "説明は3000文字以内で入力してください"
+    end
+
     it "郵便番号が無いと無効" do
       space.postcode = nil
       space.valid?
@@ -49,10 +61,28 @@ RSpec.describe Space, type: :model do
       expect(space.errors.full_messages).to include "市区町村を入力してください"
     end
 
+    it "市区町村が21文字以上だと無効" do
+      space.address_city = "a" * 21
+      space.valid?
+      expect(space.errors.full_messages).to include "市区町村は20文字以内で入力してください"
+    end
+
     it "番地が無いと無効" do
       space.address_street = nil
       space.valid?
       expect(space.errors.full_messages).to include "番地を入力してください"
+    end
+
+    it "番地が31文字以上だと無効" do
+      space.address_street = "a" * 31
+      space.valid?
+      expect(space.errors.full_messages).to include "番地は30文字以内で入力してください"
+    end
+
+    it "建物が51文字以上だと無効" do
+      space.address_building = "a" * 51
+      space.valid?
+      expect(space.errors.full_messages).to include "建物は50文字以内で入力してください"
     end
 
     it "連絡先が無いと無効" do
