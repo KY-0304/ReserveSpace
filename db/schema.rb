@@ -66,17 +66,17 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
   create_table "spaces", force: :cascade do |t|
     t.bigint "owner_id", null: false
     t.string "name", null: false
-    t.text "description"
-    t.json "images"
+    t.string "phone_number", null: false
+    t.integer "hourly_price", null: false
+    t.time "business_start_time", null: false
+    t.time "business_end_time", null: false
     t.integer "postcode", null: false
     t.integer "prefecture_code", null: false
     t.string "address_city", null: false
     t.string "address_street", null: false
     t.string "address_building"
-    t.string "phone_number", null: false
-    t.integer "hourly_price", null: false
-    t.time "business_start_time", null: false
-    t.time "business_end_time", null: false
+    t.text "description"
+    t.json "images"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "latitude"
