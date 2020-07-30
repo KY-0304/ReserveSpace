@@ -1,0 +1,17 @@
+#carouselIndicators.carousel.slide data-ride="carousel"
+  ol.carousel-indicators
+    - images.each_index do |i|
+      li data-target="#carouselIndicators" data-slide-to="#{i}" class="#{"active" if i.zero?}"
+
+  .carousel-inner
+    - images.each_with_index do |image, i|
+      div class="carousel-item #{"active" if i.zero?}"
+        = image_tag image.url, class: "d-block w-100"
+
+  a.carousel-control-prev href="#carouselIndicators" role="button" data-slide="prev"
+    span.carousel-control-prev-icon aria-hidden="true"
+    span.sr-only 前に戻る
+
+  a.carousel-control-next href="#carouselIndicators" role="button" data-slide="next"
+    span.carousel-control-next-icon aria-hidden="true"
+    span.sr-only 次に送る
