@@ -1,7 +1,7 @@
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   # space詳細ページ用のサイズ
-  process resize_to_fill: [700, 500]
+  process resize_to_fill: [1920, 1280]
 
   # サムネイル用のサイズ
   version :thumb do
