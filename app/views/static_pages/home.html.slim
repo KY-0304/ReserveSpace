@@ -3,8 +3,8 @@
   p.text-center.text-white.py-4 ReserveSpaceでかんたん予約
 .container
   .row
-    - if @rooms.present?
-      == render @rooms
+    - if @spaces.present?
+      == render @spaces
     - else
-      h2.text-center 登録されている会議室はありません
-  = paginate @rooms
+      h2.text-center 登録されているスペースはありません
+  = paginate @spaces

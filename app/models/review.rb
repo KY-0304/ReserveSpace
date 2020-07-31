@@ -1,7 +1,12 @@
 class Review < ApplicationRecord
-  belongs_to :room
+  belongs_to :space
   belongs_to :user
 
-  validates :rate, presence: true, numericality: { less_than_or_equal_to: 5, greater_than: 0 }
-  validates :comment, presence: true, length: { maximum: 100 }
+  with_options presence: true do
+    validates :rate
+    validates :comment
+  end
+  validates :comment, length: { maximum: 1000 }
+
+  enum rate: { very_good: 0, good: 1, normal: 2, bad: 3, very_bad: 4 }
 end

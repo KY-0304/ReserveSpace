@@ -1,7 +1,7 @@
 #map
 javascript:
   function initMap() {
-    let centerPoint = { lat: #{room.latitude}, lng: #{room.longitude} }
+    let centerPoint = { lat: #{space.latitude}, lng: #{space.longitude} }
     let map = new google.maps.Map(document.getElementById('map'), {
       center: centerPoint,
       zoom: 16,

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, module: 'users'
 
   root 'static_pages#home'
-  resources :rooms do
+  resources :spaces do
     resources :reviews, only: [:create, :destroy], shallow: true
   end
   namespace :owners do

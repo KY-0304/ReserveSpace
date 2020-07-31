@@ -1,13 +1,13 @@
-// room住所自動補完
+// space住所自動補完
 $(window).ready(function () {
-  $('#room_postcode').jpostal({
+  $('#space_postcode').jpostal({
     postcode: [
-      '#room_postcode',
+      '#space_postcode',
     ],
     address: {
-      '#room_prefecture_code': '%3',
-      '#room_address_city': '%4',
-      '#room_address_street': '%5%6%7'
+      '#space_prefecture_code': '%3',
+      '#space_address_city': '%4',
+      '#space_address_street': '%5%6%7'
     }
   });
 });

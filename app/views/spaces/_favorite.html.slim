@@ -2,11 +2,11 @@
   .card-header
     h4.text-center お気に入り
   .card-body
-    p.text-center #{room.favorites.size}人がお気に入り登録してます
-    - if current_user.favorite?(room)
-      = form_with url: users_favorite_path(current_user.favorites.find_by(room_id: room.id)), method: :delete do |f|
+    p.text-center #{space.favorites.size}人がお気に入り登録してます
+    - if current_user.favorite?(space)
+      = form_with url: users_favorite_path(current_user.favorites.find_by(space_id: space.id)), method: :delete do |f|
         = f.submit "お気に入り削除", class: "btn btn-outline-danger"
     - else
       = form_with url: users_favorites_path, method: :post do |f|
-        = f.hidden_field :room_id, value: room.id
+        = f.hidden_field :space_id, value: space.id
         = f.submit "お気に入り登録", class: "btn btn-outline-success"

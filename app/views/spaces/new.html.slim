@@ -1,17 +1,18 @@
-= provide(:title, "会議室登録")
+= provide(:title, "スペース登録")
 .container.p-4
   .w-50.mx-auto
-    h2.text-center 会議室登録
-    = bootstrap_form_with model: @room, local: true, inline_errors: false do |f|
+    h2.text-center スペース登録
+    = bootstrap_form_with model: @space, local: true, inline_errors: false do |f|
       = f.alert_message "以下のエラーが発生しました："
-      = f.text_field :name, autofocus: true, placeholder: "会議室名"
-      = f.text_area :description, size: "1x5", placeholder: "会議室の説明文"
+      = f.text_field :name, autofocus: true, placeholder: "スペース名"
+      = f.text_area :description, size: "1x5", placeholder: "スペースの説明文"
       .mb-3
-        = f.label :image, class: "required"
-        = f.file_field_without_bootstrap :image, class: "filestyle"
-        = f.hidden_field :image_cache
-        - if @room.image?
-          = image_tag @room.image.small_thumb.url, class: "img-thumbnail mt-3"
+        = f.label :images
+        = f.file_field_without_bootstrap :images, class: "filestyle", accept: 'image/jpeg,image/png', multiple: true
+        = f.hidden_field :images_cache
+        - if @space.images?
+          - @space.images.each_index do |i|
+            = image_tag @space.images[i].small_thumb.url, class: "img-thumbnail mt-3"
       .form-row
         .col-md-6
           = f.number_field :postcode, placeholder: "(例)1080073", help: "ハイフン無しで入力してください。", prepend: "〒"

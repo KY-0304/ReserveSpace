@@ -1,0 +1,30 @@
+= provide(:title, "スペース編集")
+.container.p-4
+  .w-50.mx-auto
+    h2.text-center スペース編集
+    = bootstrap_form_with model: @space, local: true, inline_errors: false do |f|
+      = f.alert_message "以下のエラーが発生しました："
+      = f.text_field :name, autofocus: true
+      = f.text_area :description, size: "1x5", placeholder: "スペースの説明文"
+      .mb-3
+        = f.label :images
+        = f.file_field_without_bootstrap :images, class: "filestyle", accept: 'image/jpeg,image/png', multiple: true
+        = f.hidden_field :images_cache
+        - if @space.images?
+          - @space.images.each_index do |i|
+            = image_tag @space.images[i].small_thumb.url, class: "img-thumbnail mt-3"
+            = f.hidden_field :images, multiple: true, value: @space.images[i].identifier
+        = f.check_box :remove_images
+      .row
+        .col-md-6
+          = f.telephone_field :phone_number, placeholder: "(例)03-1234-5678"
+        .col-md-6
+          = f.number_field :hourly_price, placeholder: "(例)1000", append: "円/時間(税込)", step: 100
+        .col-md-6
+          = f.time_select :business_start_time
+        .col-md-6
+          = f.time_select :business_end_time
+      = f.submit "変更", class: "btn btn-success btn-block"
+    .w-50.mx-auto.mt-5
+      = link_to "スペース削除", @space, data: { confirm: "スペースを削除します。本当によろしいでしょうか。" },
+                                       method: :delete, class: "btn btn-danger btn-sm btn-block"

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe "validation" do
-    let(:user) { create(:user) }
+  let(:user) { create(:user) }
 
+  describe "validation" do
     it "有効なファクトリを持つこと" do
       expect(user).to be_valid
     end
@@ -12,6 +12,12 @@ RSpec.describe User, type: :model do
       user.email = nil
       user.valid?
       expect(user.errors.full_messages).to include "メールアドレスを入力してください"
+    end
+
+    it "メールアドレスが256文字以上だと無効" do
+      user.email = "a" * 256
+      user.valid?
+      expect(user.errors.full_messages).to include "メールアドレスは255文字以内で入力してください"
     end
 
     it "同じメールアドレスは無効" do
@@ -43,6 +49,12 @@ RSpec.describe User, type: :model do
       user.name = nil
       user.valid?
       expect(user.errors.full_messages).to include "名前を入力してください"
+    end
+
+    it "名前が31文字以上だと無効" do
+      user.name = "a" * 31
+      user.valid?
+      expect(user.errors.full_messages).to include "名前は30文字以内で入力してください"
     end
 
     it "連絡先が無いと無効" do
@@ -83,21 +95,45 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "favorite?(room)" do
-    let(:user) { create(:user) }
-    let(:room) { create(:room) }
+  describe "enum" do
+    context "genderが0〜2の時" do
+      let(:enum) { { unanswered: 0, female: 1, male: 2 } }
 
-    context "利用者が会議室をお気に入りしていた場合" do
-      let!(:favorite) { create(:favorite, user: user, room: room) }
-
-      it "trueを返す" do
-        expect(user.favorite?(room)).to eq true
+      it "enumを返す" do
+        enum.each do |key, value|
+          user.gender = value
+          expect(user.gender).to eq key.to_s
+        end
       end
     end
 
-    context "利用者が会議室をお気に入りにしていない場合" do
+    context "genderが0~2以外の時" do
+      let(:invalid_enum) { [-1, 1.1, 3] }
+
+      it "例外が発生する" do
+        invalid_enum.each do |n|
+          expect do
+            user.gender = n
+          end.to raise_error(ArgumentError)
+        end
+      end
+    end
+  end
+
+  describe "favorite?(space)" do
+    let(:space) { create(:space) }
+
+    context "利用者がスペースをお気に入りしていた場合" do
+      let!(:favorite) { create(:favorite, user: user, space: space) }
+
+      it "trueを返す" do
+        expect(user.favorite?(space)).to eq true
+      end
+    end
+
+    context "利用者がスペースをお気に入りにしていない場合" do
       it "falseを返す" do
-        expect(user.favorite?(room)).to eq false
+        expect(user.favorite?(space)).to eq false
       end
     end
   end

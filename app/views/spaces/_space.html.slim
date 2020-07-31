@@ -1,0 +1,14 @@
+.col-lg-6
+  .list-group.my-3 id="space-#{space.id}"
+      = link_to space_path(space), class: "list-group-item list-group-item-action" do
+        .row
+          .col-4
+            - if space.images?
+              = image_tag space.images[0].thumb.url, class: "img-fluid"
+            - else
+              = image_tag 'thumb_default.png', class: "img-fluid"
+          .col-8
+            p スペース名: #{space.name}
+            p 住所: #{space.full_address}
+            p 料金: #{space.hourly_price}円/時間
+            p 営業時間: #{space.business_time}
