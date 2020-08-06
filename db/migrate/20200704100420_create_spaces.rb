@@ -13,7 +13,7 @@ class CreateSpaces < ActiveRecord::Migration[5.2]
       t.string     :address_street,      null: false
       t.string     :address_building
       t.text       :description
-      t.json       :images
+      t.jsonb      :images
 
       t.timestamps
     end
