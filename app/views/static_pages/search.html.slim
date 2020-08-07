@@ -1,0 +1,9 @@
+== render 'jumbotron'
+== render 'search_form'
+.container
+  .row
+    - if @result_spaces.present?
+      == render @result_spaces
+    - else
+      h2.text-center.mx-auto.mt-5 条件に一致したスペースはありません
+  = paginate @result_spaces

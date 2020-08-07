@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
     t.string "address_street", null: false
     t.string "address_building"
     t.text "description"
-    t.json "images"
+    t.jsonb "images"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "latitude"
