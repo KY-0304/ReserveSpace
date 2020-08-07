@@ -63,9 +63,11 @@ class Space < ApplicationRecord
 
   # 与えられた時間範囲と予約が重複していないスペースと１つも予約を持たないスペースを返す
   scope :does_not_have_reservations_in_time_range, -> (start_time, end_time) {
-    left_outer_joins(:reservations).distinct.
-      where.not("tstzrange(reservations.start_time, reservations.end_time, '[]') && tstzrange(?, ?, '[]')", start_time, end_time).
-      or(does_not_have_reservations) if start_time.present? && end_time.present?
+    if start_time.present? && end_time.present?
+      left_outer_joins(:reservations).distinct.where.
+        not("tstzrange(reservations.start_time, reservations.end_time, '[]') && tstzrange(?, ?, '[]')", start_time, end_time).
+        or(does_not_have_reservations)
+    end
   }
 
   scope :does_not_have_reservations, -> {

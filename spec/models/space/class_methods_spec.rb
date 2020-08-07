@@ -60,7 +60,9 @@ RSpec.describe Space, type: :model do
       let!(:hit_space)   { create(:space) }
       let(:no_hit_space) { create(:space) }
       let(:reservation) do
-        create(:reservation, space: no_hit_space, start_time: "2020-07-01 12:00:00".in_time_zone, end_time: "2020-07-01 13:00:00".in_time_zone)
+        create(:reservation, space: no_hit_space,
+                             start_time: "2020-07-01 12:00:00".in_time_zone,
+                             end_time: "2020-07-01 13:00:00".in_time_zone)
       end
 
       before do
@@ -80,10 +82,14 @@ RSpec.describe Space, type: :model do
       let(:hit_space2)   { create(:space) }
       let(:no_hit_space) { create(:space) }
       let(:hit_space2_reservation) do
-        create(:reservation, space: hit_space2, start_time: "2020-07-01 11:00:00".in_time_zone, end_time: "2020-07-01 13:00:00".in_time_zone)
+        create(:reservation, space: hit_space2,
+                             start_time: "2020-07-01 11:00:00".in_time_zone,
+                             end_time: "2020-07-01 13:00:00".in_time_zone)
       end
       let(:no_hit_space_reservation) do
-        create(:reservation, space: no_hit_space, start_time: "2020-07-01 14:00:00".in_time_zone, end_time: "2020-07-01 16:00:00".in_time_zone)
+        create(:reservation, space: no_hit_space,
+                             start_time: "2020-07-01 14:00:00".in_time_zone,
+                             end_time: "2020-07-01 16:00:00".in_time_zone)
       end
 
       before do
@@ -97,9 +103,9 @@ RSpec.describe Space, type: :model do
 
       context "引数が妥当な場合" do
         it "引数の時間帯に予約を持たないスペースと予約を１つも持たないスペースを返す" do
-          start_datetime = "2020-07-01 14:00:00".in_time_zone
-          end_datetime   = "2020-07-01 15:00:00".in_time_zone
-          expect(Space.does_not_have_reservations_in_time_range(start_datetime, end_datetime)).to match_array [hit_space1, hit_space2]
+          start_time = "2020-07-01 14:00:00".in_time_zone
+          end_time   = "2020-07-01 15:00:00".in_time_zone
+          expect(Space.does_not_have_reservations_in_time_range(start_time, end_time)).to match_array [hit_space1, hit_space2]
         end
       end
 

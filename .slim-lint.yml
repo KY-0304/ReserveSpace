@@ -37,3 +37,4 @@ linters:
       - Style/WhileUntilModifier
       - Layout/TrailingBlankLines
       - Layout/AlignHash
+      - Layout/AlignArguments
