@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Users::Reservations", type: :request do
-  let(:space) { create(:space) }
-  let(:user) { create(:user) }
-  let(:other_user) { create(:user) }
+  let(:space)       { create(:space) }
+  let(:user)        { create(:user) }
+  let(:other_user)  { create(:user) }
   let(:reservation) { create(:reservation, user: user, space: space) }
 
   before { travel_to Time.zone.local(2020, 7, 1, 10) }
@@ -25,6 +25,35 @@ RSpec.describe "Users::Reservations", type: :request do
     context "ログインしていない場合" do
       before do
         get users_reservations_path
+      end
+
+      it "ステータスコード302を返す" do
+        expect(response.status).to eq 302
+      end
+
+      it "new_user_session_pathにリダイレクトする" do
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
+
+  describe "GET #new" do
+    let(:params) { { space_id: space.id, start_time: Time.current, end_time: Time.current.since(1.hour) } }
+
+    context "ログイン済みの場合" do
+      before do
+        sign_in user
+        get new_users_reservation_path, params: { reservation: params }
+      end
+
+      it "ステータスコード200を返す" do
+        expect(response.status).to eq 200
+      end
+    end
+
+    context "ログインしていない場合" do
+      before do
+        get new_users_reservation_path, params: { reservation: params }
       end
 
       it "ステータスコード302を返す" do
@@ -64,7 +93,7 @@ RSpec.describe "Users::Reservations", type: :request do
 
         it "フラッシュを返す" do
           post users_reservations_path, params: { reservation: params }
-          expect(flash[:success]).to eq "予約が完了しました"
+          expect(flash[:notice]).to eq "予約が完了しました"
         end
       end
 
@@ -129,7 +158,7 @@ RSpec.describe "Users::Reservations", type: :request do
 
       it "フラッシュを返す" do
         delete users_reservation_path(reservation)
-        expect(flash[:success]).to eq "予約の削除が完了しました。"
+        expect(flash[:notice]).to eq "予約の削除が完了しました。"
       end
     end
 
