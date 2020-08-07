@@ -1,0 +1,16 @@
+.container.py-4
+  .w-75.mx-auto
+    = bootstrap_form_with scope: :search, url: search_path, method: :get, local: true do |f|
+      .form-row
+        .col-4
+          = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name,
+            prompt: "選択してください", selected: @search_params[:prefecture_code], label: "都道府県"
+        .col-8
+          = f.text_field :address_keyword, placeholder: "(例)港区三田1-1-1", value: @search_params[:address_keyword], label: "住所"
+        .col-4
+          = f.datetime_field :start_datetime, value: @search_params[:start_datetime], label: "利用開始日時"
+        .col-4
+          = f.number_field :times, value: @search_params[:times], append: "時間", label: "利用時間数"
+        .col-4
+          = f.number_field :hourly_price, value: @search_params[:hourly_price], append: "円/時間以下", step: 100, label: "時間単価"
+      = f.submit "検索", class: "btn btn-success mt-3"
