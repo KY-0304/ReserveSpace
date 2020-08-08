@@ -22,4 +22,13 @@ class User < ApplicationRecord
   def favorite?(space)
     favorite_spaces.include?(space)
   end
+
+  def self.guest
+    find_or_create_by!(email: "guest@example.com") do |user|
+      user.name = "ゲストユーザー"
+      user.password = "password"
+      user.phone_number = "080-1111-1111"
+      user.gender = :male
+    end
+  end
 end
