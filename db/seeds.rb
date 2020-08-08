@@ -1,38 +1,46 @@
+# オーナー作成
 Owner.create!(email: "hoge@example.com",
-              company_name: "四菱地所プロパティマネジメント",
+              company_name: "Hoge株式会社",
               password: "password",
               password_confirmation: "password")
 
+# スペース作成
 owner = Owner.first
+description = <<-EOS
+JR田町駅三田口から5分！三田駅A3出口から4分！
+レイアウト変更が可能な可動式のホワイトボード完備
+コンパクトで清潔な会議室です。
+EOS
+images = [open('./public/images/space1.jpg'), open('./public/images/space2.jpg'), open('./public/images/space3.jpg'), open('./public/images/space4.jpg')]
+postcode = 1080073
+prefecture_code = 13
+city = "港区"
+street = "三田1-1-1"
+building = "ReserveSpaceビル"
+phone_number = "03-1234-5678"
+business_start_time = "09:00"
+business_end_time = "21:00"
 
-6.times do
-  owner.spaces.create!(name: "四田国際ビル地下１階スペース",
-                      description: "JR新宿駅新南口から1分！新宿三丁目駅E6出口から徒歩30秒！
-                                    新宿高島屋の目の前で1階にファミリーマートがあって超便利！
-                                    24時間いつでも利用可能最大10名ご利用可能な完全個室。
-                                    レイアウト変更が可能な可動式のホワイトボード完備コンパクトで清潔なスペースです。",
-                      images: [open('./public/images/space.jpg')],
-                      postcode: "1080073",
-                      prefecture_code: "13",
-                      address_city: "港区",
-                      address_street: "三田1-1-1",
-                      address_building: "四田国際ビル",
-                      phone_number: "03-1234-5678",
-                      hourly_price: "1000",
-                      business_start_time: "09:00",
-                      business_end_time: "21:00")
+
+11.times do |i|
+  owner.spaces.create!(name: "#{building}#{i + 1}階会議室",
+                      description: description,
+                      images: images.shuffle,
+                      postcode: postcode,
+                      prefecture_code: prefecture_code,
+                      address_city: city,
+                      address_street: street,
+                      address_building: "#{building}#{i + 1}階",
+                      phone_number: phone_number,
+                      hourly_price: (i + 1) * 1000,
+                      business_start_time: business_start_time,
+                      business_end_time: business_end_time)
 end
 
+# ユーザー作成
 User.create!(email: "fuga@example.com",
              name: "山田太郎",
              phone_number: "080-1234-1234",
              gender: :male,
              password: "password",
              password_confirmation: "password")
-
-# 5.times do |n|
-#   Owner.create!(email: "test#{n}@example.com",
-#                 company_name: "テスト#{n}株式会社",
-#                 password: "password",
-#                 password_confirmation: "password")
-# end

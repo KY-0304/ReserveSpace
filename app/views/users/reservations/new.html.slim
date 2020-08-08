@@ -1,0 +1,25 @@
+= provide(:title, "予約内容の確認")
+
+.container.p-5
+  h1.text-center.mb-5 予約内容の確認
+  p.text-center.font-weight-bold.mb-3 下記の内容で予約登録をします。
+
+  .w-75.mx-auto
+    = form_with model: @reservation, url: users_reservations_path, local: true do |f|
+      table.table.table-hover
+        tbody
+          tr
+            th scope="row" スペース名
+            td = @reservation.space.name
+            = f.hidden_field :space_id
+          tr
+            th scope="row" 利用開始時間
+            td = l(@reservation.start_time)
+            = f.hidden_field :start_time
+          tr
+            th scope="row" 利用終了時間
+            td = l(@reservation.end_time)
+            = f.hidden_field :end_time
+
+      = f.submit "戻る", name: "back", class: "btn btn-secondary mr-3"
+      = f.submit "登録", class: "btn btn-success"

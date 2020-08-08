@@ -261,7 +261,7 @@ ja:
   time:
     am: 午前
     formats:
-      default: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
+      default: "%Y年%m月%d日(%a) %H時%M分"
       long: "%Y/%m/%d %H:%M"
       semi_long: "%Y/%m/%d"
       short: "%m/%d %H:%M"

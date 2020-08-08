@@ -15,7 +15,7 @@
       - @spaces.each do |space|
         - space.reservations.each do |reservation|
           tr
-            th = link_to reservation.space.name, reservation.space
+            td = link_to reservation.space.name, reservation.space
             td = l(reservation.start_time, format: :semi_long)
             td = reservation.reservation_time
             td = number_to_currency(reservation.total_price)

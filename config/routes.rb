@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :reservations, only: :index, shallow: true
   end
   namespace :users do
-    resources :reservations, only: [:index, :create, :destroy], shallow: true
+    resources :reservations, only: [:index, :new, :create, :destroy], shallow: true
     resources :favorites, only: [:index, :create, :destroy], shallow: true
   end
 

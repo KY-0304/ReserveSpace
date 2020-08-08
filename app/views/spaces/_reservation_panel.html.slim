@@ -2,9 +2,12 @@
   = date.day
   - reservations.each do |reservation|
     small.d-block #{reservation.reservation_time} 予約有
-= bootstrap_form_with model: reservation, url: users_reservations_path, local: true, inline_errors: false do |f|
+
+- now = Time.current
+
+= bootstrap_form_with model: reservation, url: new_users_reservation_path, method: :get, local: true, inline_errors: false do |f|
   = f.alert_message "以下のエラーが発生しました："
   = f.hidden_field :space_id, value: space.id
-  = f.datetime_select :start_time, minute_step: 15, start_year: Time.current.year, end_year: Time.current.next_year.year
-  = f.datetime_select :end_time, minute_step: 15, start_year: Time.current.year, end_year: Time.current.next_year.year
-  = f.submit "予約", class: "btn btn-primary"
+  = f.datetime_select :start_time, minute_step: 15, start_year: now.year, end_year: now.next_year.year
+  = f.datetime_select :end_time,   minute_step: 15, start_year: now.year, end_year: now.next_year.year
+  = f.submit "予約確認画面へ", class: "btn btn-primary"
