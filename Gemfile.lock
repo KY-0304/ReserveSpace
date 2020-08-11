@@ -33,6 +33,8 @@ GEM
       activemodel (= 5.2.4.3)
       activesupport (= 5.2.4.3)
       arel (>= 9.0)
+    activerecord-import (1.0.6)
+      activerecord (>= 3.2)
     activestorage (5.2.4.3)
       actionpack (= 5.2.4.3)
       activerecord (= 5.2.4.3)
@@ -115,6 +117,8 @@ GEM
       railties (>= 5.0.0)
     ffi (1.13.1)
     geocoder (1.6.3)
+    gimei (0.5.1)
+      romaji
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hpricot (0.8.6)
@@ -229,6 +233,8 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    romaji (0.2.4)
+      rake (>= 0.8.0)
     rspec-core (3.9.2)
       rspec-support (~> 3.9.3)
     rspec-expectations (3.9.2)
@@ -349,6 +355,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-import
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.5.0)
   bootstrap_form (~> 4.0)
@@ -363,6 +370,7 @@ DEPENDENCIES
   enum_help
   factory_bot_rails
   geocoder
+  gimei
   html2slim
   jbuilder (~> 2.5)
   jp_prefecture

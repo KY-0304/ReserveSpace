@@ -44,9 +44,9 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
     t.datetime "end_time", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["end_time"], name: "index_reservations_on_end_time", unique: true
+    t.index ["space_id", "end_time"], name: "index_reservations_on_space_id_and_end_time", unique: true
+    t.index ["space_id", "start_time"], name: "index_reservations_on_space_id_and_start_time", unique: true
     t.index ["space_id"], name: "index_reservations_on_space_id"
-    t.index ["start_time"], name: "index_reservations_on_start_time", unique: true
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 

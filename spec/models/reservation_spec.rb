@@ -133,4 +133,19 @@ RSpec.describe Reservation, type: :model do
       expect(reservation.total_price).to eq 3000
     end
   end
+
+  describe "duplication_in_time_range" do
+    let!(:reservation1) { create(:reservation, space: space, user: user, start_time: time1, end_time: time2) }
+    let!(:reservation2) { create(:reservation, space: space, user: user, start_time: time3, end_time: time4) }
+    let(:time1) { "2020-07-01 12:00:00".in_time_zone }
+    let(:time2) { "2020-07-01 14:00:00".in_time_zone }
+    let(:time3) { "2020-07-01 15:00:00".in_time_zone }
+    let(:time4) { "2020-07-01 17:00:00".in_time_zone }
+
+    it "start_timeとend_timeの時間範囲が引数の時間範囲と重複している予約を返す" do
+      expect(Reservation.duplication_in_time_range(time1, time2)).to match_array [reservation1]
+      expect(Reservation.duplication_in_time_range(time1, time3)).to match_array [reservation1, reservation2]
+      expect(Reservation.duplication_in_time_range(time1, time4)).to match_array [reservation1, reservation2]
+    end
+  end
 end
