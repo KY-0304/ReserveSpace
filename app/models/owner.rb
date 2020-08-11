@@ -10,7 +10,7 @@ class Owner < ApplicationRecord
 
   def self.guest
     find_or_create_by!(email: "guest@example.com") do |owner|
-      owner.company_name = "ゲストオーナー"
+      owner.company_name = "ReserveSpace株式会社"
       owner.password = "password"
     end
   end
