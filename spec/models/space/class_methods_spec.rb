@@ -56,27 +56,6 @@ RSpec.describe Space, type: :model do
       end
     end
 
-    describe "does_not_have_reservations" do
-      let!(:hit_space)   { create(:space) }
-      let(:no_hit_space) { create(:space) }
-      let(:reservation) do
-        create(:reservation, space: no_hit_space,
-                             start_time: "2020-07-01 12:00:00".in_time_zone,
-                             end_time: "2020-07-01 13:00:00".in_time_zone)
-      end
-
-      before do
-        travel_to Time.zone.local(2020, 7, 1, 10)
-        reservation
-      end
-
-      after { travel_back }
-
-      it "予約を１つも持たないスペースを返す" do
-        expect(Space.does_not_have_reservations).to eq [hit_space]
-      end
-    end
-
     describe "does_not_have_reservations_in_time_range" do
       let(:hit_space1)   { create(:space) }
       let(:hit_space2)   { create(:space) }

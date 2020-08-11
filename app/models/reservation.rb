@@ -27,6 +27,11 @@ class Reservation < ApplicationRecord
   # 開始時間、終了時間が15分単位であることを検証する
   validate :by_fifteen_minutes
 
+  # 与えられた日時の範囲とstart_time, end_timeの範囲が重複している予約を返す
+  scope :duplication_in_time_range, -> (start_time, end_time) {
+    where("tstzrange(start_time, end_time, '[]') && tstzrange(?, ?, '[]')", start_time, end_time)
+  }
+
   # 予約時間をわかりやすく表示する
   def reservation_time
     "#{I18n.l(start_time, format: :very_short)}~#{I18n.l(end_time, format: :very_short)}"

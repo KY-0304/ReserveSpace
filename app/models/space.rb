@@ -61,17 +61,12 @@ class Space < ApplicationRecord
     where(prefecture_code: prefecture_code) if prefecture_code.present?
   }
 
-  # 与えられた時間範囲と予約が重複していないスペースと１つも予約を持たないスペースを返す
+  # 与えられた日時に予約が無いスペースを返す
   scope :does_not_have_reservations_in_time_range, -> (start_time, end_time) {
     if start_time.present? && end_time.present?
-      left_outer_joins(:reservations).distinct.where.
-        not("tstzrange(reservations.start_time, reservations.end_time, '[]') && tstzrange(?, ?, '[]')", start_time, end_time).
-        or(does_not_have_reservations)
+      ids = Reservation.duplication_in_time_range(start_time, end_time).pluck(:space_id)
+      where.not(id: ids)
     end
-  }
-
-  scope :does_not_have_reservations, -> {
-    left_outer_joins(:reservations).distinct.where(reservations: { id: nil })
   }
 
   # 都道府県名のゲッターメソッド
