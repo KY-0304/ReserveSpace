@@ -8,7 +8,7 @@ class CreateReservations < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
-    add_index :reservations, :start_time, unique: true
-    add_index :reservations, :end_time,   unique: true
+    add_index :reservations, [:space_id, :start_time], unique: true
+    add_index :reservations, [:space_id, :end_time],   unique: true
   end
 end
