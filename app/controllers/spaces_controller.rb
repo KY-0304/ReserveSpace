@@ -19,8 +19,7 @@ class SpacesController < ApplicationController
   def create
     @space = current_owner.spaces.build(space_params)
     if @space.save
-      flash[:success] = "スペースの登録を完了しました"
-      redirect_to spaces_path
+      redirect_to spaces_path, notice: "スペースの登録を完了しました"
     else
       render :new
     end
@@ -31,8 +30,7 @@ class SpacesController < ApplicationController
 
   def update
     if @space.update_attributes(space_params)
-      flash[:success] = "スペースの編集が完了しました"
-      redirect_to spaces_path
+      redirect_to spaces_path, notice: "スペースの編集が完了しました"
     else
       render :edit
     end

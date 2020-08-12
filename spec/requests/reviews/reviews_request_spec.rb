@@ -31,7 +31,7 @@ RSpec.describe "Reviews", type: :request do
 
         it "フラッシュを返す" do
           post space_reviews_path(space), params: { review: params }
-          expect(flash[:success]).to eq "レビューを投稿しました"
+          expect(flash[:notice]).to eq "レビューを投稿しました"
         end
       end
 
