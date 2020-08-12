@@ -1,4 +1,5 @@
 class Space < ApplicationRecord
+  before_destroy :check_all_reservations_finished
   # jp_prefectureの都道府県コードを使用する
   include JpPrefecture
   jp_prefecture :prefecture_code
@@ -94,5 +95,13 @@ class Space < ApplicationRecord
   # geocoderで緯度、経度を計算する為のメソッド
   def geocode_address
     [prefecture_name, address_city, address_street, address_building].compact.join(', ')
+  end
+
+  def check_all_reservations_finished
+    if reservations.where("start_time > ?", Time.current).exists?
+      errors[:base] << "予約があるスペースは、削除できません。"
+    end
+
+    throw(:abort) unless errors.empty?
   end
 end

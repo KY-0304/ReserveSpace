@@ -1,5 +1,6 @@
 class SpacesController < ApplicationController
   before_action :authenticate_owner!, except: :show
+  before_action :set_space, only: [:edit, :update, :destroy]
 
   def index
     @spaces = current_owner.spaces.page(params[:page]).per(10)
@@ -26,11 +27,9 @@ class SpacesController < ApplicationController
   end
 
   def edit
-    @space = current_owner.spaces.find(params[:id])
   end
 
   def update
-    @space = current_owner.spaces.find(params[:id])
     if @space.update_attributes(space_params)
       flash[:success] = "スペースの編集が完了しました"
       redirect_to spaces_path
@@ -40,9 +39,11 @@ class SpacesController < ApplicationController
   end
 
   def destroy
-    current_owner.spaces.find(params[:id]).destroy!
-    flash[:success] = "スペースの削除が完了しました"
-    redirect_to spaces_path
+    if @space.destroy
+      redirect_to spaces_path, notice: "スペースの削除が完了しました"
+    else
+      render :edit
+    end
   end
 
   private
@@ -51,5 +52,9 @@ class SpacesController < ApplicationController
     params.require(:space).permit(:name, :description, { images: [] }, :images_cache, :remove_images, :postcode,
                                   :prefecture_code, :address_city, :address_street, :address_building,
                                   :phone_number, :hourly_price, :business_start_time, :business_end_time)
+  end
+
+  def set_space
+    @space = current_owner.spaces.find(params[:id])
   end
 end
