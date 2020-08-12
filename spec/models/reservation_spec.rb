@@ -15,9 +15,12 @@ RSpec.describe Reservation, type: :model do
     before { reservation.save }
 
     it "spaceを削除するとreservationも削除される" do
-      expect do
-        space.destroy
-      end.to change(Reservation, :count).by(-1)
+      travel_back
+      travel_to Time.zone.local(2020, 7, 2, 10) do
+        expect do
+          space.destroy
+        end.to change(Reservation, :count).by(-1)
+      end
     end
 
     it "userを削除するとreservationも削除される" do
