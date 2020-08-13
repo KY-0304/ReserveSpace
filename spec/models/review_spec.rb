@@ -1,9 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe Review, type: :model do
-  let!(:review) { create(:review) }
+  let(:used_space)        { create(:space) }
+  let(:did_not_use_space) { create(:space) }
+  let(:user)              { create(:user) }
+  let!(:reservation)      { create(:reservation, :skip_validate, space: used_space, user: user, end_time: Time.current - 1.hour) }
+  let(:review)            { build(:review, space: used_space, user: user) }
 
-  describe "relation" do
+  describe "association" do
+    before do
+      review.save
+    end
+
     it "spaceを削除するとreviewも削除される" do
       expect do
         review.space.destroy
@@ -50,6 +58,12 @@ RSpec.describe Review, type: :model do
       review.comment = "a" * 1001
       review.valid?
       expect(review.errors.full_messages).to include "コメントは1000文字以内で入力してください"
+    end
+
+    it "利用したことのないスペースのレビュー投稿は無効" do
+      review.space_id = did_not_use_space.id
+      review.valid?
+      expect(review.errors.full_messages).to include "利用したことの無いスペースにレビューを投稿することはできません。"
     end
   end
 

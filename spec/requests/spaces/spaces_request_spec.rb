@@ -97,7 +97,7 @@ RSpec.describe "Spaces", type: :request do
 
         it "フラッシュを返す" do
           post spaces_path, params: { space: params }
-          expect(flash[:success]).to eq "スペースの登録を完了しました"
+          expect(flash[:notice]).to eq "スペースの登録を完了しました"
         end
       end
 
@@ -188,7 +188,7 @@ RSpec.describe "Spaces", type: :request do
         end
 
         it "フラッシュを返す" do
-          expect(flash[:success]).to eq "スペースの編集が完了しました"
+          expect(flash[:notice]).to eq "スペースの編集が完了しました"
         end
       end
 
