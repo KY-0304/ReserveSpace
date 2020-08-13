@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Reviews", type: :request do
-  let(:user) { create(:user) }
-  let(:space) { create(:space) }
+  let(:user)         { create(:user) }
+  let(:space)        { create(:space) }
+  let!(:reservation) { create(:reservation, :skip_validate, space: space, user: user, end_time: Time.current - 1.hour) }
 
   describe "POST #create" do
     let(:params) { { user: user, space_id: space.id, rate: :very_good, comment: "テストコメント" } }
