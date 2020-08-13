@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Favorite, type: :model do
   let!(:favorite) { create(:favorite) }
 
-  describe "relation" do
+  describe "association" do
     it "spaceを削除するとfavoriteも削除される" do
       expect do
         favorite.space.destroy

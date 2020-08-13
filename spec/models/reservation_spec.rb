@@ -11,7 +11,7 @@ RSpec.describe Reservation, type: :model do
 
   after { travel_back }
 
-  describe "relation" do
+  describe "association" do
     before { reservation.save }
 
     it "spaceを削除するとreservationも削除される" do

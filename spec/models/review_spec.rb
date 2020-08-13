@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Review, type: :model do
   let!(:review) { create(:review) }
 
-  describe "relation" do
+  describe "association" do
     it "spaceを削除するとreviewも削除される" do
       expect do
         review.space.destroy
