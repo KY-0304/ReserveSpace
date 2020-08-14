@@ -1,22 +1,38 @@
 require 'rails_helper'
 
 RSpec.describe "UsersSessions", type: :request do
-  let(:user) { create(:user) }
+  let(:user)  { create(:user) }
+  let(:owner) { create(:owner) }
 
   describe "GET #new" do
     it "ステータスコード200を返す" do
       get new_user_session_path
       expect(response.status).to eq 200
     end
+
+    context "オーナーでログインしている場合" do
+      before do
+        sign_in owner
+        get new_user_session_path
+      end
+
+      it "root_pathにリダイレクトする" do
+        expect(response).to redirect_to root_path
+      end
+
+      it "フラッシュを返す" do
+        expect(flash[:alert]).to eq "掲載者側でログアウトしてから利用者ログインをしてください。"
+      end
+    end
   end
 
   describe "POST #create" do
-    before do
-      post user_session_path, params: { user: params }
-    end
-
     context "パラメータが妥当な場合" do
       let(:params) { { email: user.email, password: user.password } }
+
+      before do
+        post user_session_path, params: { user: params }
+      end
 
       it "ステータスコード302を返す" do
         expect(response.status).to eq 302
@@ -34,12 +50,33 @@ RSpec.describe "UsersSessions", type: :request do
     context "パラメータが不正な場合" do
       let(:params) { { email: "", password: user.password } }
 
+      before do
+        post user_session_path, params: { user: params }
+      end
+
       it "ステータスコード200を返す" do
         expect(response.status).to eq 200
       end
 
       it "フラッシュを返す" do
         expect(flash[:alert]).to eq "メールアドレスまたはパスワードが違います"
+      end
+    end
+
+    context "オーナーでログインしている場合" do
+      let(:params) { { email: user.email, password: user.password } }
+
+      before do
+        sign_in owner
+        post user_session_path, params: { user: params }
+      end
+
+      it "root_pathにリダイレクトする" do
+        expect(response).to redirect_to root_path
+      end
+
+      it "フラッシュを返す" do
+        expect(flash[:alert]).to eq "掲載者側でログアウトしてから利用者ログインをしてください。"
       end
     end
   end
