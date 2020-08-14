@@ -1,4 +1,16 @@
 class ApplicationController < ActionController::Base
+  rescue_from StandardError, with: :error500
+  rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError, with: :error404
+
+  def error404(e)
+    render "error404", status: :not_found, formats: :html
+  end
+
+  def error500(e)
+    logger.error [e, *e.backtrace].join("\n")
+    render "error500", status: :internal_server_error, formats: :html
+  end
+
   private
 
   # ログイン後のリダイレクト先

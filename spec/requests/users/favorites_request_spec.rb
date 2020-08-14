@@ -39,32 +39,20 @@ RSpec.describe "Users::Favorites", type: :request do
         sign_in user
       end
 
-      context "パラメータが妥当な場合" do
-        it "ステータスコード302を返す" do
-          post users_favorites_path, params: params
-          expect(response.status).to eq 302
-        end
-
-        it "space_pathにリダイレクトする" do
-          post users_favorites_path, params: params
-          expect(response).to redirect_to space_path(space)
-        end
-
-        it "favoriteが登録される" do
-          expect do
-            post users_favorites_path, params: params
-          end.to change(user.favorites, :count).by 1
-        end
+      it "ステータスコード302を返す" do
+        post users_favorites_path, params: params
+        expect(response.status).to eq 302
       end
 
-      context "パラメータが不正な場合" do
-        let(:invalid_params) { { space_id: nil } }
+      it "space_pathにリダイレクトする" do
+        post users_favorites_path, params: params
+        expect(response).to redirect_to space_path(space)
+      end
 
-        it "例外が発生する" do
-          expect do
-            post users_favorites_path, params: invalid_params
-          end.to raise_error(ActiveRecord::RecordNotFound)
-        end
+      it "favoriteが登録される" do
+        expect do
+          post users_favorites_path, params: params
+        end.to change(user.favorites, :count).by 1
       end
     end
 
