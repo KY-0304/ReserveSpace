@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  rescue_from StandardError, with: :error500
-  rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError, with: :error404
+  rescue_from StandardError, with: :error500 unless Rails.env.development?
+  rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError, with: :error404 unless Rails.env.development?
 
   def error404(e)
     render "error404", status: :not_found, formats: :html
