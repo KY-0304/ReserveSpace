@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2020_08_16_040008) do
 
   create_table "settings", force: :cascade do |t|
     t.bigint "space_id", null: false
-    t.boolean "unacceptable", null: false
+    t.boolean "unacceptable", default: false, null: false
     t.datetime "unacceptable_start_time"
     t.datetime "unacceptable_end_time"
     t.datetime "created_at", null: false
