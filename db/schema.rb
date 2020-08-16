@@ -63,9 +63,9 @@ ActiveRecord::Schema.define(version: 2020_08_16_040008) do
 
   create_table "settings", force: :cascade do |t|
     t.bigint "space_id", null: false
-    t.boolean "unacceptable", default: false, null: false
-    t.datetime "unacceptable_start_time"
-    t.datetime "unacceptable_end_time"
+    t.boolean "date_range_reservation_unacceptable", default: false, null: false
+    t.date "reservation_unacceptable_start_day"
+    t.date "reservation_unacceptable_end_day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["space_id"], name: "index_settings_on_space_id"

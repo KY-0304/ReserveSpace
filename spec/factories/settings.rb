@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :setting do
     association :space
-    unacceptable { false }
-    unacceptable_start_time {}
-    unacceptable_end_time {}
+    date_range_reservation_unacceptable { false }
+    reservation_unacceptable_start_day {}
+    reservation_unacceptable_end_day {}
   end
 end
