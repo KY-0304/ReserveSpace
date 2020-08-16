@@ -16,6 +16,12 @@ RSpec.describe Setting, type: :model do
     expect(setting).to be_valid
   end
 
+  it "予約受付拒否がnilだと無効" do
+    setting.unacceptable = nil
+    setting.valid?
+    expect(setting.errors.full_messages).to include "予約受付拒否は不正な値です。"
+  end
+
   it "予約受付拒否終了日時が開始日時より前だと無効" do
     setting.unacceptable_start_time = end_time
     setting.unacceptable_end_time = start_time

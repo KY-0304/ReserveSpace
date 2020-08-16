@@ -1,6 +1,7 @@
 class Setting < ApplicationRecord
   belongs_to :space
 
+  validates :unacceptable, inclusion: { in: [true, false] , message: "は不正な値です。" }
   # 予約受付拒否の終了日時が開始日時の後になっていることを検証する
   validates_datetime :unacceptable_end_time, after: :unacceptable_start_time, if: Proc.new { |s| s.unacceptable? }
   # 予約受付拒否の開始日時が現在以降になっていることを検証する
