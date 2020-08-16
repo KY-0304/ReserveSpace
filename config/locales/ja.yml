@@ -8,6 +8,7 @@ ja:
       reservation: 予約
       favorite: お気に入り
       review: レビュー
+      setting: 設定
     attributes:
       owner:
         company_name: 会社名
@@ -48,6 +49,11 @@ ja:
         space: スペース
         rate: 評価
         comment: コメント
+      setting:
+        space: スペース
+        unacceptable: 予約受付拒否
+        unacceptable_start_time: 予約受付拒否開始日時
+        unacceptable_end_time: 予約受付拒否終了日時
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

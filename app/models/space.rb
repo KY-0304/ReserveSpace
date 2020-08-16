@@ -5,6 +5,7 @@ class Space < ApplicationRecord
   jp_prefecture :prefecture_code
 
   belongs_to :owner
+  has_one  :setting,      dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :reviews,      dependent: :destroy
   has_many :favorites,    dependent: :destroy

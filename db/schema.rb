@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_150955) do
+ActiveRecord::Schema.define(version: 2020_08_16_040008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,16 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
     t.datetime "updated_at", null: false
     t.index ["space_id"], name: "index_reviews_on_space_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.bigint "space_id", null: false
+    t.boolean "unacceptable", null: false
+    t.datetime "unacceptable_start_time"
+    t.datetime "unacceptable_end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["space_id"], name: "index_settings_on_space_id"
   end
 
   create_table "spaces", force: :cascade do |t|
@@ -111,5 +121,6 @@ ActiveRecord::Schema.define(version: 2020_07_16_150955) do
   add_foreign_key "reservations", "users"
   add_foreign_key "reviews", "spaces"
   add_foreign_key "reviews", "users"
+  add_foreign_key "settings", "spaces"
   add_foreign_key "spaces", "owners"
 end
