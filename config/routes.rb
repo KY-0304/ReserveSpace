@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   resources :spaces do
     resources :reviews, only: [:create, :destroy], shallow: true
+    resource  :setting, only: [:edit, :update]
   end
   namespace :owners do
     resources :reservations, only: :index, shallow: true

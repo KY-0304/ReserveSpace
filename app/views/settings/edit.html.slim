@@ -1,0 +1,12 @@
+= provide(:title, "スペース設定")
+
+.container.p-5
+  h1.text-center #{@space.name}
+  h2.text-center 設定画面
+
+  = bootstrap_form_with model: @setting, url: space_setting_path(@space), local: true, inline_errors: false do |f|
+    = f.alert_message "以下のエラーが発生しました："
+    = f.check_box :date_range_reservation_unacceptable, checked_value: true, unchecked_value: false
+    = f.date_field :reservation_unacceptable_start_day
+    = f.date_field :reservation_unacceptable_end_day
+    = f.submit "設定保存", class: "btn btn-success btn-block"
