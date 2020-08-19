@@ -5,9 +5,11 @@ class Setting < ApplicationRecord
 
   with_options if: :date_range_mode? do
     # 予約受付拒否の終了日時が開始日時の後になっていることを検証する
-    validates_datetime :reservation_unacceptable_end_day, after: :reservation_unacceptable_start_day
-    # 予約受付拒否の開始日時が現在以降になっていることを検証する
-    validates_datetime :reservation_unacceptable_start_day, on_or_after: :now
+    validates_datetime :reservation_unacceptable_end_day, after: :reservation_unacceptable_start_day, allow_nil: true
+    # 予約受付拒否の開始日が現在以降になっていることを検証する
+    validates_datetime :reservation_unacceptable_start_day, on_or_after: :now, allow_nil: true
+    # 予約受付拒否の終了日が現在以降になっていることを検証する
+    validates_datetime :reservation_unacceptable_end_day, on_or_after: :now, allow_nil: true
   end
 
   private

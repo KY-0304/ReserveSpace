@@ -42,6 +42,18 @@ RSpec.describe Setting, type: :model do
       setting.valid?
       expect(setting.errors.full_messages).to include "予約受付拒否開始日は2000-01-01 00:00以降にしてください。"
     end
+
+    it "予約受付拒否終了日時が現在より前の日時だと無効" do
+      setting.reservation_unacceptable_end_day = Date.parse("1999/12/31")
+      setting.valid?
+      expect(setting.errors.full_messages).to include "予約受付拒否終了日は2000-01-01 00:00以降にしてください。"
+    end
+
+    it "予約受付拒否開始日、終了日はnilでも有効" do
+      setting.reservation_unacceptable_start_day = nil
+      setting.reservation_unacceptable_end_day   = nil
+      expect(setting).to be_valid
+    end
   end
 
   context "予約受付拒否(日付範囲)がfalseの場合" do

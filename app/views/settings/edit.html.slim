@@ -7,6 +7,6 @@
   = bootstrap_form_with model: @setting, url: space_setting_path(@space), local: true, inline_errors: false do |f|
     = f.alert_message "以下のエラーが発生しました："
     = f.check_box :date_range_reservation_unacceptable, checked_value: true, unchecked_value: false
-    = f.date_field :reservation_unacceptable_start_day
-    = f.date_field :reservation_unacceptable_end_day
+    = f.date_select :reservation_unacceptable_start_day, include_blank: true, help: "空白にすると終了日まで予約を受け付けません。"
+    = f.date_select :reservation_unacceptable_end_day  , include_blank: true, help: "空白にすると開始日以降予約を受け付けません。"
     = f.submit "設定保存", class: "btn btn-success btn-block"
