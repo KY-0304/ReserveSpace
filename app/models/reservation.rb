@@ -64,7 +64,7 @@ class Reservation < ApplicationRecord
   end
 
   def space_date_range_mode?
-    space.setting.date_range_reservation_unacceptable == true
+    space&.setting&.date_range_reservation_unacceptable == true
   end
 
   def reservation_acceptable_in_date_range
@@ -78,8 +78,10 @@ class Reservation < ApplicationRecord
       end
     elsif setting_start_date
       errors[:base] << "現在、#{setting_start_date}以降の予約を受け付けておりません。" if setting_start_date <= reservation_start_date
-    else
+    elsif setting_end_date
       errors[:base] << "現在、#{setting_end_date}以前の予約を受け付けておりません。" if setting_end_date >= reservation_start_date
+    else
+      errors[:base] << "現在、新規の予約を受け付けておりません。"
     end
   end
 end
