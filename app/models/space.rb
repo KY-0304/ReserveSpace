@@ -37,6 +37,14 @@ class Space < ApplicationRecord
 
   mount_uploaders :images, ImageUploader
 
+  delegate :reservation_unacceptable,
+           :reservation_unacceptable=,
+           :reservation_unacceptable_start_date,
+           :reservation_unacceptable_start_date=,
+           :reservation_unacceptable_end_date,
+           :reservation_unacceptable_end_date=,
+           to: :setting
+
   scope :users_search, -> (search_params) {
     return unless search_params
 

@@ -64,13 +64,13 @@ class Reservation < ApplicationRecord
   end
 
   def reservation_unacceptable_mode?
-    space&.setting&.reservation_unacceptable == true
+    space&.reservation_unacceptable == true
   end
 
   def reservation_acceptable_in_date
     reservation_date                    = start_time.to_date
-    reservation_unacceptable_start_date = space.setting.reservation_unacceptable_start_date
-    reservation_unacceptable_end_date   = space.setting.reservation_unacceptable_end_date
+    reservation_unacceptable_start_date = space.reservation_unacceptable_start_date
+    reservation_unacceptable_end_date   = space.reservation_unacceptable_end_date
 
     if reservation_unacceptable_start_date && reservation_unacceptable_end_date
       if (reservation_unacceptable_start_date <= reservation_date) && (reservation_date <= reservation_unacceptable_end_date)
