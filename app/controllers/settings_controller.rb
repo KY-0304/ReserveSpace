@@ -16,9 +16,9 @@ class SettingsController < ApplicationController
   private
 
   def setting_params
-    params.require(:setting).permit(:date_range_reservation_unacceptable,
-                                    :reservation_unacceptable_start_day,
-                                    :reservation_unacceptable_end_day)
+    params.require(:setting).permit(:reservation_unacceptable,
+                                    :reservation_unacceptable_start_date,
+                                    :reservation_unacceptable_end_date)
   end
 
   def set_space_and_setting

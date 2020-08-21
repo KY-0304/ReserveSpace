@@ -51,9 +51,9 @@ ja:
         comment: コメント
       setting:
         space: スペース
-        date_range_reservation_unacceptable: 予約受付拒否(日付範囲)
-        reservation_unacceptable_start_day: 予約受付拒否開始日
-        reservation_unacceptable_end_day: 予約受付拒否終了日
+        reservation_unacceptable: 予約受付不可
+        reservation_unacceptable_start_date: 予約不可開始日
+        reservation_unacceptable_end_date: 予約不可終了日
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

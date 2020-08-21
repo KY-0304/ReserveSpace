@@ -4,10 +4,12 @@ RSpec.describe Reservation, type: :model do
   describe "class_methods" do
     describe "duplication_in_time_range" do
       let!(:reservation1) do
-        create(:reservation, :skip_validate, start_time: "2000-01-01 09:00:00".in_time_zone, end_time: "2000-01-01 12:00:00".in_time_zone)
+        create(:reservation, :skip_validate, start_time: "2000-01-01 09:00:00".in_time_zone,
+                                             end_time: "2000-01-01 12:00:00".in_time_zone)
       end
       let!(:reservation2) do
-        create(:reservation, :skip_validate, start_time: "2000-01-01 13:00:00".in_time_zone, end_time: "2000-01-01 15:00:00".in_time_zone)
+        create(:reservation, :skip_validate, start_time: "2000-01-01 13:00:00".in_time_zone,
+                                             end_time: "2000-01-01 15:00:00".in_time_zone)
       end
 
       it "予約時間帯が引数の時間帯と重複している予約を返す" do

@@ -5,7 +5,10 @@ RSpec.describe Reservation, type: :model do
     let(:user)  { create(:user) }
     let(:space) { create(:space) }
     let(:reservation) do
-      build(:reservation, space: space, user: user, start_time: "2000-01-01 10:00:00".in_time_zone, end_time: "2000-01-01 15:00:00".in_time_zone)
+      build(:reservation, space: space,
+                          user: user,
+                          start_time: "2000-01-01 10:00:00".in_time_zone,
+                          end_time: "2000-01-01 15:00:00".in_time_zone)
     end
 
     before { travel_to Time.zone.local(2000, 1, 1, 9) }
@@ -84,7 +87,9 @@ RSpec.describe Reservation, type: :model do
     context "予約時間帯が被った場合" do
       let(:other_space) { create(:space) }
       let(:other_reservation) do
-        build(:reservation, space: space, start_time: "2000-01-01 11:00:00".in_time_zone, end_time: "2000-01-01 14:00:00".in_time_zone)
+        build(:reservation, space: space,
+                            start_time: "2000-01-01 11:00:00".in_time_zone,
+                            end_time: "2000-01-01 14:00:00".in_time_zone)
       end
 
       before do
@@ -104,13 +109,13 @@ RSpec.describe Reservation, type: :model do
 
     context "スペースが予約受付拒否している場合" do
       before do
-        space.setting.date_range_reservation_unacceptable = true
+        space.setting.reservation_unacceptable = true
       end
 
       context "期間指定の場合" do
         before do
-          space.setting.reservation_unacceptable_start_day = Date.parse("2000/01/02")
-          space.setting.reservation_unacceptable_end_day   = Date.parse("2000/01/04")
+          space.setting.reservation_unacceptable_start_date = Date.parse("2000/01/02")
+          space.setting.reservation_unacceptable_end_date   = Date.parse("2000/01/04")
         end
 
         it "期間以外の予約日なら有効" do
@@ -148,8 +153,8 @@ RSpec.describe Reservation, type: :model do
 
       context "開始日のみ指定の場合" do
         before do
-          space.setting.reservation_unacceptable_start_day = Date.parse("2000/01/02")
-          space.setting.reservation_unacceptable_end_day   = nil
+          space.setting.reservation_unacceptable_start_date = Date.parse("2000/01/02")
+          space.setting.reservation_unacceptable_end_date   = nil
         end
 
         it "開始日以前の予約日なら有効" do
@@ -176,8 +181,8 @@ RSpec.describe Reservation, type: :model do
 
       context "終了日のみ指定の場合" do
         before do
-          space.setting.reservation_unacceptable_start_day = nil
-          space.setting.reservation_unacceptable_end_day   = Date.parse("2000/01/02")
+          space.setting.reservation_unacceptable_start_date = nil
+          space.setting.reservation_unacceptable_end_date   = Date.parse("2000/01/02")
         end
 
         it "終了日後の予約日は有効" do
@@ -204,8 +209,8 @@ RSpec.describe Reservation, type: :model do
 
       context "期間の指定が無い場合" do
         before do
-          space.setting.reservation_unacceptable_start_day = nil
-          space.setting.reservation_unacceptable_end_day   = nil
+          space.setting.reservation_unacceptable_start_date = nil
+          space.setting.reservation_unacceptable_end_date   = nil
         end
 
         it "すべての新規予約ができない" do

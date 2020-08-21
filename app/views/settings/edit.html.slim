@@ -4,9 +4,15 @@
   h1.text-center #{@space.name}
   h2.text-center 設定画面
 
-  = bootstrap_form_with model: @setting, url: space_setting_path(@space), local: true, inline_errors: false do |f|
-    = f.alert_message "以下のエラーが発生しました："
-    = f.check_box :date_range_reservation_unacceptable, checked_value: true, unchecked_value: false
-    = f.date_select :reservation_unacceptable_start_day, include_blank: true, help: "空白にすると終了日まで予約を受け付けません。"
-    = f.date_select :reservation_unacceptable_end_day  , include_blank: true, help: "空白にすると開始日以降予約を受け付けません。"
-    = f.submit "設定保存", class: "btn btn-success btn-block"
+  .w-75.mx-auto
+    = bootstrap_form_with model: @setting, url: space_setting_path(@space), local: true, inline_errors: false do |f|
+      = f.alert_message "以下のエラーが発生しました："
+      .form-row
+        .col-12.p-3
+          = f.check_box :reservation_unacceptable, checked_value: true, unchecked_value: false, label: "予約を受け付けない期間を設ける"
+        .col-6.p-3
+          = f.date_select :reservation_unacceptable_start_date, include_blank: true, help: "空白にすると終了日まで予約を受け付けません。"
+        .col-6.p-3
+          = f.date_select :reservation_unacceptable_end_date, include_blank: true, help: "空白にすると開始日以降予約を受け付けません。"
+      p.p-3 ※開始日、終了日両方を空白にすると、全ての新規予約を受け付けません。
+      = f.submit "設定保存", class: "btn btn-success btn-block"

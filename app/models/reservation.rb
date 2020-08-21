@@ -28,7 +28,7 @@ class Reservation < ApplicationRecord
   validate :by_fifteen_minutes
 
   # スペースが期間中予約受付を拒否している場合、予約日が受付拒否期間と被っていないか検証する
-  validate :reservation_acceptable_in_date_range, if: :space_date_range_mode?
+  validate :reservation_acceptable_in_date, if: :reservation_unacceptable_mode?
 
   # 与えられた日時の範囲とstart_time, end_timeの範囲が重複している予約を返す
   scope :duplication_in_time_range, -> (start_time, end_time) {
@@ -63,23 +63,27 @@ class Reservation < ApplicationRecord
     errors.add(:end_time, "は15分単位で設定してください") unless end_time&.strftime("%M")&.start_with?(*CHECK_MINUTES)
   end
 
-  def space_date_range_mode?
-    space&.setting&.date_range_reservation_unacceptable == true
+  def reservation_unacceptable_mode?
+    space&.setting&.reservation_unacceptable == true
   end
 
-  def reservation_acceptable_in_date_range
-    reservation_start_date = start_time.to_date
-    setting_start_date     = space.setting.reservation_unacceptable_start_day
-    setting_end_date       = space.setting.reservation_unacceptable_end_day
+  def reservation_acceptable_in_date
+    reservation_date                    = start_time.to_date
+    reservation_unacceptable_start_date = space.setting.reservation_unacceptable_start_date
+    reservation_unacceptable_end_date   = space.setting.reservation_unacceptable_end_date
 
-    if setting_start_date && setting_end_date
-      if (setting_start_date <= reservation_start_date) && (reservation_start_date <= setting_end_date)
-        errors[:base] << "現在、#{setting_start_date}から#{setting_end_date}の期間は予約を受け付けておりません。"
+    if reservation_unacceptable_start_date && reservation_unacceptable_end_date
+      if (reservation_unacceptable_start_date <= reservation_date) && (reservation_date <= reservation_unacceptable_end_date)
+        errors[:base] << "現在、#{reservation_unacceptable_start_date}から#{reservation_unacceptable_end_date}の期間は予約を受け付けておりません。"
       end
-    elsif setting_start_date
-      errors[:base] << "現在、#{setting_start_date}以降の予約を受け付けておりません。" if setting_start_date <= reservation_start_date
-    elsif setting_end_date
-      errors[:base] << "現在、#{setting_end_date}以前の予約を受け付けておりません。" if setting_end_date >= reservation_start_date
+    elsif reservation_unacceptable_start_date
+      if reservation_unacceptable_start_date <= reservation_date
+        errors[:base] << "現在、#{reservation_unacceptable_start_date}以降の予約を受け付けておりません。"
+      end
+    elsif reservation_unacceptable_end_date
+      if reservation_unacceptable_end_date >= reservation_date
+        errors[:base] << "現在、#{reservation_unacceptable_end_date}以前の予約を受け付けておりません。"
+      end
     else
       errors[:base] << "現在、新規の予約を受け付けておりません。"
     end
