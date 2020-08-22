@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   resources :spaces do
     resources :reviews, only: [:create, :destroy], shallow: true
+    resource  :setting, only: [:edit, :update]
   end
   namespace :owners do
     resources :reservations, only: :index, shallow: true
@@ -24,5 +25,5 @@ Rails.application.routes.draw do
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
-  match "*path" => "application#error404", via: :all
+  match "*path" => "application#error404", via: :all unless Rails.env.development?
 end

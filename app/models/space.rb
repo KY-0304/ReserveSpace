@@ -1,10 +1,12 @@
 class Space < ApplicationRecord
+  after_create :setting_create
   before_destroy :check_all_reservations_finished
   # jp_prefectureの都道府県コードを使用する
   include JpPrefecture
   jp_prefecture :prefecture_code
 
   belongs_to :owner
+  has_one  :setting,      dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :reviews,      dependent: :destroy
   has_many :favorites,    dependent: :destroy
@@ -35,18 +37,29 @@ class Space < ApplicationRecord
 
   mount_uploaders :images, ImageUploader
 
+  delegate :reservation_unacceptable,
+           :reservation_unacceptable=,
+           :reservation_unacceptable_start_date,
+           :reservation_unacceptable_start_date=,
+           :reservation_unacceptable_end_date,
+           :reservation_unacceptable_end_date=,
+           to: :setting
+
   scope :users_search, -> (search_params) {
     return unless search_params
 
     if search_params[:start_datetime].present? && search_params[:times].present?
       start_datetime = search_params[:start_datetime].in_time_zone
       end_datetime = start_datetime + search_params[:times].to_i.hours
+      start_date = start_datetime.to_date
+      end_date = end_datetime.to_date
     end
 
     include_address_search_keyword(search_params[:address_keyword]).
       match_prefecture_code(search_params[:prefecture_code]).
       hourly_price_less_than_or_equal(search_params[:hourly_price]).
-      does_not_have_reservations_in_time_range(start_datetime, end_datetime)
+      does_not_have_reservations_in_time_range(start_datetime, end_datetime).
+      reservation_acceptable_in_period(start_date, end_date)
   }
 
   scope :hourly_price_less_than_or_equal, -> (price) {
@@ -66,6 +79,13 @@ class Space < ApplicationRecord
   scope :does_not_have_reservations_in_time_range, -> (start_time, end_time) {
     if start_time.present? && end_time.present?
       ids = Reservation.duplication_in_time_range(start_time, end_time).pluck(:space_id)
+      where.not(id: ids)
+    end
+  }
+
+  scope :reservation_acceptable_in_period, -> (start_date, end_date) {
+    if start_date.present? && end_date.present?
+      ids = Setting.reservation_unacceptable_now.reservation_unacceptable_in_period(start_date, end_date).pluck(:space_id)
       where.not(id: ids)
     end
   }
@@ -103,5 +123,9 @@ class Space < ApplicationRecord
     end
 
     throw(:abort) unless errors.empty?
+  end
+
+  def setting_create
+    create_setting!
   end
 end
