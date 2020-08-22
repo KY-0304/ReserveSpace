@@ -13,5 +13,11 @@ FactoryBot.define do
     hourly_price { 2000 }
     business_start_time { "09:00:00" }
     business_end_time { "20:00:00" }
+
+    trait :skip_create_setting do
+      before(:create) { Space.skip_callback(:create, :after, :setting_create) }
+
+      after(:create) { Space.set_callback(:create, :after, :setting_create) }
+    end
   end
 end
