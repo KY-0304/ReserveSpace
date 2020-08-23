@@ -147,30 +147,61 @@ RSpec.describe "OwnersRegistrations", type: :request do
   end
 
   describe "DELETE #destroy" do
+    let!(:space) { create(:space, owner: owner) }
+
     context "ログイン済みの場合" do
       before do
         sign_in owner
       end
 
-      it "ステータスコード302を返す" do
-        delete owner_registration_path
-        expect(response.status).to eq 302
-      end
+      context "現在以降に予約が無いスペースを持っている場合" do
+        let!(:reservation) { create(:reservation, :skip_validate, space: space, start_time: Time.current - 2.hours, end_time: Time.current - 1.hour) }
 
-      it "root_pathにリダイレクトする" do
-        delete owner_registration_path
-        expect(response).to redirect_to root_path
-      end
-
-      it "掲載者が削除される" do
-        expect do
+        it "ステータスコード302を返す" do
           delete owner_registration_path
-        end.to change(Owner, :count).by(-1)
+          expect(response.status).to eq 302
+        end
+
+        it "root_pathにリダイレクトする" do
+          delete owner_registration_path
+          expect(response).to redirect_to root_path
+        end
+
+        it "掲載者が削除される" do
+          expect do
+            delete owner_registration_path
+          end.to change(Owner, :count).by(-1)
+        end
+
+        it "フラッシュを返す" do
+          delete owner_registration_path
+          expect(flash[:notice]).to eq "ご利用ありがとうございました。アカウントが削除されました。またのご利用をお待ちしています"
+        end
       end
 
-      it "フラッシュを返す" do
-        delete owner_registration_path
-        expect(flash[:notice]).to eq "ご利用ありがとうございました。アカウントが削除されました。またのご利用をお待ちしています"
+      context "現在以降に予約があるスペースを持っている場合" do
+        let!(:reservation) { create(:reservation, :skip_validate, space: space, start_time: Time.current + 1.hour, end_time: Time.current + 2.hours) }
+
+        it "ステータスコード302を返す" do
+          delete owner_registration_path
+          expect(response.status).to eq 302
+        end
+
+        it "root_pathにリダイレクトする" do
+          delete owner_registration_path
+          expect(response).to redirect_to root_path
+        end
+
+        it "掲載者が削除されない" do
+          expect do
+            delete owner_registration_path
+          end.not_to change(Owner, :count)
+        end
+
+        it "フラッシュを返す" do
+          delete owner_registration_path
+          expect(flash[:alert]).to eq "現在以降に予約があるスペースがある為、アカウント削除できません。"
+        end
       end
     end
 
