@@ -51,15 +51,13 @@ class Space < ApplicationRecord
     if search_params[:start_datetime].present? && search_params[:times].present?
       start_datetime = search_params[:start_datetime].in_time_zone
       end_datetime = start_datetime + search_params[:times].to_i.hours
-      start_date = start_datetime.to_date
-      end_date = end_datetime.to_date
     end
 
     include_address_search_keyword(search_params[:address_keyword]).
       match_prefecture_code(search_params[:prefecture_code]).
       hourly_price_less_than_or_equal(search_params[:hourly_price]).
       does_not_have_reservations_in_time_range(start_datetime, end_datetime).
-      reservation_acceptable_in_period(start_date, end_date)
+      reservation_acceptable_in_period(start_datetime, end_datetime)
   }
 
   scope :hourly_price_less_than_or_equal, -> (price) {
