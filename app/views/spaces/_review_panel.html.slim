@@ -1,5 +1,5 @@
 .w-50.mr-auto
-  = bootstrap_form_with model: review, url: space_reviews_path(space), local: true, class: "p-5" do |f|
+  = bootstrap_form_with model: review, url: space_reviews_path(space), class: "p-5" do |f|
     = f.alert_message "以下のエラーが発生しました："
     = f.select :rate, Review.rates_i18n.keys.map { |k| [Review.rates_i18n[k], k] }
     = f.text_area :comment, size: "1x3"

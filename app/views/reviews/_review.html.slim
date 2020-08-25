@@ -4,4 +4,4 @@ li.list-group-item.mx-5 id="review-#{review.id}"
   strong コメント:
   p = review.comment
   - if user_signed_in? && current_user == review.user
-    = link_to "削除", review, method: :delete, class: "btn btn-outline-danger float-right", data: { confirm: "削除しますか？" }
+    = link_to "削除", review, method: :delete, remote: true, class: "btn btn-outline-danger float-right", data: { confirm: "削除しますか？" }

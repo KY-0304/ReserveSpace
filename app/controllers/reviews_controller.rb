@@ -3,18 +3,21 @@ class ReviewsController < ApplicationController
 
   def create
     @review = current_user.reviews.build(review_params)
-    if @review.save
-      redirect_to space_path(params[:space_id]), notice: "レビューを投稿しました"
-    else
-      @space = Space.includes(reviews: :user).find(params[:space_id])
-      @reservation = Reservation.new
-      render 'spaces/show'
+    respond_to do |format|
+      if @review.save
+        @review = current_user.reviews.build
+        @space = Space.includes(reviews: :user).find(params[:space_id])
+        format.js
+      else
+        @space = Space.includes(reviews: :user).find(params[:space_id])
+        format.js
+      end
     end
   end
 
   def destroy
-    review = current_user.reviews.find(params[:id]).destroy!
-    redirect_to space_path(review.space), notice: "レビューを削除しました"
+    @review = current_user.reviews.find(params[:id]).destroy!
+    respond_to { |format| format.js }
   end
 
   private
