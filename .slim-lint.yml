@@ -1,6 +1,6 @@
 linters:
   LineLength:
-    max: 130
+    max: 150
 
   RuboCop:
     ignored_cops:
