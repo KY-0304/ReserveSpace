@@ -3,7 +3,7 @@ class Users::ReservationsController < ApplicationController
   before_action :set_reservation, only: [:new, :create]
 
   def index
-    @reservations = current_user.reservations.includes(:space).order(start_time: :desc)
+    @reservations = current_user.reservations.includes(:space).order(start_time: :desc).page(params[:page]).per(10)
   end
 
   def new
