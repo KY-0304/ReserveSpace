@@ -12,12 +12,11 @@ Rails.application.routes.draw do
   get  '/search', to: 'static_pages#search'
 
   resources :spaces do
-    resources :reviews, only: [:create, :destroy], shallow: true
-    resource  :setting, only: [:edit, :update]
+    resources :reviews,      only: [:create, :destroy], shallow: true
+    resources :reservations, only: :index
+    resource  :setting,      only: [:edit, :update]
   end
-  namespace :owners do
-    resources :reservations, only: :index, shallow: true
-  end
+
   namespace :users do
     resources :reservations, only: [:index, :new, :create, :destroy], shallow: true
     resources :favorites, only: [:index, :create, :destroy], shallow: true
