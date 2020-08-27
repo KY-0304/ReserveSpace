@@ -3,7 +3,7 @@ class SpacesController < ApplicationController
   before_action :set_space, only: [:edit, :update, :destroy]
 
   def index
-    @spaces = current_owner.spaces.page(params[:page]).per(10)
+    @spaces = current_owner.spaces.page(params[:page]).per(9)
   end
 
   def show

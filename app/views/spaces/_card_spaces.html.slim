@@ -1,0 +1,8 @@
+.col-lg-4
+  .card.mb-3
+    .card-header
+      = link_to space.name, space_path(space)
+    .card-body
+      p.card-title 本日の予約：#{space.reservations.for_the_day(Date.current).count}件
+      p.card-title 明日の予約：#{space.reservations.for_the_day(Date.tomorrow).count}件
+      = link_to "予約一覧へ", space_reservations_path(space), class: "btn btn-success"

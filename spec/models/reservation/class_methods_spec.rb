@@ -23,5 +23,25 @@ RSpec.describe Reservation, type: :model do
         expect(Reservation.duplication_in_time_range(times[8], times[16])).to match_array [reservation1, reservation2]
       end
     end
+
+    describe "for_the_day(date)" do
+      let!(:reservation1) do
+        create(:reservation, :skip_validate, start_time: "2000-01-01 00:00:00".in_time_zone,
+                                             end_time: "2000-01-01 23:59:59".in_time_zone)
+      end
+      let!(:reservation2) do
+        create(:reservation, :skip_validate, start_time: "2000-01-02 00:00:00".in_time_zone,
+                                             end_time: "2000-01-02 23:59:59".in_time_zone)
+      end
+      let!(:reservation3) do
+        create(:reservation, :skip_validate, start_time: "2000-01-03 00:00:00".in_time_zone,
+                                             end_time: "2000-01-03 23:59:59".in_time_zone)
+      end
+
+      it "引数に渡した日付の予約のみを返す" do
+        date = Date.parse("2000/1/2")
+        expect(Reservation.for_the_day(date)).to match_array [reservation2]
+      end
+    end
   end
 end

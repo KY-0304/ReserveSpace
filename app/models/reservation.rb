@@ -35,6 +35,13 @@ class Reservation < ApplicationRecord
     where("tstzrange(start_time, end_time, '[]') && tstzrange(?, ?, '[]')", start_time, end_time)
   }
 
+  scope :for_the_day, -> (date) {
+    beginning_of_day = date.beginning_of_day
+    end_of_day       = date.end_of_day
+
+    where(start_time: beginning_of_day..end_of_day)
+  }
+
   # 予約時間をわかりやすく表示する
   def reservation_time
     "#{I18n.l(start_time, format: :very_short)}~#{I18n.l(end_time, format: :very_short)}"
