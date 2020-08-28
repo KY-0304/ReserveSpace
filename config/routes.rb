@@ -13,7 +13,11 @@ Rails.application.routes.draw do
 
   resources :spaces do
     resources :reviews,      only: [:create, :destroy], shallow: true
-    resources :reservations, only: :index
+    resources :reservations, only: :index do
+      collection do
+        get 'search'
+      end
+    end
     resource  :setting,      only: [:edit, :update]
   end
 

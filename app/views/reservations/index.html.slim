@@ -1,0 +1,35 @@
+= provide(:title, "予約一覧")
+.container.p-5
+  = link_to space_path(@space) do
+    h2.text-center.mb-3 #{@space.name}
+  h3.text-center.mb-3 予約一覧(全#{@reservations.size}件)
+
+  = bootstrap_form_with scope: :search, url: search_space_reservations_path(@space), method: :get, local: true do |f|
+    .form-row
+      .col-4
+        = f.datetime_field :start_datetime, value: @search_params[:start_datetime], label: "検索開始日時"
+      .col-4
+        = f.datetime_field :end_datetime, value: @search_params[:end_datetime], label: "検索終了日時"
+    = f.submit "検索", class: "btn btn-success mb-3"
+    = link_to "リセット", space_reservations_path(@space), class: "btn btn-secondary mb-3 ml-3"
+
+  table.table.table-striped.table-hover
+    thead
+      tr
+        th scope="col" 利用日
+        th scope="col" 利用時間
+        th scope="col" 料金
+        th scope="col" 利用者名
+        th scope="col" 連絡先
+        th scope="col" 性別
+    tbody
+      - @reservations.each do |reservation|
+        tr
+          td = l(reservation.start_time, format: :semi_long)
+          td = reservation.reservation_time
+          td = number_to_currency(reservation.total_price)
+          td = reservation.user.name
+          td = reservation.user.phone_number
+          td = reservation.user.gender_i18n
+
+  = paginate @reservations
