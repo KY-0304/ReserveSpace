@@ -1,8 +1,5 @@
 = provide(:title, "スペース詳細")
 .container.p-5
-  - if @space.owner == current_owner
-    = link_to "設定", edit_space_setting_path(@space), class: "btn btn-success"
-    = link_to "編集", edit_space_path(@space), class: "btn btn-primary ml-3"
   h2.mb-3.text-center スペース詳細
   .nav.nav-tabs
     == render 'spaces/nav_tabs'
