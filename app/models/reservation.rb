@@ -30,9 +30,25 @@ class Reservation < ApplicationRecord
   # スペースが期間中予約受付を拒否している場合、予約日が受付拒否期間と被っていないか検証する
   validate :reservation_acceptable_in_date, if: :reservation_unacceptable_mode?
 
+  scope :owners_search, -> (search_params) {
+    return unless search_params
+
+    start_datetime = search_params[:start_datetime].in_time_zone if search_params[:start_datetime].present?
+    end_datetime   = search_params[:end_datetime].in_time_zone   if search_params[:end_datetime].present?
+
+    duplication_in_time_range(start_datetime, end_datetime)
+  }
+
   # 与えられた日時の範囲とstart_time, end_timeの範囲が重複している予約を返す
   scope :duplication_in_time_range, -> (start_time, end_time) {
     where("tstzrange(start_time, end_time, '[]') && tstzrange(?, ?, '[]')", start_time, end_time)
+  }
+
+  scope :for_the_day, -> (date) {
+    beginning_of_day = date.beginning_of_day
+    end_of_day       = date.end_of_day
+
+    where(start_time: beginning_of_day..end_of_day)
   }
 
   # 予約時間をわかりやすく表示する
