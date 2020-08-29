@@ -8,7 +8,7 @@ CSV.generate do |csv|
       number_to_currency(reservation.total_price),
       reservation.user.name,
       reservation.user.phone_number,
-      reservation.user.gender_i18n
+      reservation.user.gender_i18n,
     ]
     csv << values
   end
