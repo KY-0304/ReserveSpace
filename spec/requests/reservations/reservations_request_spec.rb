@@ -37,9 +37,27 @@ RSpec.describe "Reservations", type: :request do
         sign_in owner
       end
 
-      it "ステータスコード200を返す" do
-        get search_space_reservations_path(space)
-        expect(response.status).to eq 200
+      context "format.htmlの場合" do
+        it "ステータスコード200を返す" do
+          get search_space_reservations_path(space)
+          expect(response.status).to eq 200
+        end
+      end
+
+      context "format.csvの場合" do
+        let!(:reservation) { create(:reservation, :skip_validate, space: space, start_time: Time.current, end_time: Time.current + 1.hour) }
+
+        it "csvを返す" do
+          get search_space_reservations_path(space, format: :csv)
+          expect(response.header["Content-Type"]).to eq "text/csv"
+        end
+
+        it "予約一覧のcsvを返す" do
+          get search_space_reservations_path(space, format: :csv)
+          csv = CSV.parse(response.body, headers: true)
+          header = ["利用日", "利用時間", "料金", "利用者名", "連絡先", "性別"]
+          expect(csv.headers).to eq header
+        end
       end
     end
 

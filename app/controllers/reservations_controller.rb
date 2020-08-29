@@ -8,7 +8,10 @@ class ReservationsController < ApplicationController
 
   def search
     @reservations = @space.reservations.includes(:user).owners_search(@search_params).order(start_time: :desc).page(params[:page]).per(50)
-    render :index
+    respond_to do |format|
+      format.html { render :index }
+      format.csv { send_data render_to_string, filename: "#{@space.name}予約一覧.csv", type: :csv }
+    end
   end
 
   private
