@@ -44,8 +44,9 @@ RSpec.describe "Spaces", type: :system do
     expect(current_path).to eq spaces_path
 
     # スペースが削除されることの確認
-    click_link "テストスペース"
-    click_link "編集"
+    within "#space-#{Space.last.id}" do
+      click_link "編集"
+    end
     expect do
       click_link "スペース削除"
       expect(page.accept_confirm).to eq "スペースを削除します。本当によろしいでしょうか。"
@@ -56,8 +57,9 @@ RSpec.describe "Spaces", type: :system do
   end
 
   it "掲載者はスペースを編集できる" do
-    click_link space.name
-    click_link "編集"
+    within "#space-#{space.id}" do
+      click_link "編集"
+    end
 
     fill_in "名前", with: "アップデートスペース"
     fill_in "説明", with: "アップデート説明"
