@@ -4,7 +4,7 @@
     h2.text-center.mb-3 #{@space.name}
   h3.text-center.mb-3 予約一覧(全#{@reservations.size}件)
 
-  = bootstrap_form_with scope: :search, url: search_space_reservations_path(@space), method: :get, local: true do |f|
+  = bootstrap_form_with scope: :search, url: search_space_reservations_path(@space), method: :post, local: true do |f|
     .form-row
       .col-4
         = f.datetime_field :start_datetime, value: @search_params[:start_datetime], label: "検索開始日時"
@@ -13,7 +13,7 @@
     = f.submit "検索", class: "btn btn-primary mb-3"
     = link_to "リセット", space_reservations_path(@space), class: "btn btn-secondary mb-3 ml-3"
 
-  = link_to "CSVダウンロード", search_space_reservations_path(@space, format: :csv, search: @search_params), class: "btn btn-success mb-3"
+  = link_to "CSVダウンロード", search_space_reservations_path(@space, format: :csv, search: @search_params), method: :post, class: "btn btn-success mb-3"
 
   table.table.table-striped.table-hover
     thead

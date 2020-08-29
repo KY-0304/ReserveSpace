@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :reviews,      only: [:create, :destroy], shallow: true
     resources :reservations, only: :index do
       collection do
-        get 'search'
+        post 'search'
       end
     end
     resource  :setting,      only: [:edit, :update]
