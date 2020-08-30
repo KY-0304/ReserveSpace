@@ -19,6 +19,7 @@ class Space < ApplicationRecord
     validates :phone_number,   format: { with: VALID_PHONE_NUMBER_REGEX }
     validates :hourly_price,   format: { with: VALID_HOURLY_PRICE_REGEX, message: "は100円単位で設定してください" },
                                numericality: { only_integer: true, greater_than_or_equal_to: MINIMUM_UNIT_ROOM_PRICE }
+    validates :capacity,       numericality: { only_integer: true }
     validates :postcode
     validates :prefecture_code
     validates :business_start_time
