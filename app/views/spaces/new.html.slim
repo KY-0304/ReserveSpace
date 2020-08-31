@@ -15,7 +15,7 @@
             = image_tag @space.images[i].small_thumb.url, class: "img-thumbnail mt-3"
       .form-row
         .col-md-6
-          = f.number_field :postcode, placeholder: "(例)1080073", help: "ハイフン無しで入力してください。", prepend: "〒"
+          = f.number_field :postcode, placeholder: "(例)1080073", help: "ハイフン無しで入力してください。", prepend: "〒", min: 0
         .col-md-6
           = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, prompt: "選択してください"
         .col-md-6
@@ -27,7 +27,10 @@
         .col-md-6
           = f.telephone_field :phone_number, placeholder: "(例)03-1234-5678", help: "ハイフンをつけてください"
         .col-md-6
-          = f.number_field :hourly_price, placeholder: "(例)1000", append: "円/時間(税込)", step: 100
+          = f.number_field :hourly_price, placeholder: "(例)1000", append: "円/時間(税込)", step: 100, min: 0
+        .col-md-4
+          = f.number_field :capacity, append: "人", step: 1, min: 0
+        .col-md-8
         .col-md-6
           = f.time_select :business_start_time, default: Time.zone.local(2020, 1, 1, 9)
         .col-md-6

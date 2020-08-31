@@ -20,6 +20,24 @@ RSpec.describe Space, type: :model do
       end
     end
 
+    describe "capacity_more_than_or_equal" do
+      let!(:hit_space1)   { create(:space, capacity: 3) }
+      let!(:hit_space2)   { create(:space, capacity: 2) }
+      let!(:no_hit_space) { create(:space, capacity: 1) }
+
+      context "引数が妥当な場合" do
+        it "引数以上の収容人数を持つスペースを返す" do
+          expect(Space.capacity_more_than_or_equal(2)).to match_array [hit_space1, hit_space2]
+        end
+      end
+
+      context "引数がblankだった場合" do
+        it "すべてのスペースを返す" do
+          expect(Space.capacity_more_than_or_equal("")).to eq Space.all
+        end
+      end
+    end
+
     describe "match_prefecture_code" do
       let!(:hit_space)    { create(:space, prefecture_code: 13) }
       let!(:no_hit_space) { create(:space, prefecture_code: 12) }

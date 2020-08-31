@@ -123,6 +123,18 @@ RSpec.describe Space, type: :model do
       expect(space.errors.full_messages).to include "時間単価は100円単位で設定してください"
     end
 
+    it "収容人数が無いと無効" do
+      space.capacity = nil
+      space.valid?
+      expect(space.errors.full_messages).to include "収容人数を入力してください"
+    end
+
+    it "収容人数が整数でないと無効" do
+      space.capacity = 10.1
+      space.valid?
+      expect(space.errors.full_messages).to include "収容人数は整数で入力してください"
+    end
+
     it "営業開始時間が無いと無効" do
       space.business_start_time = nil
       space.valid?

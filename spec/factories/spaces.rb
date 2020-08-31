@@ -11,6 +11,7 @@ FactoryBot.define do
     address_building { "テストビル1階" }
     phone_number { "03-1234-5678" }
     hourly_price { 2000 }
+    capacity { 10 }
     business_start_time { "09:00:00" }
     business_end_time { "20:00:00" }
 

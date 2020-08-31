@@ -5,6 +5,7 @@ class CreateSpaces < ActiveRecord::Migration[5.2]
       t.string     :name,                null: false
       t.string     :phone_number,        null: false
       t.integer    :hourly_price,        null: false
+      t.integer    :capacity,            null: false
       t.time       :business_start_time, null: false
       t.time       :business_end_time,   null: false
       t.integer    :postcode,            null: false

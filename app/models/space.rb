@@ -19,6 +19,7 @@ class Space < ApplicationRecord
     validates :phone_number,   format: { with: VALID_PHONE_NUMBER_REGEX }
     validates :hourly_price,   format: { with: VALID_HOURLY_PRICE_REGEX, message: "は100円単位で設定してください" },
                                numericality: { only_integer: true, greater_than_or_equal_to: MINIMUM_UNIT_ROOM_PRICE }
+    validates :capacity,       numericality: { only_integer: true }
     validates :postcode
     validates :prefecture_code
     validates :business_start_time
@@ -56,12 +57,17 @@ class Space < ApplicationRecord
     include_address_search_keyword(search_params[:address_keyword]).
       match_prefecture_code(search_params[:prefecture_code]).
       hourly_price_less_than_or_equal(search_params[:hourly_price]).
+      capacity_more_than_or_equal(search_params[:capacity]).
       does_not_have_reservations_in_time_range(start_datetime, end_datetime).
       reservation_acceptable_in_period(start_datetime, end_datetime)
   }
 
   scope :hourly_price_less_than_or_equal, -> (price) {
     where("hourly_price <= ?", price) if price.present?
+  }
+
+  scope :capacity_more_than_or_equal, -> (capacity) {
+    where("capacity >= ?", capacity) if capacity.present?
   }
 
   # 市区町村、番地、建物を結合したものの中からキーワードを含むスペースを返す

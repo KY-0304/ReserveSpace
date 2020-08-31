@@ -19,7 +19,10 @@
         .col-md-6
           = f.telephone_field :phone_number, placeholder: "(例)03-1234-5678"
         .col-md-6
-          = f.number_field :hourly_price, placeholder: "(例)1000", append: "円/時間(税込)", step: 100
+          = f.number_field :hourly_price, placeholder: "(例)1000", append: "円/時間(税込)", step: 100, min: 0
+        .col-md-4
+          = f.number_field :capacity, append: "人", step: 1, min: 0
+        .col-md-8
         .col-md-6
           = f.time_select :business_start_time
         .col-md-6

@@ -28,6 +28,7 @@ ja:
         address_building: 建物
         phone_number: 連絡先
         hourly_price: 時間単価
+        capacity: 収容人数
         business_start_time: 営業開始時間
         business_end_time: 営業終了時間
       user:

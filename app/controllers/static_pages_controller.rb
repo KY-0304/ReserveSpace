@@ -16,6 +16,6 @@ class StaticPagesController < ApplicationController
   end
 
   def search_params
-    params.fetch(:search, {}).permit(:prefecture_code, :address_keyword, :start_datetime, :times, :hourly_price)
+    params.fetch(:search, {}).permit(:prefecture_code, :address_keyword, :start_datetime, :times, :hourly_price, :capacity)
   end
 end
