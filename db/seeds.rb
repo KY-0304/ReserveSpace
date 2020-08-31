@@ -43,6 +43,7 @@ business_end_time = "21:00"
                        address_building: "#{building}#{i + 1}階",
                        phone_number: phone_number,
                        hourly_price: rand(1..10) * 1000,
+                       capacity: rand(10..50),
                        business_start_time: business_start_time,
                        business_end_time: business_end_time)
 end
