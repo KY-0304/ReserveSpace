@@ -8,6 +8,7 @@ RSpec.describe "Spaces", type: :system do
                    description: "説明",
                    phone_number: "03-1111-1111",
                    hourly_price: 500,
+                   capacity: 20,
                    business_start_time: "9:00",
                    business_end_time: "21:00")
   end
@@ -32,6 +33,7 @@ RSpec.describe "Spaces", type: :system do
     fill_in "建物", with: "テストビル"
     fill_in "連絡先", with: "03-1234-1234"
     fill_in "時間単価", with: "1000"
+    fill_in "収容人数", with: "30"
     select "09", from: "space_business_start_time_4i"
     select "00", from: "space_business_start_time_5i"
     select "20", from: "space_business_end_time_4i"
@@ -66,6 +68,7 @@ RSpec.describe "Spaces", type: :system do
     attach_file "イメージ", "#{Rails.root}/public/images/space.jpg"
     fill_in "連絡先", with: "080-1111-1111"
     fill_in "時間単価", with: "1000"
+    fill_in "収容人数", with: "30"
     select "07", from: "space_business_start_time_4i"
     select "00", from: "space_business_start_time_5i"
     select "20", from: "space_business_end_time_4i"
@@ -81,6 +84,7 @@ RSpec.describe "Spaces", type: :system do
     expect(space.images[0].url).to eq "/uploads_test/space/images/#{space.id}/space.jpg"
     expect(space.phone_number).to eq "080-1111-1111"
     expect(space.hourly_price).to eq 1000
+    expect(space.capacity).to eq 30
     expect(space.business_start_time.strftime("%H:%M")).to eq "07:00"
     expect(space.business_end_time.strftime("%H:%M")).to eq "20:00"
   end
