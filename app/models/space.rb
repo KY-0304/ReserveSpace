@@ -44,6 +44,8 @@ class Space < ApplicationRecord
            :reservation_unacceptable_start_date=,
            :reservation_unacceptable_end_date,
            :reservation_unacceptable_end_date=,
+           :reject_same_day_reservation,
+           :reject_same_day_reservation=,
            to: :setting
 
   scope :users_search, -> (search_params) {

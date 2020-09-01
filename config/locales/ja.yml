@@ -55,6 +55,7 @@ ja:
         reservation_unacceptable: 予約受付不可
         reservation_unacceptable_start_date: 予約不可開始日
         reservation_unacceptable_end_date: 予約不可終了日
+        reject_same_day_reservation: 当日予約不可
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

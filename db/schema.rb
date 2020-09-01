@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2020_08_16_040008) do
 
   create_table "settings", force: :cascade do |t|
     t.bigint "space_id", null: false
+    t.boolean "reject_same_day_reservation", default: false, null: false
     t.boolean "reservation_unacceptable", default: false, null: false
     t.date "reservation_unacceptable_start_date"
     t.date "reservation_unacceptable_end_date"

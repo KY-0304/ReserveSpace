@@ -66,6 +66,12 @@ RSpec.describe Setting, type: :model do
         expect(setting).to be_valid
       end
     end
+
+    it "当日予約不可がnilだと無効" do
+      setting.reject_same_day_reservation = nil
+      setting.valid?
+      expect(setting.errors.full_messages).to include "当日予約不可は不正な値です。"
+    end
   end
 
   describe "class_methods" do
