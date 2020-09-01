@@ -30,6 +30,8 @@ class Reservation < ApplicationRecord
   # スペースが期間中予約受付を拒否している場合、予約日が受付拒否期間と被っていないか検証する
   validate :reservation_acceptable_in_date, if: :reservation_unacceptable_mode?
 
+  validate :reservation_acceptable_in_same_day, if: :reject_same_day_reservation_mode?
+
   scope :owners_search, -> (search_params) {
     return unless search_params
 
@@ -102,6 +104,16 @@ class Reservation < ApplicationRecord
       end
     else
       errors[:base] << "現在、新規の予約を受け付けておりません。"
+    end
+  end
+
+  def reject_same_day_reservation_mode?
+    space&.reject_same_day_reservation == true
+  end
+
+  def reservation_acceptable_in_same_day
+    if start_time.to_date == Date.current
+      errors[:base] << "当日の予約は受付できません。"
     end
   end
 end
