@@ -130,5 +130,14 @@ RSpec.describe Setting, type: :model do
         end
       end
     end
+
+    describe "reject_same_day_reservation_now" do
+      let!(:setting1) { create(:setting, :skip_validate, reject_same_day_reservation: true) }
+      let!(:setting2) { create(:setting, :skip_validate, reject_same_day_reservation: false) }
+
+      it "reject_same_day_reservationがtrueの設定を返す" do
+        expect(Setting.reject_same_day_reservation_now).to match_array [setting1]
+      end
+    end
   end
 end

@@ -14,6 +14,10 @@ class Setting < ApplicationRecord
     where(reservation_unacceptable: true)
   }
 
+  scope :reject_same_day_reservation_now, -> {
+    where(reject_same_day_reservation: true)
+  }
+
   scope :reservation_unacceptable_in_period, -> (start_date, end_date) {
     where("daterange(reservation_unacceptable_start_date, reservation_unacceptable_end_date, '[]') && daterange(?, ?, '[]')", start_date, end_date)
   }

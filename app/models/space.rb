@@ -61,7 +61,8 @@ class Space < ApplicationRecord
       hourly_price_less_than_or_equal(search_params[:hourly_price]).
       capacity_more_than_or_equal(search_params[:capacity]).
       does_not_have_reservations_in_time_range(start_datetime, end_datetime).
-      reservation_acceptable_in_period(start_datetime, end_datetime)
+      reservation_acceptable_in_period(start_datetime, end_datetime).
+      reservation_acceptable_in_same_day(start_datetime)
   }
 
   scope :hourly_price_less_than_or_equal, -> (price) {
@@ -92,6 +93,15 @@ class Space < ApplicationRecord
   scope :reservation_acceptable_in_period, -> (start_date, end_date) {
     if start_date.present? && end_date.present?
       ids = Setting.reservation_unacceptable_now.reservation_unacceptable_in_period(start_date, end_date).pluck(:space_id)
+      where.not(id: ids)
+    end
+  }
+
+  scope :reservation_acceptable_in_same_day, -> (date) {
+    return unless date.present?
+
+    if date.to_date == Date.current
+      ids = Setting.reject_same_day_reservation_now.pluck(:space_id)
       where.not(id: ids)
     end
   }
