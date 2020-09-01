@@ -98,7 +98,7 @@ class Space < ApplicationRecord
   }
 
   scope :reservation_acceptable_in_same_day, -> (date) {
-    return unless date.present?
+    return if date.blank?
 
     if date.to_date == Date.current
       ids = Setting.reject_same_day_reservation_now.pluck(:space_id)
