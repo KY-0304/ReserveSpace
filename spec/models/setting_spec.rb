@@ -66,6 +66,12 @@ RSpec.describe Setting, type: :model do
         expect(setting).to be_valid
       end
     end
+
+    it "当日予約不可がnilだと無効" do
+      setting.reject_same_day_reservation = nil
+      setting.valid?
+      expect(setting.errors.full_messages).to include "当日予約不可は不正な値です。"
+    end
   end
 
   describe "class_methods" do
@@ -122,6 +128,15 @@ RSpec.describe Setting, type: :model do
           end_date   = nil
           expect(Setting.reservation_unacceptable_in_period(start_date, end_date)).to match_array Setting.all
         end
+      end
+    end
+
+    describe "reject_same_day_reservation_now" do
+      let!(:setting1) { create(:setting, :skip_validate, reject_same_day_reservation: true) }
+      let!(:setting2) { create(:setting, :skip_validate, reject_same_day_reservation: false) }
+
+      it "reject_same_day_reservationがtrueの設定を返す" do
+        expect(Setting.reject_same_day_reservation_now).to match_array [setting1]
       end
     end
   end

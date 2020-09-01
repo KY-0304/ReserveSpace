@@ -222,5 +222,16 @@ RSpec.describe Reservation, type: :model do
         end
       end
     end
+
+    context "スペースが当日予約不可の設定をしている場合" do
+      before do
+        space.reject_same_day_reservation = true
+      end
+
+      it "当日予約ができない" do
+        reservation.valid?
+        expect(reservation.errors.full_messages).to include "当日の予約は受付できません。"
+      end
+    end
   end
 end
