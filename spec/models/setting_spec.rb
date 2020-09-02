@@ -60,10 +60,10 @@ RSpec.describe Setting, type: :model do
         setting.reservation_unacceptable = false
       end
 
-      it "予約受付拒否開始日と終了日に関わるバリデーションをしない" do
-        setting.reservation_unacceptable_start_date = end_day
-        setting.reservation_unacceptable_end_date   = start_day
-        expect(setting).to be_valid
+      it "before_updateで予約受付拒否開始日と終了日をnilにする" do
+        setting.update_attributes(reservation_unacceptable_start_date: start_day, reservation_unacceptable_end_date: end_day)
+        expect(setting.reload.reservation_unacceptable_start_date).to eq nil
+        expect(setting.reload.reservation_unacceptable_end_date).to eq nil
       end
     end
 
