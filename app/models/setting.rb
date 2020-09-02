@@ -30,7 +30,7 @@ class Setting < ApplicationRecord
   }
 
   scope :within_limit_date, -> (date) {
-    number_of_days = (date.to_date) - (Date.current)
+    number_of_days = date.to_date - Date.current
     where("limit_day >= ?", number_of_days.to_i)
   }
 

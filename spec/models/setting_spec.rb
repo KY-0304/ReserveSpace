@@ -6,8 +6,8 @@ RSpec.describe Setting, type: :model do
     let(:end_day)   { Date.parse("2000/1/2") }
     let(:setting) do
       create(:setting, reservation_unacceptable: true,
-                      reservation_unacceptable_start_date: start_day,
-                      reservation_unacceptable_end_date: end_day)
+                       reservation_unacceptable_start_date: start_day,
+                       reservation_unacceptable_end_date: end_day)
     end
 
     before { travel_to Time.zone.local(2000, 1, 1) }

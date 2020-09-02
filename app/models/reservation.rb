@@ -125,7 +125,7 @@ class Reservation < ApplicationRecord
 
   def within_limit_day
     reservation_date = start_time.to_date
-    limit_date = Date.current + (space.limit_day).days
+    limit_date = Date.current + space.limit_day.days
 
     if reservation_date > limit_date
       errors[:base] << "#{limit_date}より後の予約は受け付けられません。"
