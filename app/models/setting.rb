@@ -1,7 +1,7 @@
 class Setting < ApplicationRecord
   belongs_to :space
 
-  after_validation :set_nil_in_limit_day, unless: :reservation_limit_day_mode?
+  before_update :set_nil_in_limit_day, unless: :reservation_limit_day_mode?
 
   validates :reservation_unacceptable,    inclusion: { in: [true, false], message: "は不正な値です。" }
   validates :reject_same_day_reservation, inclusion: { in: [true, false], message: "は不正な値です。" }
@@ -25,6 +25,15 @@ class Setting < ApplicationRecord
     where(reject_same_day_reservation: true)
   }
 
+  scope :reservation_limit_day_now, -> {
+    where(reservation_limit_day: true)
+  }
+
+  scope :within_limit_date, -> (date) {
+    number_of_days = (date.to_date) - (Date.current)
+    where("limit_day >= ?", number_of_days.to_i)
+  }
+
   scope :reservation_unacceptable_in_period, -> (start_date, end_date) {
     where("daterange(reservation_unacceptable_start_date, reservation_unacceptable_end_date, '[]') && daterange(?, ?, '[]')", start_date, end_date)
   }
@@ -40,6 +49,6 @@ class Setting < ApplicationRecord
   end
 
   def set_nil_in_limit_day
-    limit_day = nil
+    self.limit_day = nil
   end
 end
