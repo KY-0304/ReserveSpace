@@ -67,7 +67,7 @@ class Space < ApplicationRecord
       does_not_have_reservations_in_time_range(start_datetime, end_datetime).
       reservation_acceptable_in_period(start_datetime, end_datetime).
       reservation_acceptable_in_same_day(start_datetime).
-      reservation_acceptable_within_limit_day(start_datetime.to_date)
+      reservation_acceptable_within_limit_day(start_datetime)
   }
 
   scope :hourly_price_less_than_or_equal, -> (price) {
@@ -114,7 +114,7 @@ class Space < ApplicationRecord
   scope :reservation_acceptable_within_limit_day, -> (date) {
     return if date.blank?
 
-    ids = Setting.reservation_limit_day_now.within_limit_date(date).pluck(:space_id)
+    ids = Setting.reservation_limit_day_now.within_limit_date(date.to_date).pluck(:space_id)
     where(id: ids)
   }
 
