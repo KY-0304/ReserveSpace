@@ -84,6 +84,12 @@ RSpec.describe Setting, type: :model do
         setting.reservation_limit_day = true
       end
 
+      it "制限日数がnilだと無効" do
+        setting.limit_day = nil
+        setting.valid?
+        expect(setting.errors.full_messages).to include "制限日数を入力してください"
+      end
+
       it "制限日数が整数以外だと無効" do
         setting.limit_day = 1.1
         setting.valid?
@@ -93,7 +99,7 @@ RSpec.describe Setting, type: :model do
       it "制限日数が0未満だと無効" do
         setting.limit_day = -1
         setting.valid?
-        expect(setting.errors.full_messages).to include "制限日数は0以上の値にしてください"
+        expect(setting.errors.full_messages).to include "制限日数は1以上の値にしてください"
       end
     end
 

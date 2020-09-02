@@ -14,7 +14,7 @@ class Setting < ApplicationRecord
   end
 
   with_options if: :reservation_limit_day_mode? do
-    validates :limit_day, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+    validates :limit_day, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
   end
 
   scope :reservation_unacceptable_now, -> {
