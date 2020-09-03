@@ -37,7 +37,7 @@ class Users::ReservationsController < ApplicationController
 
   def render_spaces_show
     @space = Space.find(params[:reservation][:space_id])
-    @reviews = @space.reviews.includes(:user).order(created_at: :desc)
+    @reviews = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
     @review = Review.new
     render 'spaces/show'
   end

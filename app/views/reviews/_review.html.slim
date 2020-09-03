@@ -1,4 +1,6 @@
 li.list-group-item.mx-5 id="review-#{review.id}"
+  strong 投稿日時:
+  p = l(review.created_at, format: :long)
   strong 評価:
   p = review.rate_i18n
   strong コメント:

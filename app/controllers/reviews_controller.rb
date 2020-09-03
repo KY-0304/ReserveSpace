@@ -7,11 +7,11 @@ class ReviewsController < ApplicationController
       if @review.save
         @review = current_user.reviews.build
         @space = Space.find(params[:space_id])
-        @reviews = @space.reviews.includes(:user).order(created_at: :desc)
+        @reviews = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
         format.js
       else
         @space = Space.find(params[:space_id])
-        @reviews = @space.reviews.includes(:user).order(created_at: :desc)
+        @reviews = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
         format.js
       end
     end
