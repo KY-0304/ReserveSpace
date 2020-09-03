@@ -46,6 +46,10 @@ class Space < ApplicationRecord
            :reservation_unacceptable_end_date=,
            :reject_same_day_reservation,
            :reject_same_day_reservation=,
+           :reservation_limit_day,
+           :reservation_limit_day=,
+           :limit_day,
+           :limit_day=,
            to: :setting
 
   scope :users_search, -> (search_params) {
@@ -62,7 +66,8 @@ class Space < ApplicationRecord
       capacity_more_than_or_equal(search_params[:capacity]).
       does_not_have_reservations_in_time_range(start_datetime, end_datetime).
       reservation_acceptable_in_period(start_datetime, end_datetime).
-      reservation_acceptable_in_same_day(start_datetime)
+      reservation_acceptable_in_same_day(start_datetime).
+      reservation_acceptable_within_limit_day(start_datetime)
   }
 
   scope :hourly_price_less_than_or_equal, -> (price) {
@@ -104,6 +109,13 @@ class Space < ApplicationRecord
       ids = Setting.reject_same_day_reservation_now.pluck(:space_id)
       where.not(id: ids)
     end
+  }
+
+  scope :reservation_acceptable_within_limit_day, -> (date) {
+    return if date.blank?
+
+    ids = Setting.reservation_limit_day_now.within_limit_date(date.to_date).pluck(:space_id)
+    where(id: ids)
   }
 
   # 都道府県名のゲッターメソッド

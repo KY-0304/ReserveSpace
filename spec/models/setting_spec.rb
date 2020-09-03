@@ -5,9 +5,9 @@ RSpec.describe Setting, type: :model do
     let(:start_day) { Date.parse("2000/1/1") }
     let(:end_day)   { Date.parse("2000/1/2") }
     let(:setting) do
-      build(:setting, reservation_unacceptable: true,
-                      reservation_unacceptable_start_date: start_day,
-                      reservation_unacceptable_end_date: end_day)
+      create(:setting, reservation_unacceptable: true,
+                       reservation_unacceptable_start_date: start_day,
+                       reservation_unacceptable_end_date: end_day)
     end
 
     before { travel_to Time.zone.local(2000, 1, 1) }
@@ -60,10 +60,10 @@ RSpec.describe Setting, type: :model do
         setting.reservation_unacceptable = false
       end
 
-      it "予約受付拒否開始日と終了日に関わるバリデーションをしない" do
-        setting.reservation_unacceptable_start_date = end_day
-        setting.reservation_unacceptable_end_date   = start_day
-        expect(setting).to be_valid
+      it "before_updateで予約受付拒否開始日と終了日をnilにする" do
+        setting.update_attributes(reservation_unacceptable_start_date: start_day, reservation_unacceptable_end_date: end_day)
+        expect(setting.reload.reservation_unacceptable_start_date).to eq nil
+        expect(setting.reload.reservation_unacceptable_end_date).to eq nil
       end
     end
 
@@ -71,6 +71,47 @@ RSpec.describe Setting, type: :model do
       setting.reject_same_day_reservation = nil
       setting.valid?
       expect(setting.errors.full_messages).to include "当日予約不可は不正な値です。"
+    end
+
+    it "予約制限日がnilだと無効" do
+      setting.reservation_limit_day = nil
+      setting.valid?
+      expect(setting.errors.full_messages).to include "予約制限日は不正な値です。"
+    end
+
+    context "予約制限日がtrueの場合" do
+      before do
+        setting.reservation_limit_day = true
+      end
+
+      it "制限日数がnilだと無効" do
+        setting.limit_day = nil
+        setting.valid?
+        expect(setting.errors.full_messages).to include "制限日数を入力してください"
+      end
+
+      it "制限日数が整数以外だと無効" do
+        setting.limit_day = 1.1
+        setting.valid?
+        expect(setting.errors.full_messages).to include "制限日数は整数で入力してください"
+      end
+
+      it "制限日数が0未満だと無効" do
+        setting.limit_day = -1
+        setting.valid?
+        expect(setting.errors.full_messages).to include "制限日数は1以上の値にしてください"
+      end
+    end
+
+    context "予約制限日がfalseの場合" do
+      before do
+        setting.reservation_limit_day = false
+      end
+
+      it "before_updateで制限日数をnilにする" do
+        setting.update_attributes(limit_day: 100)
+        expect(setting.reload.limit_day).to eq nil
+      end
     end
   end
 
@@ -137,6 +178,29 @@ RSpec.describe Setting, type: :model do
 
       it "reject_same_day_reservationがtrueの設定を返す" do
         expect(Setting.reject_same_day_reservation_now).to match_array [setting1]
+      end
+    end
+
+    describe "reservation_limit_day_now" do
+      let!(:setting1) { create(:setting, :skip_validate, reservation_limit_day: true) }
+      let!(:setting2) { create(:setting, :skip_validate, reservation_limit_day: false) }
+
+      it "reservation_limit_dayがtrueの設定を返す" do
+        expect(Setting.reservation_limit_day_now).to match_array [setting1]
+      end
+    end
+
+    describe "within_limit_date(date)" do
+      let!(:setting1) { create(:setting, :skip_validate, reservation_limit_day: true, limit_day: 11) }
+      let!(:setting2) { create(:setting, :skip_validate, reservation_limit_day: true, limit_day: 10) }
+
+      before { travel_to Time.zone.local(2000, 1, 1) }
+
+      after { travel_back }
+
+      it "引数の日付と今日の日付の差より大きい制限日数を持っている設定を返す" do
+        date = Date.parse("2000/1/12")
+        expect(Setting.within_limit_date(date)).to match_array [setting1]
       end
     end
   end

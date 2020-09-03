@@ -1,13 +1,21 @@
 class Setting < ApplicationRecord
   belongs_to :space
 
+  before_update :set_nil_in_limit_day,               unless: :reservation_limit_day_mode?
+  before_update :set_nil_in_start_date_and_end_date, unless: :reservation_unacceptable_mode?
+
   validates :reservation_unacceptable,    inclusion: { in: [true, false], message: "は不正な値です。" }
   validates :reject_same_day_reservation, inclusion: { in: [true, false], message: "は不正な値です。" }
+  validates :reservation_limit_day,       inclusion: { in: [true, false], message: "は不正な値です。" }
 
   with_options if: :reservation_unacceptable_mode? do
     validates_datetime :reservation_unacceptable_end_date, after: :reservation_unacceptable_start_date, allow_nil: true
     validates_datetime :reservation_unacceptable_start_date, on_or_after: :now, allow_nil: true
     validates_datetime :reservation_unacceptable_end_date,   on_or_after: :now, allow_nil: true
+  end
+
+  with_options if: :reservation_limit_day_mode? do
+    validates :limit_day, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
   end
 
   scope :reservation_unacceptable_now, -> {
@@ -18,6 +26,15 @@ class Setting < ApplicationRecord
     where(reject_same_day_reservation: true)
   }
 
+  scope :reservation_limit_day_now, -> {
+    where(reservation_limit_day: true)
+  }
+
+  scope :within_limit_date, -> (date) {
+    number_of_days = date.to_date - Date.current
+    where("limit_day >= ?", number_of_days.to_i)
+  }
+
   scope :reservation_unacceptable_in_period, -> (start_date, end_date) {
     where("daterange(reservation_unacceptable_start_date, reservation_unacceptable_end_date, '[]') && daterange(?, ?, '[]')", start_date, end_date)
   }
@@ -26,5 +43,18 @@ class Setting < ApplicationRecord
 
   def reservation_unacceptable_mode?
     reservation_unacceptable == true
+  end
+
+  def reservation_limit_day_mode?
+    reservation_limit_day == true
+  end
+
+  def set_nil_in_limit_day
+    self.limit_day = nil
+  end
+
+  def set_nil_in_start_date_and_end_date
+    self.reservation_unacceptable_start_date = nil
+    self.reservation_unacceptable_end_date = nil
   end
 end

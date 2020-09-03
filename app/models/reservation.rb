@@ -32,6 +32,8 @@ class Reservation < ApplicationRecord
 
   validate :reservation_acceptable_in_same_day, if: :reject_same_day_reservation_mode?
 
+  validate :within_limit_day, if: :reservation_limit_day_mode?
+
   scope :owners_search, -> (search_params) {
     return unless search_params
 
@@ -114,6 +116,19 @@ class Reservation < ApplicationRecord
   def reservation_acceptable_in_same_day
     if start_time.to_date == Date.current
       errors[:base] << "当日の予約は受付できません。"
+    end
+  end
+
+  def reservation_limit_day_mode?
+    space&.reservation_limit_day == true
+  end
+
+  def within_limit_day
+    reservation_date = start_time.to_date
+    limit_date = Date.current + space.limit_day.days
+
+    if reservation_date > limit_date
+      errors[:base] << "#{limit_date}より後の予約は受け付けられません。"
     end
   end
 end
