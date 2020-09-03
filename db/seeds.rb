@@ -188,7 +188,7 @@ space_ids.sample(rand(1..space_ids.size)).each do |s_id|
   end
 end
 
-Review.import reviews
+Review.import(reviews, validate: false)
 
 # 予約作成
 reservations = []

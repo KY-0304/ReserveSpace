@@ -6,10 +6,12 @@ class ReviewsController < ApplicationController
     respond_to do |format|
       if @review.save
         @review = current_user.reviews.build
-        @space = Space.includes(reviews: :user).find(params[:space_id])
+        @space = Space.find(params[:space_id])
+        @reviews = @space.reviews.includes(:user).order(created_at: :desc)
         format.js
       else
-        @space = Space.includes(reviews: :user).find(params[:space_id])
+        @space = Space.find(params[:space_id])
+        @reviews = @space.reviews.includes(:user).order(created_at: :desc)
         format.js
       end
     end
