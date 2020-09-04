@@ -7,6 +7,6 @@
     = f.submit "レビュー投稿", class: "btn btn-success"
 
 ul.list-group.list-group-flush
-  == render reviews
+  == render partial: 'reviews/review', collection: reviews
   li.list-group-item.mx-5
     = paginate reviews
