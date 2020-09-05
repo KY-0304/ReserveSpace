@@ -21,5 +21,14 @@
             td = l(@reservation.end_time)
             = f.hidden_field :end_time
 
-      = f.submit "戻る", name: "back", class: "btn btn-secondary mr-3"
-      = f.submit "登録", class: "btn btn-success"
+      script[
+             type="text/javascript"
+             src="https://checkout.pay.jp/"
+             class="payjp-button"
+             data-key="#{ENV['PAYJP_TEST_OPEN_KEY']}"
+             data-submit-text="このカードで支払う"
+             data-partial="true"
+             ]
+
+      = f.submit "戻る", name: "back", class: "btn btn-secondary mr-3 mt-3"
+      = f.submit "登録", class: "btn btn-success mt-3"
