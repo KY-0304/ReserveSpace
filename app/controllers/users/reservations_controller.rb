@@ -19,7 +19,8 @@ class Users::ReservationsController < ApplicationController
     end
 
     if @reservation.save
-      ApiPayjp.pay(@reservation.total_price, params['payjp-token'])
+      charge = ApiPayjp.charge(@reservation.total_price, params['payjp-token'])
+      @reservation.update_attributes(charge_id: charge.id)
       redirect_to space_path(@reservation.space), notice: "予約が完了しました"
     else
       render_spaces_show
@@ -27,8 +28,14 @@ class Users::ReservationsController < ApplicationController
   end
 
   def destroy
-    current_user.reservations.find(params[:id]).destroy!
-    redirect_to root_path, notice: "予約の削除が完了しました。"
+    reservation = current_user.reservations.find(params[:id])
+    if reservation.destroy
+      charge = ApiPayjp.get_charge(reservation.charge_id)
+      ApiPayjp.refund(charge)
+      redirect_to users_reservations_path, notice: "予約の削除が完了しました。"
+    else
+      redirect_to users_reservations_path, alert: "予約の削除に失敗しました。"
+    end
   end
 
   private

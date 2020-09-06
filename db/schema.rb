@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2020_08_16_040008) do
     t.bigint "user_id", null: false
     t.datetime "start_time", null: false
     t.datetime "end_time", null: false
+    t.string "charge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["space_id", "end_time"], name: "index_reservations_on_space_id_and_end_time", unique: true
