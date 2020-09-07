@@ -13,3 +13,5 @@ GOOGLEMAP_API_JS_URL = "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGL
 MAX_COMPANY_NAME_LENGTH = 140
 
 MAX_EMAIL_LENGTH = 255
+
+MAX_COMMENT_LENGTH = 1000
