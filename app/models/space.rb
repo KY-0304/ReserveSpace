@@ -1,7 +1,7 @@
 class Space < ApplicationRecord
   after_create :setting_create
   before_destroy :check_all_reservations_finished
-  # jp_prefectureの都道府県コードを使用する
+  # jp_prefectureの都道府県コードを使用する。
   include JpPrefecture
   jp_prefecture :prefecture_code
 
