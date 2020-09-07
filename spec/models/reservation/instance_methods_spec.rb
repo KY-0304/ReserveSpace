@@ -13,6 +13,12 @@ RSpec.describe Reservation, type: :model do
       end
     end
 
+    describe "hours_of_use" do
+      it "予約時間数を返す" do
+        expect(reservation.hours_of_use).to eq 3
+      end
+    end
+
     describe "total_price" do
       it "料金単価＊予約時間を返す" do
         expect(reservation.total_price).to eq 3000

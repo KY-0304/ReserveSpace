@@ -5,6 +5,7 @@ class CreateReservations < ActiveRecord::Migration[5.2]
       t.references :user,       null: false, foreign_key: true
       t.datetime   :start_time, null: false
       t.datetime   :end_time,   null: false
+      t.string     :charge_id
 
       t.timestamps
     end

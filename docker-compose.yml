@@ -6,6 +6,12 @@ services:
       - .:/reserve_space
     ports:
       - '3000:3000'
+    environment:
+      GOOGLE_MAPS_APIKEY: ${GOOGLE_MAPS_APIKEY}
+      PAYJP_TEST_OPEN_KEY: ${PAYJP_TEST_OPEN_KEY}
+      PAYJP_TEST_SECRET_KEY: ${PAYJP_TEST_SECRET_KEY}
+      PAYJP_CREATE_CHARGE_URL: ${PAYJP_CREATE_CHARGE_URL}
+      PAYJP_RETRIEVE_CHARGE_URL: ${PAYJP_RETRIEVE_CHARGE_URL}
     depends_on:
       - db
     tty: true

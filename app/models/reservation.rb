@@ -62,7 +62,11 @@ class Reservation < ApplicationRecord
 
   # スペースの単価と予約時間数を掛けて合計金額を計算する
   def total_price
-    (end_time - start_time).floor / 1.hour * space.hourly_price
+    (hours_of_use * space.hourly_price).floor
+  end
+
+  def hours_of_use
+    (end_time - start_time) / 1.hour
   end
 
   private

@@ -30,6 +30,7 @@ gem 'geocoder'
 gem 'kaminari'
 gem 'activerecord-import'
 gem 'gimei'
+gem 'payjp'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -39,6 +40,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'simplecov'
+  gem 'webmock'
 end
 
 group :development do
