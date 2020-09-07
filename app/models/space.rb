@@ -90,7 +90,7 @@ class Space < ApplicationRecord
   # 与えられた日時に予約が無いスペースを返す
   scope :does_not_have_reservations_in_time_range, -> (start_time, end_time) {
     if start_time.present? && end_time.present?
-      ids = Reservation.duplication_in_time_range(start_time, end_time).pluck(:space_id)
+      ids = Reservation.duplication_in_datetime_range(start_time, end_time).pluck(:space_id)
       where.not(id: ids)
     end
   }

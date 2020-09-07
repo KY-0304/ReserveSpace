@@ -20,6 +20,9 @@
             th scope="row" 利用終了時間
             td = l(@reservation.end_time)
             = f.hidden_field :end_time
+          tr
+            th scope="row" 合計金額
+            td = number_to_currency(@reservation.total_price)
 
       script[
              type="text/javascript"

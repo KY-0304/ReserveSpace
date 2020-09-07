@@ -78,10 +78,17 @@ RSpec.describe Reservation, type: :model do
       expect(reservation.errors.full_messages).to include "開始時間は2000-01-01 09:00以降にしてください。"
     end
 
-    it "日付を跨ると無効" do
-      reservation.end_time = "2000-01-02 15:00:00".in_time_zone
-      reservation.valid?
-      expect(reservation.errors.full_messages).to include "終了時間は2000-01-01にしてください。"
+    context "日付を跨がる場合" do
+      it "終了日が、開始日の翌日なら有効" do
+        reservation.end_time = "2000-01-02 15:00:00".in_time_zone
+        expect(reservation).to be_valid
+      end
+
+      it "終了日が、開始日の明後日以降は無効" do
+        reservation.end_time = "2000-01-03 15:00:00".in_time_zone
+        reservation.valid?
+        expect(reservation.errors.full_messages).to include "終了時間は、開始日時と同じ日付、もしくは翌日にしてください。"
+      end
     end
 
     context "予約時間帯が被った場合" do
@@ -98,7 +105,7 @@ RSpec.describe Reservation, type: :model do
 
       it "同じスペースだと無効" do
         other_reservation.valid?
-        expect(other_reservation.errors.full_messages).to include "既に予約のある時間帯と被っています"
+        expect(other_reservation.errors.full_messages).to include "予約重複：既にある予約と被っています。"
       end
 
       it "違うスペースだと有効" do

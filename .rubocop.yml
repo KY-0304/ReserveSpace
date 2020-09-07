@@ -21,3 +21,9 @@ AllCops:
 Style/BlockComments:
   Exclude:
     - 'spec/spec_helper.rb'
+
+Airbnb/SimpleModifierConditional:
+  Enabled: false
+
+Airbnb/SimpleUnless:
+  Enabled: false
