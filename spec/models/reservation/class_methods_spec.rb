@@ -45,15 +45,19 @@ RSpec.describe Reservation, type: :model do
     end
 
     describe "finished" do
+      let!(:finished_reservation) do
+        create(:reservation, :skip_validate, start_time: "2000-01-01 08:00:00".in_time_zone, end_time: "2000-01-01 08:59:59".in_time_zone)
+      end
+      let!(:unfinished_reservation) do
+        create(:reservation, :skip_validate, start_time: "2000-01-01 08:00:00".in_time_zone, end_time: "2000-01-01 09:00:00".in_time_zone)
+      end
+
       before { travel_to Time.zone.local(2000, 1, 1, 9) }
 
       after { travel_back }
 
       it "end_timeが現在時刻より前の予約を返す" do
-        reservation1 = create(:reservation, :skip_validate, start_time: Time.current - 1.hours, end_time: Time.current - 1.second)
-        reservation2 = create(:reservation, :skip_validate, start_time: Time.current - 1.hours, end_time: Time.current)
-
-        expect(Reservation.finished).to match_array [reservation1]
+        expect(Reservation.finished).to match_array [finished_reservation]
       end
     end
   end
