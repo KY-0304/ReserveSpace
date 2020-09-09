@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Reservation, type: :model do
-  let(:user)         { create(:user) }
-  let(:space)        { create(:space) }
-  let!(:reservation) { create(:reservation, :skip_validate, space: space, user: user) }
+  let(:user)  { create(:user) }
+  let(:space) { create(:space) }
+  let!(:reservation) do
+    create(:reservation, :skip_validate, space: space, user: user, start_time: Time.current - 2.hours, end_time: Time.current - 1.hour)
+  end
 
   describe "association" do
     it "spaceを削除するとreservationも削除される" do
