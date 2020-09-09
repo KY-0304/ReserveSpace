@@ -46,6 +46,8 @@ class Reservation < ApplicationRecord
 
   scope :finished, -> { where("end_time < ?", Time.current) }
 
+  scope :unfinished, -> { where("end_time >= ?", Time.current) }
+
   def reservation_time
     "#{I18n.l(start_time, format: :very_short)}~#{I18n.l(end_time, format: :very_short)}"
   end
