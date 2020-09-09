@@ -18,17 +18,11 @@ class Setting < ApplicationRecord
     validates :limit_day, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
   end
 
-  scope :reservation_unacceptable_now, -> {
-    where(reservation_unacceptable: true)
-  }
+  scope :reservation_unacceptable_now, -> { where(reservation_unacceptable: true) }
 
-  scope :reject_same_day_reservation_now, -> {
-    where(reject_same_day_reservation: true)
-  }
+  scope :reject_same_day_reservation_now, -> { where(reject_same_day_reservation: true) }
 
-  scope :reservation_limit_day_now, -> {
-    where(reservation_limit_day: true)
-  }
+  scope :reservation_limit_day_now, -> { where(reservation_limit_day: true) }
 
   scope :within_limit_date, -> (date) {
     number_of_days = date.to_date - Date.current
