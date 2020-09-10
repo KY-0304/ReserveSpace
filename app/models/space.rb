@@ -53,7 +53,7 @@ class Space < ApplicationRecord
 
     if search_params[:start_datetime].present? && search_params[:times].present?
       start_datetime = search_params[:start_datetime].in_time_zone
-      end_datetime = start_datetime + search_params[:times].to_i.hours
+      end_datetime   = start_datetime + search_params[:times].to_i.hours
     end
 
     include_address_search_keyword(search_params[:address_keyword]).
@@ -78,15 +78,15 @@ class Space < ApplicationRecord
 
   scope :does_not_have_reservations_in_time_range, -> (start_time, end_time) {
     if start_time.present? && end_time.present?
-      ids = Reservation.duplication_in_datetime_range(start_time, end_time).pluck(:space_id)
-      where.not(id: ids)
+      space_ids = Reservation.duplication_in_datetime_range(start_time, end_time).pluck(:space_id)
+      where.not(id: space_ids)
     end
   }
 
   scope :reservation_acceptable_in_period, -> (start_date, end_date) {
     if start_date.present? && end_date.present?
-      ids = Setting.reservation_unacceptable_now.reservation_unacceptable_in_period(start_date, end_date).pluck(:space_id)
-      where.not(id: ids)
+      space_ids = Setting.reservation_unacceptable_now.reservation_unacceptable_in_period(start_date, end_date).pluck(:space_id)
+      where.not(id: space_ids)
     end
   }
 
@@ -94,17 +94,17 @@ class Space < ApplicationRecord
     return if date.blank?
 
     if date.to_date == Date.current
-      ids = Setting.reject_same_day_reservation_now.pluck(:space_id)
-      where.not(id: ids)
+      space_ids = Setting.reject_same_day_reservation_now.pluck(:space_id)
+      where.not(id: space_ids)
     end
   }
 
   scope :reservation_acceptable_within_until_day, -> (date) {
-    return if date.blank?
-
-    days = date.to_date - Date.current
-    space_ids = Setting.until_day_greater_than_or_equal(days.to_i).or(Setting.unset_until_day).pluck(:space_id)
-    where(id: space_ids)
+    if date.present?
+      days      = date.to_date - Date.current
+      space_ids = Setting.until_day_greater_than_or_equal(days.to_i).or(Setting.unset_until_day).pluck(:space_id)
+      where(id: space_ids)
+    end
   }
 
   def prefecture_name
@@ -134,7 +134,7 @@ class Space < ApplicationRecord
   end
 
   def check_all_reservations_finished
-    errors[:base] << "予約があるスペースは、削除できません。" if reservations.unfinished.exists?
+    errors[:base] << "予約があるスペースは削除できません。" if reservations.unfinished.exists?
 
     throw(:abort) unless errors.empty?
   end
