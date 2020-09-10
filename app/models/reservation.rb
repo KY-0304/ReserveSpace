@@ -16,12 +16,8 @@ class Reservation < ApplicationRecord
   validate :more_one_hour
   validate :by_fifteen_minutes
   validate :same_day_or_next_day
-
-  # スペースが期間中予約受付を拒否している場合、予約日が受付拒否期間と被っていないか検証する
   validate :reservation_acceptable_in_date, if: :reservation_unacceptable_mode?
-
   validate :reservation_acceptable_in_same_day, if: :reject_same_day_reservation_mode?
-
   validate :within_acceptable_date
 
   scope :owners_search, -> (search_params) {
