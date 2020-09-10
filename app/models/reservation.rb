@@ -22,7 +22,7 @@ class Reservation < ApplicationRecord
 
   validate :reservation_acceptable_in_same_day, if: :reject_same_day_reservation_mode?
 
-  validate :within_limit_day, if: :reservation_limit_day_mode?
+  validate :within_acceptable_date
 
   scope :owners_search, -> (search_params) {
     return unless search_params
@@ -134,16 +134,14 @@ class Reservation < ApplicationRecord
     end
   end
 
-  def reservation_limit_day_mode?
-    space&.reservation_limit_day == true
-  end
+  def within_acceptable_date
+    return if space&.accepted_until_day.nil?
 
-  def within_limit_day
-    reservation_date = start_time.to_date
-    limit_date = Date.current + space.limit_day.days
+    reservation_date    = start_time.to_date
+    max_acceptable_date = Date.current + space.accepted_until_day.days
 
-    if reservation_date > limit_date
-      errors[:base] << "#{limit_date}より後の予約は受け付けられません。"
+    if reservation_date > max_acceptable_date
+      errors[:base] << "#{max_acceptable_date}より後の予約は受け付けられません。"
     end
   end
 end

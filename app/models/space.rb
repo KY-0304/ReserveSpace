@@ -44,10 +44,8 @@ class Space < ApplicationRecord
            :reservation_unacceptable_end_date=,
            :reject_same_day_reservation,
            :reject_same_day_reservation=,
-           :reservation_limit_day,
-           :reservation_limit_day=,
-           :limit_day,
-           :limit_day=,
+           :accepted_until_day,
+           :accepted_until_day=,
            to: :setting
 
   scope :users_search, -> (search_params) {
@@ -65,7 +63,7 @@ class Space < ApplicationRecord
       does_not_have_reservations_in_time_range(start_datetime, end_datetime).
       reservation_acceptable_in_period(start_datetime, end_datetime).
       reservation_acceptable_in_same_day(start_datetime).
-      reservation_acceptable_within_limit_day(start_datetime)
+      reservation_acceptable_within_until_day(start_datetime)
   }
 
   scope :hourly_price_less_than_or_equal, -> (price) { where("hourly_price <= ?", price) if price.present? }
@@ -101,11 +99,12 @@ class Space < ApplicationRecord
     end
   }
 
-  scope :reservation_acceptable_within_limit_day, -> (date) {
+  scope :reservation_acceptable_within_until_day, -> (date) {
     return if date.blank?
 
-    ids = Setting.reservation_limit_day_now.within_limit_date(date.to_date).pluck(:space_id)
-    where(id: ids)
+    days = date.to_date - Date.current
+    space_ids = Setting.until_day_greater_than_or_equal(days.to_i).or(Setting.unset_until_day).pluck(:space_id)
+    where(id: space_ids)
   }
 
   def prefecture_name

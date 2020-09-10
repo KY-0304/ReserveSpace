@@ -20,8 +20,7 @@ class SettingsController < ApplicationController
                                     :reservation_unacceptable_start_date,
                                     :reservation_unacceptable_end_date,
                                     :reject_same_day_reservation,
-                                    :reservation_limit_day,
-                                    :limit_day)
+                                    :accepted_until_day)
   end
 
   def set_space_and_setting

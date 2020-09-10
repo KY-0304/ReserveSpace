@@ -241,7 +241,7 @@ RSpec.describe Reservation, type: :model do
       end
     end
 
-    context "スペースが予約日に制限日数を設けている場合" do
+    context "スペースが予約日に予約受付可能日数を設けている場合" do
       let(:reservation) do
         build(:reservation, space: space,
                             user: user,
@@ -249,12 +249,8 @@ RSpec.describe Reservation, type: :model do
                             end_time: "2000-01-12 15:00:00".in_time_zone)
       end
 
-      before do
-        space.reservation_limit_day = true
-      end
-
       it "制限日より後の予約は無効" do
-        space.limit_day = 10
+        space.accepted_until_day = 10
         reservation.valid?
         expect(reservation.errors.full_messages).to include "2000-01-11より後の予約は受け付けられません。"
       end

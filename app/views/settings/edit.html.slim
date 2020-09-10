@@ -10,10 +10,8 @@
       .form-row
         .col-12.p-3
           = f.check_box :reject_same_day_reservation, checked_value: true, unchecked_value: false, label: "当日予約を受け付けないようにする。"
-        .col-12.p-3
-          = f.check_box :reservation_limit_day, checked_value: true, unchecked_value: false, label: "予約日に制限を設ける。"
         .col-6.p-3
-          = f.number_field :limit_day, append: "日後までの予約を受け付ける。", step: 1, min: 0
+          = f.number_field :accepted_until_day, append: "日後までの予約を受け付ける。", step: 1, min: 0
         .col-6
         .col-12.p-3
           = f.check_box :reservation_unacceptable, checked_value: true, unchecked_value: false, label: "予約を受け付けない期間を設ける。"

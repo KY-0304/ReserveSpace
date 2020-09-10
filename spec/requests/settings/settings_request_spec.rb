@@ -36,7 +36,9 @@ RSpec.describe "Settings", type: :request do
     let(:params) do
       attributes_for(:setting, reservation_unacceptable: true,
                                reservation_unacceptable_start_date: start_day,
-                               reservation_unacceptable_end_date: end_day)
+                               reservation_unacceptable_end_date: end_day,
+                               reject_same_day_reservation: true,
+                               accepted_until_day: 30)
     end
     let(:start_day) { Date.parse("2000/1/1") }
     let(:end_day)   { Date.parse("2000/1/2") }
@@ -66,6 +68,10 @@ RSpec.describe "Settings", type: :request do
 
         it "設定が変更される" do
           expect(setting.reload.reservation_unacceptable).to eq true
+          expect(setting.reload.reservation_unacceptable_start_date).to eq start_day
+          expect(setting.reload.reservation_unacceptable_end_date).to eq end_day
+          expect(setting.reload.reject_same_day_reservation).to eq true
+          expect(setting.reload.accepted_until_day).to eq 30
         end
       end
 

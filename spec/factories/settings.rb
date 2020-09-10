@@ -5,7 +5,6 @@ FactoryBot.define do
     reservation_unacceptable_start_date { nil }
     reservation_unacceptable_end_date { nil }
     reject_same_day_reservation { false }
-    reservation_limit_day { false }
-    limit_day { nil }
+    accepted_until_day { nil }
   end
 end
