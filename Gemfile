@@ -31,7 +31,7 @@ gem 'kaminari'
 gem 'activerecord-import'
 gem 'gimei'
 gem 'payjp'
-gem 'font-awesome-rails'
+gem 'font-awesome-sass'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
