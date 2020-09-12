@@ -1,8 +1,8 @@
 li.nav-item
-  = link_to "予約履歴", users_reservations_path, class: "nav-link"
+  = link_to icon("fas", "history", "予約履歴"), users_reservations_path, class: "nav-link"
 li.nav-item
-  = link_to "お気に入り", users_favorites_path, class: "nav-link"
+  = link_to icon("fas", "star", "お気に入り"), users_favorites_path, class: "nav-link"
 li.nav-item
-  = link_to "アカウント編集", edit_user_registration_path, class: "nav-link"
+  = link_to icon("fas", "user-edit", "アカウント編集"), edit_user_registration_path, class: "nav-link"
 li.nav-item
-  = link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link"
+  = link_to icon("fas", "sign-out-alt", "ログアウト"), destroy_user_session_path, method: :delete, class: "nav-link"
