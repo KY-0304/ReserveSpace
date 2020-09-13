@@ -9,6 +9,9 @@ class StaticPagesController < ApplicationController
     @result_spaces = Space.users_search(@search_params).page(params[:page]).per(10)
   end
 
+  def about
+  end
+
   private
 
   def set_search_params
