@@ -1,0 +1,13 @@
+= provide(:title, "ReserveSpaceとは")
+
+== render 'jumbotron'
+
+.container
+  .nav.nav-pills.nav-fill
+      = link_to "利用者", "#panel-1", class: "nav-item nav-link active", data: { toggle: "tab" }
+      = link_to "掲載者", "#panel-2", class: "nav-item nav-link",        data: { toggle: "tab" }
+  .tab-content.mt-3
+    #panel-1.tab-pane.fade.show.active
+      == render 'users_about'
+    #panel-2.tab-pane.fade
+      == render 'owners_about'

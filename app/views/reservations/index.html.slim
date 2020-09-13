@@ -7,13 +7,15 @@
   = bootstrap_form_with scope: :search, url: search_space_reservations_path(@space), method: :post, local: true do |f|
     .form-row
       .col-4
-        = f.datetime_field :start_datetime, value: @search_params[:start_datetime], label: "検索開始日時"
+        = f.datetime_field :start_datetime, value: @search_params[:start_datetime], label: icon("far", "calendar-alt", "検索開始日時")
       .col-4
-        = f.datetime_field :end_datetime, value: @search_params[:end_datetime], label: "検索終了日時"
-    = f.submit "検索", class: "btn btn-primary mb-3"
-    = link_to "リセット", space_reservations_path(@space), class: "btn btn-secondary mb-3 ml-3"
+        = f.datetime_field :end_datetime, value: @search_params[:end_datetime], label: icon("far", "calendar-alt", "検索終了日時")
+    = f.button type: :submit, class: "btn btn-primary mb-3" do
+      = icon("fas", "search", "検索")
+    = link_to icon("fas", "undo", "リセット"), space_reservations_path(@space), class: "btn btn-secondary mb-3 ml-3"
 
-  = link_to "CSVダウンロード", search_space_reservations_path(@space, format: :csv, search: @search_params), method: :post, class: "btn btn-success mb-3"
+  = link_to icon("fas", "download", "CSVダウンロード"), search_space_reservations_path(@space, format: :csv, search: @search_params),
+    method: :post, class: "btn btn-success mb-3"
 
   table.table.table-striped.table-hover
     thead

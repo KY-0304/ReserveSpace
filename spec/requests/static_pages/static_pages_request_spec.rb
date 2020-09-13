@@ -14,4 +14,11 @@ RSpec.describe "StaticPages", type: :request do
       expect(response.status).to eq 200
     end
   end
+
+  describe "GET #about" do
+    it "ステータスコード200を返す" do
+      get about_path
+      expect(response.status).to eq 200
+    end
+  end
 end
