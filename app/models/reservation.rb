@@ -56,6 +56,14 @@ class Reservation < ApplicationRecord
     (end_time - start_time) / 1.hour
   end
 
+  def owners_sales_amount
+    total_price - reserve_space_sales_amount
+  end
+
+  def reserve_space_sales_amount
+    total_price * RESERVE_SPACE_FEE / 100
+  end
+
   private
 
   def within_space_business_time

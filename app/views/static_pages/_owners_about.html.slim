@@ -39,7 +39,7 @@
       = image_tag 'about_money', class: "img-fluid d-block mx-auto"
       p.text-center.mt-3.font-weight-bold
         |
-          手数料10%
+          手数料#{number_to_percentage(RESERVE_SPACE_FEE, precision: 0)}
       p.font-weight-light.text-secondary.text-center
         |
-          利用者様がお支払い頂いた金額の10%をReserveSpaceのシステム料として頂戴します。
+          利用者様がお支払い頂いた金額の#{number_to_percentage(RESERVE_SPACE_FEE, precision: 0)}をReserveSpaceのシステム料として頂戴します。

@@ -24,5 +24,17 @@ RSpec.describe Reservation, type: :model do
         expect(reservation.total_price).to eq 3000
       end
     end
+
+    describe "owners_sales_amount" do
+      it "total_priceからReserveSpaceの手数料を引いた値を返す" do
+        expect(reservation.owners_sales_amount).to eq 2700
+      end
+    end
+
+    describe "reserve_space_sales_amount" do
+      it "total_priceからReserveSpaceの手数料分を返す" do
+        expect(reservation.reserve_space_sales_amount).to eq 300
+      end
+    end
   end
 end

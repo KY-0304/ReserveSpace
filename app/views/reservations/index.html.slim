@@ -22,7 +22,7 @@
       tr
         th scope="col" 利用日
         th scope="col" 利用時間
-        th scope="col" 料金
+        th scope="col" 売上金額
         th scope="col" 利用者名
         th scope="col" 連絡先
         th scope="col" 性別
@@ -31,7 +31,7 @@
         tr
           td = l(reservation.start_time, format: :semi_long)
           td = reservation.reservation_time
-          td = number_to_currency(reservation.total_price)
+          td = number_to_currency(reservation.owners_sales_amount)
           td = reservation.user.name
           td = reservation.user.phone_number
           td = reservation.user.gender_i18n
