@@ -1,38 +1,12 @@
 h2.text-center.mb-3 = space.name
-.row
-  .col
-    - if space.images?
-      == render 'spaces/image_carousel', images: space.images
-    - else
-      = image_tag 'default.png', class: "img-fluid d-block mx-auto mb-3"
-  - if user_signed_in?
-    .col-md-4
-      == render 'spaces/favorite', space: space
-.card
-  .card-header
-    h3.text-center スペース詳細情報
-  .card-body
-    .card-title
-      h4.font-weight-bold 住所
-    .card-text
-      p.text-left = space.full_address
-    .card-title
-      h4.font-weight-bold 料金
-    .card-text
-      p.text-left #{space.hourly_price}円/時間
-    .card-title
-      h4.font-weight-bold 収容人数
-    .card-text
-      p.text-left #{space.capacity}人
-    .card-title
-      h4.font-weight-bold 営業時間
-    .card-text
-      p.text-left = space.business_time
-    .card-title
-      h4.font-weight-bold 運営会社
-    .card-text
-      p.text-left = space.owner.company_name
-    .card-title
-      h4.font-weight-bold 説明
-    .card-text
-      p.text-left = space.description
+
+- if space.images?
+  == render 'spaces/image_carousel', images: space.images
+- else
+  = image_tag 'default.png', class: "img-fluid d-block mx-auto mb-3"
+
+.row.mt-5
+  .col-md-8
+    == render 'spaces/space_info', space: space
+  .col-md-4
+    == render 'spaces/favorite', space: space
