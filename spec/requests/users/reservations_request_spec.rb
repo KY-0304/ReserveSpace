@@ -187,8 +187,14 @@ RSpec.describe "Users::Reservations", type: :request do
   end
 
   describe "delete #destroy" do
-    let!(:reservation) { create(:reservation, user: user, space: space, charge_id: 'charge_id') }
-    let(:api_url)      { ENV['PAYJP_RETRIEVE_CHARGE_URL'] + reservation.charge_id }
+    let!(:reservation) do
+      create(:reservation, user: user,
+                           space: space,
+                           charge_id: 'charge_id',
+                           start_time: "2020-07-02 10:00:00".in_time_zone,
+                           end_time: "2020-07-02 12:00:00".in_time_zone)
+    end
+    let(:api_url) { ENV['PAYJP_RETRIEVE_CHARGE_URL'] + reservation.charge_id }
 
     context "ログイン済みの場合" do
       before do
@@ -225,6 +231,20 @@ RSpec.describe "Users::Reservations", type: :request do
         it "フラッシュを返す" do
           delete users_reservation_path(reservation)
           expect(flash[:notice]).to eq "予約の削除が完了しました。"
+        end
+      end
+
+      context "当日以降に予約削除しようとした場合" do
+        let(:reservation) { create(:reservation, :skip_validate, user: user, space: space, start_time: "2020-07-01 12:00:00".in_time_zone) }
+
+        it "users_reservations_pathにリダイレクトする" do
+          delete users_reservation_path(reservation)
+          expect(response).to redirect_to users_reservations_path
+        end
+
+        it "フラッシュを返す" do
+          delete users_reservation_path(reservation)
+          expect(flash[:alert]).to eq "当日以降に予約のキャンセルはできません。"
         end
       end
 

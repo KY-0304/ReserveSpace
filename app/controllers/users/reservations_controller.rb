@@ -29,6 +29,8 @@ class Users::ReservationsController < ApplicationController
   def destroy
     reservation = current_user.reservations.find(params[:id])
 
+    return redirect_to users_reservations_path, alert: "当日以降に予約のキャンセルはできません。" unless reservation.cancelable?
+
     ActiveRecord::Base.transaction do
       reservation.destroy!
       charge = ApiPayjp.get_charge(reservation.charge_id)
