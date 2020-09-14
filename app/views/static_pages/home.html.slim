@@ -1,9 +1,10 @@
 == render 'jumbotron'
 == render 'search_form'
 .container
-  .row
-    - if @spaces.present?
-      == render @spaces
-    - else
-      h2.text-center.mx-auto.mt-5 登録されているスペースはありません
-  = paginate @spaces
+  .jscroll
+    .row
+      - if @spaces.present?
+        == render @spaces
+      - else
+        h2.text-center.mx-auto.mt-5 登録されているスペースはありません
+    = link_to_next_page @spaces, '次のページ', class: "next"

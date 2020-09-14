@@ -11,3 +11,12 @@ $(window).ready(function () {
     }
   });
 });
+
+// 無限スクロール
+$(window).ready(function () {
+  $('.jscroll').jscroll({
+    contentSelector: '.jscroll',
+    nextSelector: 'a.next',
+    loadingHtml: '<p class="text-center">読み込み中...</p>'
+  });
+});
