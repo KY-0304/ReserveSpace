@@ -64,6 +64,10 @@ class Reservation < ApplicationRecord
     total_price * RESERVE_SPACE_FEE / 100
   end
 
+  def cancelable?
+    start_time.to_date > Date.current
+  end
+
   private
 
   def within_space_business_time

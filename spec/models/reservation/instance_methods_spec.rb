@@ -36,5 +36,21 @@ RSpec.describe Reservation, type: :model do
         expect(reservation.reserve_space_sales_amount).to eq 300
       end
     end
+
+    describe "cancelable?" do
+      let(:reservation1) { create(:reservation, :skip_validate, start_time: "2000-01-01 00:00:00".in_time_zone) }
+      let(:reservation2) { create(:reservation, :skip_validate, start_time: "2000-01-02 00:00:00".in_time_zone) }
+      let(:reservation3) { create(:reservation, :skip_validate, start_time: "2000-01-03 00:00:00".in_time_zone) }
+
+      before { travel_to Time.zone.local(2000, 1, 2) }
+
+      after { travel_back }
+
+      it "予約開始日が後日以降の時、trueを返す" do
+        expect(reservation1.cancelable?).to eq false
+        expect(reservation2.cancelable?).to eq false
+        expect(reservation3.cancelable?).to eq true
+      end
+    end
   end
 end
