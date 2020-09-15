@@ -1,12 +1,8 @@
-.w-50.mr-auto
-  = bootstrap_form_with model: review, url: space_reviews_path(space), class: "p-5" do |f|
-    = f.alert_message "以下のエラーが発生しました："
-    = f.select :rate, Review.rates_i18n.keys.map { |k| [Review.rates_i18n[k], k] }
-    = f.text_area :comment, size: "1x3"
-    p.text-left ※レビューを投稿するには利用者ログインが必要です。
-    = f.submit "レビュー投稿", class: "btn btn-success"
+#review-form.w-50.ml-3
+  == render 'spaces/review_form', review: review, space: space
 
-ul.list-group.list-group-flush
-  == render partial: 'reviews/review', collection: reviews
-  li.list-group-item.mx-5
-    = paginate reviews
+.jscroll
+  ul.list-group.list-group-flush
+    == render partial: 'reviews/review', collection: reviews
+    li.list-group-item
+      = link_to_next_page reviews, '次のページ', class: "next"

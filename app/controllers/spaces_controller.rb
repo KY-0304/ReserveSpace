@@ -8,7 +8,7 @@ class SpacesController < ApplicationController
 
   def show
     @space = Space.find(params[:id])
-    @reviews = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
+    @reviews = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).without_count.per(10)
     @reservation = Reservation.new
     @review = Review.new
   end

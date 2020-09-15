@@ -1,1 +1,2 @@
-$("#panel-4").html("<%= j(render 'spaces/review_panel', space: @space, review: @review, reviews: @reviews) %>")
+$("#review-form").html("<%= j(render 'spaces/review_form', space: @space, review: @new_review) %>")
+$('ul.list-group.list-group-flush').prepend("<%= j(render 'reviews/review', review: @review) %>");
