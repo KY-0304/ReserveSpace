@@ -1,8 +1,8 @@
 #favorite.card
   .card-header
-    h4.text-center お気に入り
+    h4.text-center.text-secondary お気に入り
   .card-body
-    p.text-center #{space.favorites.size}人がお気に入り登録してます
+    p.text-center.text-dark #{space.favorites.size}人がお気に入り登録してます
     - if user_signed_in?
       - if current_user.favorite?(space)
         = form_with url: users_favorite_path(current_user.favorites.find_by(space_id: space.id)), method: :delete do |f|

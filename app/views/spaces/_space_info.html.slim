@@ -1,28 +1,28 @@
 .card
   .card-header
-    h3.text-center スペース詳細情報
+    h3.text-center.text-secondary スペース概要
   .card-body
     .card-title
-      h4.font-weight-bold 住所
+      h5.font-weight-bold.text-muted 住所
     .card-text
-      p.text-left = space.full_address
+      p.text-dark = space.full_address
     .card-title
-      h4.font-weight-bold 料金
+      h5.font-weight-bold.text-muted 料金
     .card-text
-      p.text-left #{space.hourly_price}円/時間
+      p.text-dark #{space.hourly_price}円/時間
     .card-title
-      h4.font-weight-bold 収容人数
+      h5.font-weight-bold.text-muted 収容人数
     .card-text
-      p.text-left #{space.capacity}人
+      p.text-dark #{space.capacity}人
     .card-title
-      h4.font-weight-bold 営業時間
+      h5.font-weight-bold.text-muted 営業時間
     .card-text
-      p.text-left = space.business_time
+      p.text-dark = space.business_time
     .card-title
-      h4.font-weight-bold 運営会社
+      h5.font-weight-bold.text-muted 運営会社
     .card-text
-      p.text-left = space.owner.company_name
+      p.text-dark #{space.owner.company_name}<br><small>お問い合わせ先：#{space.phone_number}</small>
     .card-title
-      h4.font-weight-bold 説明
+      h5.font-weight-bold.text-muted 説明
     .card-text
-      p.text-left = space.description
+      p.text-dark = space.description

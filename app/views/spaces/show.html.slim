@@ -1,6 +1,6 @@
-= provide(:title, "スペース詳細")
+= provide(:title, @space.name)
 .container.p-5
-  h2.mb-3.text-center = @space.name
+  h2.mb-4.text-center.text-dark = @space.name
   .nav.nav-tabs
     == render 'spaces/nav_tabs'
   .tab-content

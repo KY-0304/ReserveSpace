@@ -10,4 +10,5 @@
   = f.hidden_field :space_id, value: space.id
   = f.datetime_select :start_time, minute_step: 15, start_year: now.year, end_year: now.next_year.year
   = f.datetime_select :end_time,   minute_step: 15, start_year: now.year, end_year: now.next_year.year
-  = f.submit "予約確認画面へ", class: "btn btn-primary"
+  = f.button type: :submit, class: "btn btn-primary" do
+            = icon("fas", "check", "予約確認画面へ")
