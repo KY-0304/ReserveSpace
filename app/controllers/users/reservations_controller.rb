@@ -7,11 +7,11 @@ class Users::ReservationsController < ApplicationController
   end
 
   def new
-    render_spaces_show unless @reservation.valid?
+    render_spaces_show if @reservation.invalid?
   end
 
   def create
-    return render_spaces_show if params[:back].present?
+    return redirect_to space_path(@reservation.space) if params[:back].present?
 
     if params['payjp-token'].blank?
       flash[:alert] = "クレジットカード情報を入力してください。"
@@ -51,7 +51,7 @@ class Users::ReservationsController < ApplicationController
 
   def render_spaces_show
     @space = Space.find(params[:reservation][:space_id])
-    @reviews = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
+    @reviews = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).without_count.per(10)
     @review = Review.new
     render 'spaces/show'
   end

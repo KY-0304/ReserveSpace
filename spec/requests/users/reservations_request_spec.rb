@@ -74,9 +74,16 @@ RSpec.describe "Users::Reservations", type: :request do
       end
 
       context "params[:back]が送られた場合" do
-        it "ステータスコード200を返す" do
+        before do
           post users_reservations_path, params: { reservation: params, back: "back" }
-          expect(response.status).to eq 200
+        end
+
+        it "ステータスコード302を返す" do
+          expect(response.status).to eq 302
+        end
+
+        it "space_pathにリダイレクトする" do
+          expect(response).to redirect_to space_path(params[:space_id])
         end
       end
 
