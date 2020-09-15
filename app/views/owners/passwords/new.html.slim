@@ -1,7 +1,7 @@
 = provide(:title, "掲載者パスワードリセット")
 .container.p-5
   .w-50.mx-auto.pt-5
-    h2.text-center.pb-3 掲載者パスワードリセット
+    h2.text-center.text-dark.pb-3 掲載者パスワードリセット
     = bootstrap_form_with model: @owner, url: owner_password_path, method: :post, inline_errors: false, local: true do |f|
       = f.alert_message "以下のエラーが発生しました："
       = f.email_field :email, autofocus: true

@@ -1,9 +1,9 @@
 = provide(:title, "スペース一覧")
 .container.p-5
-  h2.text-center.mb-5 スペース一覧
+  h2.text-center.text-dark.mb-5 スペース一覧
   .row
     - if @spaces.present?
       == render partial: "spaces/card_spaces", collection: @spaces, as: "space"
     - else
-      p.text-center.mx-auto 登録されているスペースはありません
+      p.text-center.text-dark.mx-auto 登録されているスペースはありません
   = paginate @spaces

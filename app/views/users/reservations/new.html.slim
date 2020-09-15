@@ -1,8 +1,8 @@
 = provide(:title, "予約内容の確認")
 
 .container.p-5
-  h1.text-center.mb-5 予約内容の確認
-  p.text-center.font-weight-bold.mb-3 下記の内容で予約登録をします。
+  h1.text-center.text-dark.mb-5 予約内容の確認
+  p.text-center.text-dark.font-weight-bold.mb-3 下記の内容で予約登録をします。
 
   .w-75.mx-auto
     = form_with model: @reservation, url: users_reservations_path, local: true do |f|

@@ -1,8 +1,8 @@
 = provide(:title, "予約一覧")
 .container.p-5
   = link_to space_path(@space) do
-    h2.text-center.mb-3 #{@space.name}
-  h3.text-center.mb-3 予約一覧(全#{@reservations.size}件)
+    h2.text-center.text-dark.mb-3 #{@space.name}
+  h3.text-center.text-dark.mb-3 予約一覧(全#{@reservations.size}件)
 
   = bootstrap_form_with scope: :search, url: search_space_reservations_path(@space), method: :post, local: true do |f|
     .form-row

@@ -1,7 +1,7 @@
 = provide(:title, "スペース登録")
 .container.p-4
   .w-50.mx-auto
-    h2.text-center スペース登録
+    h2.text-center.text-dark スペース登録
     = bootstrap_form_with model: @space, local: true, inline_errors: false do |f|
       = f.alert_message "以下のエラーが発生しました："
       = f.text_field :name, autofocus: true, placeholder: "スペース名"

@@ -1,7 +1,7 @@
 = month_calendar events: space.reservations do |date, reservations|
   = date.day
   - reservations.each do |reservation|
-    small.d-block #{reservation.reservation_time} 予約有
+    small.d-block.text-dark #{reservation.reservation_time} 予約有
 
 - now = Time.current
 

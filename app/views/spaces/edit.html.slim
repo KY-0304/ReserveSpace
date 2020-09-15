@@ -1,7 +1,7 @@
 = provide(:title, "スペース編集")
 .container.p-4
   .w-50.mx-auto
-    h2.text-center スペース編集
+    h2.text-center.text-dark スペース編集
     = bootstrap_form_with model: @space, local: true, inline_errors: false do |f|
       = f.alert_message "以下のエラーが発生しました："
       = f.text_field :name, autofocus: true

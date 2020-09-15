@@ -1,11 +1,11 @@
 = provide(:title, "お気に入り一覧")
 .container.p-5
-  h2.text-center お気に入り一覧
+  h2.text-center.text-dark お気に入り一覧
   .jscroll
     .row
       - if @spaces.present?
         == render partial: 'spaces/space', collection: @spaces
       - else
-        h2.text-center お気に入りのスペースはありません
+        h2.text-center.text-dark お気に入りのスペースはありません
       .list-group
         = link_to_next_page @spaces, '次のページ', class: "next"

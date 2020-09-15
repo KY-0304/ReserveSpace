@@ -1,7 +1,7 @@
 = provide(:title, "利用者アカウント編集")
 .container.p-5
   .w-50.mx-auto
-    h2.text-center 利用者アカウント編集
+    h2.text-center.text-dark 利用者アカウント編集
     = bootstrap_form_with model: @user, url: user_registration_path, method: :put, local: true do |f|
       = f.alert_message "以下のエラーが発生しました："
       = f.email_field :email, autofocus: true

@@ -1,8 +1,8 @@
 = provide(:title, "スペース設定")
 
 .container.p-5
-  h1.text-center #{@space.name}
-  h2.text-center 設定画面
+  h1.text-center.text-dark #{@space.name}
+  h2.text-center.text-dark 設定画面
 
   .w-75.mx-auto
     = bootstrap_form_with model: @setting, url: space_setting_path(@space), local: true, inline_errors: false do |f|
