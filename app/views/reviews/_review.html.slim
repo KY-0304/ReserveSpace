@@ -1,9 +1,9 @@
 li.list-group-item.mx-5 id="review-#{review.id}"
-  strong 投稿日時:
-  p = l(review.created_at, format: :long)
-  strong 評価:
-  p = review.rate_i18n
-  strong コメント:
-  p = review.comment
+  p.font-weight-bold.text-info
+    |
+      評価: #{review.rate_i18n}
+      <small class="text-secondary ml-2">#{l(review.created_at)}</small>
+
+  p.font-weight-light.text-muted = review.comment
   - if user_signed_in? && current_user == review.user
     = link_to icon("fas", "trash-alt", "削除"), review, method: :delete, remote: true, class: "btn btn-outline-danger float-right", data: { confirm: "削除しますか？" }
