@@ -3,4 +3,5 @@
   = f.select :rate, Review.rates_i18n.keys.map { |k| [Review.rates_i18n[k], k] }
   = f.text_area :comment, rows: 3, required: true
   p.text-left ※レビューを投稿するには利用者ログインが必要です。
-  = f.submit "レビュー投稿", class: "btn btn-success"
+  = f.button type: :submit, class: "btn btn-success" do
+        = icon("fas", "paper-plane", "投稿")
