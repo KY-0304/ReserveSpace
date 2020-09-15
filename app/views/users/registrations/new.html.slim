@@ -10,7 +10,7 @@
       = f.select :gender, User.genders_i18n.keys.map { |k| [User.genders_i18n[k], k] }
       = f.password_field :password, placeholder: "パスワード（6文字以上）"
       = f.password_field :password_confirmation, placeholder: "もう一度、パスワードを入力してください", required: true
-      = f.text_area "利用規約", size: "1x4", value: TERMS_OF_SERVICE, readonly: true, disabled: true
+      = f.text_area "利用規約", rows: 4, value: TERMS_OF_SERVICE, readonly: true, disabled: true
       = f.check_box :agreement
       = f.submit "登録", class: "btn btn-success btn-block mt-3"
     == render "shared/links"

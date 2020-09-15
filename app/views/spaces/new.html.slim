@@ -5,7 +5,7 @@
     = bootstrap_form_with model: @space, local: true, inline_errors: false do |f|
       = f.alert_message "以下のエラーが発生しました："
       = f.text_field :name, autofocus: true, placeholder: "スペース名"
-      = f.text_area :description, size: "1x5", placeholder: "スペースの説明文"
+      = f.text_area :description, rows: 5, placeholder: "スペースの説明文"
       .mb-3
         = f.label :images
         = f.file_field_without_bootstrap :images, class: "filestyle", accept: 'image/jpeg,image/png', multiple: true
