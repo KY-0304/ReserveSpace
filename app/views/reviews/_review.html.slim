@@ -6,4 +6,5 @@ li.list-group-item.mx-5 id="review-#{review.id}"
 
   p.font-weight-light.text-muted = review.comment
   - if user_signed_in? && current_user == review.user
-    = link_to icon("fas", "trash-alt", "削除"), review, method: :delete, remote: true, class: "btn btn-outline-danger float-right", data: { confirm: "削除しますか？" }
+    = link_to icon("fas", "trash-alt", "削除"), review, method: :delete, remote: true,
+      class: "btn btn-outline-danger float-right", data: { confirm: "削除しますか？" }
