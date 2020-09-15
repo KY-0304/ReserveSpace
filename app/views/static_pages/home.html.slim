@@ -7,4 +7,5 @@
         == render @spaces
       - else
         h2.text-center.mx-auto.mt-5 登録されているスペースはありません
-    = link_to_next_page @spaces, '次のページ', class: "next"
+      .list-group
+        = link_to_next_page @spaces, '次のページ', class: "next"
