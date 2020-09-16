@@ -17,7 +17,8 @@ class ReservationsController < ApplicationController
   def set_space_and_search_params_and_reservations
     @space = current_owner.spaces.find(params[:space_id])
     @search_params = search_params
-    @reservations = @space.reservations.includes(:user).owners_search(@search_params).order(start_time: :desc).page(params[:page]).per(50)
+    @reservations = @space.reservations.includes(:user).owners_search(@search_params).
+      order(start_time: :desc).page(params[:page]).per(MAX_DISPLAY_RESERVATION_COUNT)
   end
 
   def search_params

@@ -4,7 +4,11 @@ class ReviewsController < ApplicationController
   def create
     @review = current_user.reviews.build(review_params)
     @space = Space.find(params[:space_id])
-    @review.save ? @new_review = current_user.reviews.build : render(:error)
+    if @review.save
+      @new_review = current_user.reviews.build
+    else
+      render :error
+    end
   end
 
   def destroy

@@ -2,7 +2,7 @@ class Users::FavoritesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @spaces = current_user.favorite_spaces.page(params[:page]).without_count.per(10)
+    @spaces = current_user.favorite_spaces.page(params[:page]).without_count.per(MAX_DISPLAY_SPACE_COUNT)
   end
 
   def create

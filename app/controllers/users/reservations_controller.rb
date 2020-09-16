@@ -3,7 +3,7 @@ class Users::ReservationsController < ApplicationController
   before_action :set_reservation, only: [:new, :create]
 
   def index
-    @reservations = current_user.reservations.includes(:space).order(start_time: :desc).page(params[:page]).per(10)
+    @reservations = current_user.reservations.includes(:space).order(start_time: :desc).page(params[:page]).per(MAX_DISPLAY_RESERVATION_COUNT)
   end
 
   def new
@@ -20,8 +20,9 @@ class Users::ReservationsController < ApplicationController
       @reservation.save!
       charge = ApiPayjp.charge(@reservation.total_price, params['payjp-token'])
       @reservation.update_attributes!(charge_id: charge.id)
-      redirect_to space_path(@reservation.space), notice: "予約が完了しました"
     end
+
+    redirect_to space_path(@reservation.space), notice: "予約が完了しました"
   end
 
   def destroy
@@ -33,8 +34,9 @@ class Users::ReservationsController < ApplicationController
       reservation.destroy!
       charge = ApiPayjp.get_charge(reservation.charge_id)
       ApiPayjp.refund(charge)
-      redirect_to users_reservations_path, notice: "予約の削除が完了しました。"
     end
+
+    redirect_to users_reservations_path, notice: "予約の削除が完了しました。"
   end
 
   private
@@ -49,7 +51,7 @@ class Users::ReservationsController < ApplicationController
 
   def render_spaces_show
     @space = Space.find(params[:reservation][:space_id])
-    @reviews = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).without_count.per(10)
+    @reviews = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).without_count.per(MAX_DISPLAY_REVIEW_COUNT)
     @review = Review.new
     render 'spaces/show'
   end

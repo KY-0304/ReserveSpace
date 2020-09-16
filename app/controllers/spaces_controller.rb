@@ -3,12 +3,12 @@ class SpacesController < ApplicationController
   before_action :set_space, only: [:edit, :update, :destroy]
 
   def index
-    @spaces = current_owner.spaces.page(params[:page]).per(9)
+    @spaces = current_owner.spaces.order(:created_at).page(params[:page]).per(MAX_DISPLAY_SPACE_COUNT)
   end
 
   def show
     @space = Space.find(params[:id])
-    @reviews = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).without_count.per(10)
+    @reviews = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).without_count.per(MAX_DISPLAY_REVIEW_COUNT)
     @reservation = Reservation.new
     @review = Review.new
   end
