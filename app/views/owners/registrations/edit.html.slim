@@ -10,8 +10,9 @@
       = f.password_field :password_confirmation, placeholder: "もう一度、新しいパスワードを入力してください",
                                                  help: "パスワードを変更しない場合は空欄にしてください。"
       = f.password_field :current_password, placeholder: "現在のパスワード", help: "変更を確定させるには現在のパスワードを入力してください。"
-      = f.submit "変更", class: "btn btn-block btn-success"
-    = link_to "戻る", :back, class: "btn btn-outline-primary btn-block mt-3"
+      = f.button type: :submit, class: "btn btn-success btn-block" do
+        = icon("fas", "edit", "変更")
+
     .w-50.mx-auto.mt-5
-      = link_to "アカウント削除", owner_registration_path, data: { confirm: "アカウントを削除します。本当によろしいですか。" },
-                                                         method: :delete, class: "btn btn-danger btn-sm btn-block"
+      = link_to "退会", owner_registration_path, data: { confirm: "アカウントを削除します。本当によろしいですか。" },
+          method: :delete, class: "btn btn-outline-danger btn-sm btn-block"

@@ -35,4 +35,5 @@
           = f.time_select :business_start_time, default: Time.zone.local(2020, 1, 1, 9)
         .col-md-6
           = f.time_select :business_end_time, default: Time.zone.local(2020, 1, 1, 18)
-      = f.submit "登録", class: "btn btn-success btn-block"
+      = f.button type: :submit, class: "btn btn-success btn-block" do
+        = icon("fas", "plus", "登録")

@@ -27,7 +27,7 @@ RSpec.describe "OwnerSignUp", type: :system do
 
     # 掲載者アカウントが削除されることの確認
     expect do
-      click_link "アカウント削除"
+      click_link "退会"
     end.to change(Owner, :count).by(-1)
 
     expect(page).to have_content "ご利用ありがとうございました。アカウントが削除されました。またのご利用をお待ちしています"

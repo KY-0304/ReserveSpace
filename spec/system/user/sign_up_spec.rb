@@ -29,7 +29,7 @@ RSpec.describe "UserSignUp", type: :system do
 
     # 利用者アカウントが削除されることの確認
     expect do
-      click_link "アカウント削除"
+      click_link "退会"
     end.to change(User, :count).by(-1)
 
     expect(page).to have_content "ご利用ありがとうございました。アカウントが削除されました。またのご利用をお待ちしています"

@@ -1,6 +1,6 @@
 = provide(:title, "掲載者登録")
 .container.p-5
-  .w-50.mx-auto.pt-5
+  .w-50.mx-auto
     h2.text-center.text-dark 掲載者登録
     = bootstrap_form_with model: @owner, url: owner_registration_path, local: true, inline_errors: false do |f|
       = f.alert_message "以下のエラーが発生しました："
@@ -10,5 +10,6 @@
       = f.password_field :password_confirmation, placeholder: "もう一度、パスワードを入力してください", required: true
       = f.text_area "利用規約", rows: 4, value: TERMS_OF_SERVICE, readonly: true, disabled: true
       = f.check_box :agreement
-      = f.submit "登録", class: "btn btn-success btn-block mt-3"
+      = f.button type: :submit, class: "btn btn-success btn-block mt-3" do
+        = icon("fas", "user-plus", "登録")
     == render "shared/links"

@@ -27,7 +27,8 @@
           = f.time_select :business_start_time
         .col-md-6
           = f.time_select :business_end_time
-      = f.submit "変更", class: "btn btn-success btn-block"
+      = f.button type: :submit, class: "btn btn-success btn-block" do
+        = icon("fas", "edit", "変更")
     .w-50.mx-auto.mt-5
       = link_to "スペース削除", @space, data: { confirm: "スペースを削除します。本当によろしいでしょうか。" },
-                                       method: :delete, class: "btn btn-danger btn-sm btn-block"
+                                       method: :delete, class: "btn btn-outline-danger btn-sm btn-block"

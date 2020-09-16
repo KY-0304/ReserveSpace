@@ -5,5 +5,6 @@
     = bootstrap_form_with model: @owner, url: owner_password_path, method: :post, inline_errors: false, local: true do |f|
       = f.alert_message "以下のエラーが発生しました："
       = f.email_field :email, autofocus: true
-      = f.submit "メール送信", class: "btn btn-success btn-block"
+      = f.button type: :submit, class: "btn btn-success btn-block" do
+        = icon("fas", "envelope", "メール送信")
     == render "shared/links"

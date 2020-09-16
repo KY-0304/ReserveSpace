@@ -6,6 +6,7 @@
       = f.email_field :email, autofocus: true
       = f.password_field :password
       = f.check_box :remember_me
-      = f.submit "ログイン", class: "btn btn-success btn-block mt-3"
-      = link_to "ゲストオーナーでログイン", owners_guest_sign_in_path, method: :post, class: "btn btn-secondary btn-block mt-3"
+      = f.button type: :submit, class: "btn btn-success btn-block mt-3" do
+        = icon("fas", "sign-in-alt", "ログイン")
+      = link_to icon("fas", "user", "ゲストオーナーでログイン"), owners_guest_sign_in_path, method: :post, class: "btn btn-secondary btn-block mt-3"
     == render "shared/links"
