@@ -11,8 +11,6 @@ class Users::ReservationsController < ApplicationController
   end
 
   def create
-    return redirect_to space_path(@reservation.space) if params[:back].present?
-
     if params['payjp-token'].blank?
       flash[:alert] = "クレジットカード情報を入力してください。"
       return render :new

@@ -73,20 +73,6 @@ RSpec.describe "Users::Reservations", type: :request do
         sign_in user
       end
 
-      context "params[:back]が送られた場合" do
-        before do
-          post users_reservations_path, params: { reservation: params, back: "back" }
-        end
-
-        it "ステータスコード302を返す" do
-          expect(response.status).to eq 302
-        end
-
-        it "space_pathにリダイレクトする" do
-          expect(response).to redirect_to space_path(params[:space_id])
-        end
-      end
-
       context "params['payjp-token']が送られなかった場合" do
         before do
           post users_reservations_path, params: { reservation: params }
