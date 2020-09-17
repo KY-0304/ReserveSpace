@@ -2,11 +2,12 @@ class StaticPagesController < ApplicationController
   before_action :set_search_params
 
   def home
-    @spaces = Space.all.page(params[:page]).without_count.per(10)
+    @spaces = Space.all.order(impressions_count: :desc).page(params[:page]).without_count.per(MAX_DISPLAY_SPACE_COUNT)
   end
 
   def search
-    @result_spaces = Space.users_search(@search_params).page(params[:page]).without_count.per(10)
+    @result_spaces = Space.users_search(@search_params).order(impressions_count: :desc).
+      page(params[:page]).without_count.per(MAX_DISPLAY_SPACE_COUNT)
   end
 
   def about
