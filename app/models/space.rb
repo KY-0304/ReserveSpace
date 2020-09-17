@@ -4,6 +4,8 @@ class Space < ApplicationRecord
 
   mount_uploaders :images, ImageUploader
 
+  is_impressionable counter_cache: true
+
   geocoded_by :geocode_address
 
   after_validation :geocode

@@ -11,6 +11,7 @@ class SpacesController < ApplicationController
     @reviews = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).without_count.per(MAX_DISPLAY_REVIEW_COUNT)
     @reservation = Reservation.new
     @review = Review.new
+    impressionist(@space, nil, unique: [:ip_address])
   end
 
   def new

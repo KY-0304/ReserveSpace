@@ -3,8 +3,14 @@
     .card-header
       = link_to space.name, space_path(space)
     .card-body
-      p.card-title.text-dark 本日の予約：#{space.reservations.for_the_day(Date.current).count}件
-      p.card-title.text-dark 明日の予約：#{space.reservations.for_the_day(Date.tomorrow).count}件
+      .row
+        .col-6
+          p.text-dark 本日の予約：#{space.reservations.for_the_day(Date.current).count}件
+          p.text-dark 明日の予約：#{space.reservations.for_the_day(Date.tomorrow).count}件
+        .col-6
+          p.text-dark 本日のPV：#{space.impressionist_count(start_date: Date.current) }
+          p.text-dark 累計PV：#{space.impressionist_count}
+
       = link_to icon("far", "calendar-alt", "予約一覧へ"), space_reservations_path(space), class: "btn btn-primary"
       = link_to icon("fas", "cog", "設定"), edit_space_setting_path(space), class: "btn btn-success ml-3"
       = link_to icon("fas", "edit", "編集"), edit_space_path(space), class: "btn btn-secondary ml-3"

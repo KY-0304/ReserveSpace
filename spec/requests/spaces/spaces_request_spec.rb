@@ -41,6 +41,17 @@ RSpec.describe "Spaces", type: :request do
       get space_path(space)
       expect(response.status).to eq 200
     end
+
+    it "impressionsテーブルのレコードが増える" do
+      expect do
+        get space_path(space)
+      end.to change(Impression, :count).by 1
+    end
+
+    it "spaceのimpressions_countがインクリメントされる" do
+      get space_path(space)
+      expect(space.reload.impressions_count).to eq 1
+    end
   end
 
   describe "GET #new" do
