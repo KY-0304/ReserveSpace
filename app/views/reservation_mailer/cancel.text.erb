@@ -1,0 +1,24 @@
+<%= @user.name%>様
+
+いつもRESERVE SPACEをご利用いただきまして、誠にありがとうございます。
+
+下記の予約をキャンセル致しました。
+
+※本メールは配信専用の為、ご返信いただきましてもRESERVE SPACE及び、掲載者様へは届きません。
+
+■予約日時
+<%= "#{l(@reservation.start_time)} ~ #{l(@reservation.end_time)}" %>
+
+■スペース名
+<%= @reservation.space.name %>
+
+■スペース詳細
+<%= space_url(@reservation.space) %>
+
+■合計金額
+<%= number_to_currency(@reservation.total_price) %>
+※返金につきましては、カード会社経由でご返金致します。
+
+※本メールにお心当たりが無い場合は、お手数ですが、破棄していただけますようお願いします。
+
+RESERVE SPACE
