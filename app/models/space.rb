@@ -24,8 +24,7 @@ class Space < ApplicationRecord
     validates :address_city,   length: { maximum: MAX_ADDRESS_CITY_LENGTH }
     validates :address_street, length: { maximum: MAX_ADDRESS_STREET_LENGTH }
     validates :phone_number,   format: { with: VALID_PHONE_NUMBER_REGEX }
-    validates :hourly_price,   format: { with: VALID_HOURLY_PRICE_REGEX, message: "は100円単位で設定してください" },
-                               numericality: { only_integer: true, greater_than_or_equal_to: MINIMUM_UNIT_SPACE_PRICE }
+    validates :hourly_price,   numericality: { only_integer: true, greater_than_or_equal_to: MINIMUM_UNIT_SPACE_PRICE }
     validates :capacity,       numericality: { only_integer: true }
     validates :postcode
     validates :prefecture_code
@@ -37,6 +36,8 @@ class Space < ApplicationRecord
   validates :address_building, length: { maximum: MAX_ADDRESS_BUILDING_LENGTH }
 
   validates_time :business_end_time, after: :business_start_time
+
+  validate :divide_by_one_hundred
 
   delegate :reservation_unacceptable,
            :reservation_unacceptable=,
@@ -126,6 +127,14 @@ class Space < ApplicationRecord
   end
 
   private
+
+  def divide_by_one_hundred
+    return unless hourly_price
+
+    unless hourly_price % 100 == 0
+      errors.add(:hourly_price, "は100円単位で設定してください")
+    end
+  end
 
   def address_array
     [prefecture_name, address_city, address_street, address_building].compact
