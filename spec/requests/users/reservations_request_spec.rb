@@ -121,6 +121,12 @@ RSpec.describe "Users::Reservations", type: :request do
           post users_reservations_path, params: { reservation: params, 'payjp-token' => 'token' }
           expect(flash[:notice]).to eq "予約が完了しました"
         end
+
+        it "メールが送信される" do
+          ActionMailer::Base.deliveries.clear
+          post users_reservations_path, params: { reservation: params, 'payjp-token' => 'token' }
+          expect(ActionMailer::Base.deliveries.size).to eq 1
+        end
       end
 
       context "パラメータが不正な場合" do
@@ -135,6 +141,12 @@ RSpec.describe "Users::Reservations", type: :request do
           expect do
             post users_reservations_path, params: { reservation: invalid_params, 'payjp-token' => 'token' }
           end.not_to change(Reservation, :count)
+        end
+
+        it "メールが送信されない" do
+          ActionMailer::Base.deliveries.clear
+          post users_reservations_path, params: { reservation: invalid_params, 'payjp-token' => 'token' }
+          expect(ActionMailer::Base.deliveries.size).to eq 0
         end
       end
 
@@ -160,6 +172,12 @@ RSpec.describe "Users::Reservations", type: :request do
           expect do
             post users_reservations_path, params: { reservation: params, 'payjp-token' => 'token' }
           end.not_to change(Reservation, :count)
+        end
+
+        it "メールが送信されない" do
+          ActionMailer::Base.deliveries.clear
+          post users_reservations_path, params: { reservation: params, 'payjp-token' => 'token' }
+          expect(ActionMailer::Base.deliveries.size).to eq 0
         end
       end
     end
@@ -225,6 +243,12 @@ RSpec.describe "Users::Reservations", type: :request do
           delete users_reservation_path(reservation)
           expect(flash[:notice]).to eq "予約の削除が完了しました。"
         end
+
+        it "メールが送信される" do
+          ActionMailer::Base.deliveries.clear
+          delete users_reservation_path(reservation)
+          expect(ActionMailer::Base.deliveries.size).to eq 1
+        end
       end
 
       context "当日以降に予約削除しようとした場合" do
@@ -260,6 +284,12 @@ RSpec.describe "Users::Reservations", type: :request do
           expect do
             delete users_reservation_path(reservation)
           end.not_to change(Reservation, :count)
+        end
+
+        it "メールが送信されない" do
+          ActionMailer::Base.deliveries.clear
+          delete users_reservation_path(reservation)
+          expect(ActionMailer::Base.deliveries.size).to eq 0
         end
       end
     end
