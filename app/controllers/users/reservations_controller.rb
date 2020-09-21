@@ -7,7 +7,12 @@ class Users::ReservationsController < ApplicationController
   end
 
   def new
-    render_spaces_show if @reservation.invalid?
+    if @reservation.invalid?
+      @space   = @reservation.space
+      @reviews = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).without_count.per(MAX_DISPLAY_REVIEW_COUNT)
+      @review  = Review.new
+      render 'spaces/show'
+    end
   end
 
   def create
@@ -51,12 +56,5 @@ class Users::ReservationsController < ApplicationController
 
   def set_reservation
     @reservation = current_user.reservations.build(reservation_params)
-  end
-
-  def render_spaces_show
-    @space = Space.find(params[:reservation][:space_id])
-    @reviews = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).without_count.per(MAX_DISPLAY_REVIEW_COUNT)
-    @review = Review.new
-    render 'spaces/show'
   end
 end
