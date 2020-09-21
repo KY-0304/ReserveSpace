@@ -43,6 +43,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'simplecov'
   gem 'webmock'
+  gem 'brakeman'
 end
 
 group :development do
@@ -55,7 +56,6 @@ group :development do
   gem 'letter_opener_web', '~> 1.0'
   gem 'bullet'
   gem 'slim_lint'
-  gem 'brakeman'
 end
 
 group :test do
