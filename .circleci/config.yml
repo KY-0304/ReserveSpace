@@ -25,7 +25,7 @@ jobs:
           command: docker-compose exec web bundle exec rubocop --parallel
       - run:
           name: brakeman実行
-          command: docker-compose exec web bundle exec brakeman -A -w1
+          command: docker-compose exec web bundle exec brakeman -A -w1 -z -n
       - run:
           name: RSpec実行
           command: docker-compose exec web bin/rspec
