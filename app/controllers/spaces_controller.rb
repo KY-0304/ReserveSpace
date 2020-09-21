@@ -7,10 +7,10 @@ class SpacesController < ApplicationController
   end
 
   def show
-    @space = Space.find(params[:id])
-    @reviews = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).without_count.per(MAX_DISPLAY_REVIEW_COUNT)
+    @space       = Space.find(params[:id])
+    @reviews     = @space.reviews.includes(:user).order(created_at: :desc).page(params[:page]).without_count.per(MAX_DISPLAY_REVIEW_COUNT)
     @reservation = Reservation.new
-    @review = Review.new
+    @review      = Review.new
     impressionist(@space, nil, unique: [:ip_address])
   end
 

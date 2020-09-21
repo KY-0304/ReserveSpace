@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = current_user.reviews.build(review_params)
-    @space = Space.find(params[:space_id])
+    @space  = @review.space
     if @review.save
       @new_review = current_user.reviews.build
     else

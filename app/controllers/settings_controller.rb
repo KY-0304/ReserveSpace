@@ -24,7 +24,7 @@ class SettingsController < ApplicationController
   end
 
   def set_space_and_setting
-    @space = current_owner.spaces.find(params[:space_id])
+    @space   = current_owner.spaces.find(params[:space_id])
     @setting = @space.setting
   end
 end
