@@ -55,6 +55,7 @@ group :development do
   gem 'letter_opener_web', '~> 1.0'
   gem 'bullet'
   gem 'slim_lint'
+  gem 'brakeman'
 end
 
 group :test do

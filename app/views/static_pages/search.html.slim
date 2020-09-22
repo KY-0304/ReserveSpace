@@ -4,7 +4,7 @@
   .jscroll
     .row
       - if @result_spaces.present?
-        == render @result_spaces
+        == render partial: 'spaces/space', collection: @result_spaces
       - else
         h2.text-center.text-dark.mx-auto.mt-5 条件に一致したスペースはありません
       .list-group
