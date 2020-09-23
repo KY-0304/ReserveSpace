@@ -1,9 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe Owner, type: :model do
-  let(:owner) { create(:owner) }
+  describe "associations" do
+    let(:owner)  { create(:owner) }
+    let!(:space) { create(:space, owner: owner) }
+
+    it "ownerを削除するとspaceも削除される" do
+      expect do
+        owner.destroy
+      end.to change(Owner, :count).by(-1).and change(Space, :count).by(-1)
+    end
+  end
+
+  describe "callbacks" do
+    let(:owner)       { create(:owner) }
+    let(:space)       { create(:space, owner: owner) }
+    let(:reservation) { create(:reservation, :skip_validate, space: space, start_time: Time.current + 1.hour, end_time: Time.current + 2.hours) }
+
+    it "spaceの全削除が完了しないとownerの削除はされない" do
+      expect do
+        owner.destroy
+      end.not_to change(Owner, :count)
+    end
+  end
 
   describe "validation" do
+    let(:owner) { create(:owner) }
+
     it "有効なファクトリを持つこと" do
       expect(owner).to be_valid
     end
@@ -61,6 +84,36 @@ RSpec.describe Owner, type: :model do
       owner.password_confirmation = "password_diff"
       owner.valid?
       expect(owner.errors.full_messages).to include "確認用パスワードとパスワードの入力が一致しません"
+    end
+  end
+
+  describe "class_methods" do
+    context "emailがguest@example.comのオーナーがDBに登録されている場合" do
+      let!(:guest_owner) { create(:owner, email: "guest@example.com") }
+
+      it "ゲストオーナーを返す" do
+        owner = Owner.guest
+        expect(owner.email).to eq "guest@example.com"
+      end
+
+      it "オーナーは増えない" do
+        expect do
+          Owner.guest
+        end.not_to change(Owner, :count)
+      end
+    end
+
+    context "emailがguest@example.comのオーナーがDBに登録されていない場合" do
+      it "ゲストオーナーを返す" do
+        owner = Owner.guest
+        expect(owner.email).to eq "guest@example.com"
+      end
+
+      it "オーナーが増える" do
+        expect do
+          Owner.guest
+        end.to change(Owner, :count).by 1
+      end
     end
   end
 end
