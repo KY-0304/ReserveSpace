@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :user do
-    sequence(:email) { |n| "user#{n}@example.com" }
-    password { "password" }
+    sequence(:email)      { |n| "user#{n}@example.com" }
+    password              { "password" }
     password_confirmation { "password" }
-    sequence(:name) { |n| "テスト利用者#{n}" }
-    phone_number { "080-1234-1234" }
-    gender { :male }
+    name                  { Gimei.male.kanji }
+    phone_number          { "080-#{rand(1000..9999)}-#{rand(1000..9999)}" }
+    gender                { :male }
   end
 end

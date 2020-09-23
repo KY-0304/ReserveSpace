@@ -3,7 +3,7 @@ FactoryBot.define do
     association :space
     association :user
     start_time { Time.current }
-    end_time { Time.current.since(6.hours) }
-    charge_id { nil }
+    end_time   { Time.current + 1.hour }
+    charge_id  { nil }
   end
 end
