@@ -1,23 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Favorite, type: :model do
-  let!(:favorite) { create(:favorite) }
-
-  describe "association" do
-    it "spaceを削除するとfavoriteも削除される" do
-      expect do
-        favorite.space.destroy
-      end.to change(Favorite, :count).by(-1)
-    end
-
-    it "userを削除するとfavoriteも削除される" do
-      expect do
-        favorite.user.destroy
-      end.to change(Favorite, :count).by(-1)
-    end
-  end
-
   describe "validation" do
+    let(:favorite)       { create(:favorite) }
+    let(:other_favorite) { favorite.dup}
+
     it "有効なファクトリを持つこと" do
       expect(favorite).to be_valid
     end
@@ -35,7 +22,6 @@ RSpec.describe Favorite, type: :model do
     end
 
     it "space_id, user_idの組み合わせが一意でないと無効" do
-      other_favorite = favorite.dup
       other_favorite.valid?
       expect(other_favorite.errors.full_messages).to include "Userはすでに存在します"
     end
