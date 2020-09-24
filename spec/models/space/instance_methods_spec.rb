@@ -38,21 +38,6 @@ RSpec.describe Space, type: :model do
       end
     end
 
-    describe "geocode_address" do
-      let(:space) do
-        create(:space, prefecture_code: 13, address_city: "千代田区", address_street: "千代田1-1-1", address_building: "千代田ビル")
-      end
-
-      it "(, )で結合した住所を返す" do
-        expect(space.send(:geocode_address)).to eq "東京都, 千代田区, 千代田1-1-1, 千代田ビル"
-      end
-
-      it "nilの部分は無視して(, )で結合した住所を返す" do
-        space.address_building = nil
-        expect(space.send(:geocode_address)).to eq "東京都, 千代田区, 千代田1-1-1"
-      end
-    end
-
     describe "full_address" do
       let(:space) do
         create(:space, prefecture_code: 13, address_city: "千代田区", address_street: "千代田1-1-1", address_building: "千代田ビル")

@@ -2,6 +2,26 @@ require 'rails_helper'
 
 RSpec.describe Space, type: :model do
   describe "class_methods" do
+    describe "users_search" do
+      let!(:space) { create(:space) }
+
+      context "パラメータがblankだった場合" do
+        let(:params) { { prefecture_code: "", address_keyword: "", start_datetime: "", times: "", hourly_price: "" } }
+
+        it "すべてのスペースを返す" do
+          expect(Space.users_search(params)).to eq Space.all
+        end
+      end
+
+      context "パラメータがnilだった場合" do
+        let(:params) { nil }
+
+        it "すべてのスペースを返す" do
+          expect(Space.users_search(params)).to eq Space.all
+        end
+      end
+    end
+
     describe "hourly_price_less_than_or_equal" do
       let!(:hit_space1)    { create(:space, hourly_price: 900) }
       let!(:hit_space2)    { create(:space, hourly_price: 1000) }
@@ -75,37 +95,6 @@ RSpec.describe Space, type: :model do
     end
 
     describe "does_not_have_reservations_in_time_range" do
-      let(:hit_space1)   { create(:space) }
-      let(:hit_space2)   { create(:space) }
-      let(:no_hit_space) { create(:space) }
-      let(:hit_space2_reservation) do
-        create(:reservation, space: hit_space2,
-                             start_time: "2020-07-01 11:00:00".in_time_zone,
-                             end_time: "2020-07-01 13:00:00".in_time_zone)
-      end
-      let(:no_hit_space_reservation) do
-        create(:reservation, space: no_hit_space,
-                             start_time: "2020-07-01 14:00:00".in_time_zone,
-                             end_time: "2020-07-01 16:00:00".in_time_zone)
-      end
-
-      before do
-        travel_to Time.zone.local(2020, 7, 1, 10)
-        hit_space1
-        hit_space2_reservation
-        no_hit_space_reservation
-      end
-
-      after { travel_back }
-
-      context "引数が妥当な場合" do
-        it "引数の時間帯に予約を持たないスペースと予約を１つも持たないスペースを返す" do
-          start_time = "2020-07-01 14:00:00".in_time_zone
-          end_time   = "2020-07-01 15:00:00".in_time_zone
-          expect(Space.does_not_have_reservations_in_time_range(start_time, end_time)).to match_array [hit_space1, hit_space2]
-        end
-      end
-
       context "引数がblankだった場合" do
         it "すべてのスペースを返す" do
           expect(Space.does_not_have_reservations_in_time_range("", "")).to eq Space.all
@@ -113,22 +102,26 @@ RSpec.describe Space, type: :model do
       end
     end
 
-    describe "users_search" do
-      let!(:space) { create(:space) }
-
-      context "パラメータがblankだった場合" do
-        let(:params) { { prefecture_code: "", address_keyword: "", start_datetime: "", times: "", hourly_price: "" } }
-
+    describe "reservation_acceptable_in_period" do
+      context "引数がblankだった場合" do
         it "すべてのスペースを返す" do
-          expect(Space.users_search(params)).to eq Space.all
+          expect(Space.reservation_acceptable_in_period("", "")).to eq Space.all
         end
       end
+    end
 
-      context "パラメータがnilだった場合" do
-        let(:params) { nil }
-
+    describe "reservation_acceptable_in_same_day" do
+      context "引数がblankだった場合" do
         it "すべてのスペースを返す" do
-          expect(Space.users_search(params)).to eq Space.all
+          expect(Space.reservation_acceptable_in_same_day("")).to eq Space.all
+        end
+      end
+    end
+
+    describe "reservation_acceptable_within_until_day" do
+      context "引数がblankだった場合" do
+        it "すべてのスペースを返す" do
+          expect(Space.reservation_acceptable_within_until_day("")).to eq Space.all
         end
       end
     end
