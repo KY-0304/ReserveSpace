@@ -103,9 +103,8 @@ RSpec.describe "OwnersRegistrations", type: :request do
         end
 
         it "登録情報が更新される" do
-          owner.reload
-          expect(owner.company_name).to eq "hoge"
-          expect(owner.email).to eq "hoge@example.com"
+          expect(owner.reload.company_name).to eq "hoge"
+          expect(owner.reload.email).to eq "hoge@example.com"
         end
 
         it "フラッシュを返す" do
@@ -125,8 +124,7 @@ RSpec.describe "OwnersRegistrations", type: :request do
         end
 
         it "登録情報が更新されない" do
-          owner.reload
-          expect(owner.company_name).to eq "test_company"
+          expect(owner.reload.company_name).to eq "test_company"
         end
       end
     end

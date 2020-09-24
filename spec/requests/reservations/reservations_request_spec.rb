@@ -56,8 +56,9 @@ RSpec.describe "Reservations", type: :request do
         end
 
         it "予約一覧のcsvを返す" do
-          csv = CSV.parse(response.body, headers: true)
+          csv    = CSV.parse(response.body, headers: true)
           header = ["利用日", "利用時間", "料金", "利用者名", "連絡先", "性別"]
+
           expect(csv.headers).to eq header
         end
       end

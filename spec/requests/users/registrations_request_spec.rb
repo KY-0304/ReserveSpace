@@ -103,9 +103,8 @@ RSpec.describe "UsersRegistrations", type: :request do
         end
 
         it "登録情報が更新される" do
-          user.reload
-          expect(user.name).to eq "hoge"
-          expect(user.email).to eq "hoge@example.com"
+          expect(user.reload.name).to eq "hoge"
+          expect(user.reload.email).to eq "hoge@example.com"
         end
 
         it "フラッシュを返す" do
@@ -125,8 +124,7 @@ RSpec.describe "UsersRegistrations", type: :request do
         end
 
         it "登録情報が更新されない" do
-          user.reload
-          expect(user.name).to eq "test_name"
+          expect(user.reload.name).to eq "test_name"
         end
       end
     end

@@ -5,7 +5,7 @@ RSpec.describe "Users::Reservations", type: :request do
   let(:user)        { create(:user) }
   let(:other_user)  { create(:user) }
 
-  before { travel_to Time.zone.local(2020, 7, 1, 10) }
+  before { travel_to Time.zone.local(2000, 1, 1, 10) }
 
   after { travel_back }
 
@@ -37,7 +37,7 @@ RSpec.describe "Users::Reservations", type: :request do
   end
 
   describe "GET #new" do
-    let(:params) { { space_id: space.id, start_time: Time.current, end_time: Time.current.since(1.hour) } }
+    let(:params) { { space_id: space.id, start_time: Time.current, end_time: Time.current + 1.hour } }
 
     context "ログイン済みの場合" do
       before do
@@ -66,7 +66,7 @@ RSpec.describe "Users::Reservations", type: :request do
   end
 
   describe "POST #create" do
-    let(:params) { { space_id: space.id, start_time: Time.current, end_time: Time.current.since(2.hour) } }
+    let(:params) { { space_id: space.id, start_time: Time.current, end_time: Time.current + 2.hour } }
 
     context "ログイン済みの場合" do
       before do
@@ -202,8 +202,8 @@ RSpec.describe "Users::Reservations", type: :request do
       create(:reservation, user: user,
                            space: space,
                            charge_id: 'charge_id',
-                           start_time: "2020-07-02 10:00:00".in_time_zone,
-                           end_time: "2020-07-02 12:00:00".in_time_zone)
+                           start_time: "2000-01-02 10:00:00".in_time_zone,
+                           end_time: "2000-01-02 12:00:00".in_time_zone)
     end
     let(:api_url) { ENV['PAYJP_RETRIEVE_CHARGE_URL'] + reservation.charge_id }
 
@@ -252,7 +252,7 @@ RSpec.describe "Users::Reservations", type: :request do
       end
 
       context "当日以降に予約削除しようとした場合" do
-        let(:reservation) { create(:reservation, :skip_validate, user: user, space: space, start_time: "2020-07-01 12:00:00".in_time_zone) }
+        let(:reservation) { create(:reservation, :skip_validate, user: user, space: space, start_time: "2000-01-01 12:00:00".in_time_zone) }
 
         it "users_reservations_pathにリダイレクトする" do
           delete users_reservation_path(reservation)
