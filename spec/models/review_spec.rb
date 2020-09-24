@@ -1,31 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Review, type: :model do
-  let(:used_space)        { create(:space) }
-  let(:did_not_use_space) { create(:space) }
-  let(:user)              { create(:user) }
-  let!(:reservation)      { create(:reservation, :skip_validate, space: used_space, user: user, end_time: Time.current - 1.hour) }
-  let(:review)            { build(:review, space: used_space, user: user) }
-
-  describe "association" do
-    before do
-      review.save
-    end
-
-    it "spaceを削除するとreviewも削除される" do
-      expect do
-        review.space.destroy
-      end.to change(Review, :count).by(-1)
-    end
-
-    it "userを削除するとreviewも削除される" do
-      expect do
-        review.user.destroy
-      end.to change(Review, :count).by(-1)
-    end
-  end
-
   describe "validation" do
+    let(:used_space)        { create(:space) }
+    let(:did_not_use_space) { create(:space) }
+    let(:user)              { create(:user) }
+    let!(:reservation)      { create(:reservation, :skip_validate, space: used_space, user: user, end_time: Time.current - 1.hour) }
+    let(:review)            { build(:review, space: used_space, user: user) }
+
     it "有効なファクトリを持つこと" do
       expect(review).to be_valid
     end
@@ -68,6 +50,8 @@ RSpec.describe Review, type: :model do
   end
 
   describe "enum" do
+    let(:review) { build(:review) }
+
     context "rateが0〜4の時" do
       let(:enum) { { very_good: 0, good: 1, normal: 2, bad: 3, very_bad: 4 } }
 
