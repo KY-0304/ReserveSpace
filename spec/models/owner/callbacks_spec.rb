@@ -16,7 +16,7 @@ RSpec.describe Owner, type: :model do
         it "ownerは削除される" do
           expect do
             owner.destroy
-          end.to change(Owner, :count).by(-1) and change(Space, :count).by(-1)
+          end.to change(Owner, :count).by(-1).and change(Space, :count).by(-1)
         end
       end
 
