@@ -5,8 +5,12 @@ RSpec.describe User, type: :model do
     describe "check_all_reservations_finished" do
       let!(:user) { create(:user) }
 
+      before { travel_to Time.zone.local(2000, 1, 1) }
+
+      after { travel_back }
+
       context "完了していない予約がある場合" do
-        let!(:reservation) { create(:reservation, :skip_validate, user: user, start_time: Time.current, end_time: Time.current + 1.minute) }
+        let!(:reservation) { create(:reservation, :skip_validate, user: user, end_time: Time.current) }
 
         it "userを削除できない" do
           expect do
@@ -16,6 +20,8 @@ RSpec.describe User, type: :model do
       end
 
       context "完了していない予約が無い場合" do
+        let!(:reservation) { create(:reservation, :skip_validate, user: user, end_time: Time.current - 1.second) }
+
         it "userを削除できる" do
           expect do
             user.destroy
