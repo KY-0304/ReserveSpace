@@ -13,11 +13,5 @@ RSpec.describe Reservation, type: :model do
         space.destroy
       end.to change(Reservation, :count).by(-1)
     end
-
-    it "userを削除するとreservationも削除される" do
-      expect do
-        user.destroy
-      end.to change(Reservation, :count).by(-1)
-    end
   end
 end
