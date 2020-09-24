@@ -34,6 +34,6 @@ class Setting < ApplicationRecord
 
   def set_nil_in_start_date_and_end_date
     self.reservation_unacceptable_start_date = nil
-    self.reservation_unacceptable_end_date = nil
+    self.reservation_unacceptable_end_date   = nil
   end
 end

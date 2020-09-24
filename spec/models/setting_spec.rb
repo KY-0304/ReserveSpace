@@ -18,68 +18,68 @@ RSpec.describe Setting, type: :model do
       expect(setting).to be_valid
     end
 
-    it "予約受付拒否(日付範囲)がnilだと無効" do
+    it "reservation_unacceptableがnilだと無効" do
       setting.reservation_unacceptable = nil
       setting.valid?
       expect(setting.errors.full_messages).to include "予約受付不可は不正な値です。"
     end
 
-    context "予約受付拒否(日付範囲)がtrueの場合" do
+    context "reservation_unacceptableがtrueの場合" do
       before do
         setting.reservation_unacceptable = true
       end
 
-      it "予約受付拒否終了日が開始日より前だと無効" do
+      it "reservation_unacceptable_end_dateがreservation_unacceptable_start_dateより前だと無効" do
         setting.reservation_unacceptable_start_date = end_day
         setting.reservation_unacceptable_end_date   = start_day
         setting.valid?
         expect(setting.errors.full_messages).to include "予約不可終了日は2000-01-02 00:00より後にしてください。"
       end
 
-      it "予約受付拒否開始日時が現在より前の日時だと無効" do
+      it "reservation_unacceptable_start_dateが現在より前の日だと無効" do
         setting.reservation_unacceptable_start_date = Date.parse("1999/12/31")
         setting.valid?
         expect(setting.errors.full_messages).to include "予約不可開始日は2000-01-01 00:00以降にしてください。"
       end
 
-      it "予約受付拒否終了日時が現在より前の日時だと無効" do
+      it "reservation_unacceptable_end_dateが現在より前の日だと無効" do
         setting.reservation_unacceptable_end_date = Date.parse("1999/12/31")
         setting.valid?
         expect(setting.errors.full_messages).to include "予約不可終了日は2000-01-01 00:00以降にしてください。"
       end
 
-      it "予約受付拒否開始日、終了日はnilでも有効" do
+      it "reservation_unacceptable_start_date、reservation_unacceptable_end_dateはnilでも有効" do
         setting.reservation_unacceptable_start_date = nil
         setting.reservation_unacceptable_end_date   = nil
         expect(setting).to be_valid
       end
     end
 
-    context "予約受付拒否(日付範囲)がfalseの場合" do
+    context "reservation_unacceptableがfalseの場合" do
       before do
         setting.reservation_unacceptable = false
       end
 
-      it "before_updateで予約受付拒否開始日と終了日をnilにする" do
+      it "before_updateでreservation_unacceptable_start_dateとreservation_unacceptable_end_dateをnilにする" do
         setting.update_attributes(reservation_unacceptable_start_date: start_day, reservation_unacceptable_end_date: end_day)
         expect(setting.reload.reservation_unacceptable_start_date).to eq nil
         expect(setting.reload.reservation_unacceptable_end_date).to eq nil
       end
     end
 
-    it "当日予約不可がnilだと無効" do
+    it "reject_same_day_reservationがnilだと無効" do
       setting.reject_same_day_reservation = nil
       setting.valid?
       expect(setting.errors.full_messages).to include "当日予約不可は不正な値です。"
     end
 
-    it "予約受付可能日数が整数以外だと無効" do
+    it "accepted_until_dayが整数以外だと無効" do
       setting.accepted_until_day = 1.1
       setting.valid?
       expect(setting.errors.full_messages).to include "予約受付可能日数は整数で入力してください"
     end
 
-    it "予約受付可能日数が1未満だと無効" do
+    it "accepted_until_dayが1未満だと無効" do
       setting.accepted_until_day = -1
       setting.valid?
       expect(setting.errors.full_messages).to include "予約受付可能日数は1以上の値にしてください"
@@ -91,7 +91,7 @@ RSpec.describe Setting, type: :model do
       let!(:setting1) { create(:setting, :skip_validate, reservation_unacceptable: true) }
       let!(:setting2) { create(:setting, :skip_validate, reservation_unacceptable: false) }
 
-      it "予約不可の設定をしているsettingを返す" do
+      it "reservation_unacceptableがtrueのsettingを返す" do
         expect(Setting.reservation_unacceptable_now).to match_array [setting1]
       end
     end
