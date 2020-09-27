@@ -7,10 +7,10 @@ jobs:
       - checkout
       - run:
           name: コンテナイメージビルド
-          command: docker-compose build
+          command: docker-compose -f ./docker-compose.ci.yml build
       - run:
           name: コンテナ起動
-          command: docker-compose up -d
+          command: docker-compose -f ./docker-compose.ci.yml up -d
       - run:
           name: データベース作成
           command: docker-compose exec app bin/rails db:create
