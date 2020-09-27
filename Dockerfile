@@ -5,6 +5,7 @@ RUN apt-get update -qq  \
   build-essential       \
   libpq-dev             \
   nodejs                \
+  vim                   \
   fonts-liberation      \
   libappindicator3-1    \
   libasound2            \
@@ -18,14 +19,15 @@ RUN apt-get update -qq  \
   libxtst6              \
   xdg-utils             \
   libgbm1
+
 RUN curl -O https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN dpkg -i google-chrome-stable_current_amd64.deb
 RUN curl -O https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip
 RUN unzip chromedriver_linux64.zip
 
-ENV APP_HOME /reserve_space
+ENV APP_HOME /myapp
 
-RUN mkdir ${APP_HOME}}
+RUN mkdir ${APP_HOME}
 WORKDIR ${APP_HOME}
 
 COPY Gemfile ${APP_HOME}/Gemfile
