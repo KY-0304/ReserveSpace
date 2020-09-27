@@ -84,5 +84,6 @@ test:
 production:
   <<: *default
   database: reserve_space_production
-  username: reserve_space
-  password: <%= ENV['RESERVE_SPACE_DATABASE_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>

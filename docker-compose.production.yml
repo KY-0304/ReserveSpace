@@ -1,0 +1,22 @@
+version: '3'
+services:
+  app:
+    build: .
+    volumes:
+      - .:/myapp
+      - public-data:/myapp/public
+      - tmp-data:/myapp/tmp
+      - log-data:/myapp/log
+    command: bundle exec puma -C config/puma.rb -e production
+  web:
+    build:
+      context: containers/production/nginx
+    volumes:
+      - public-data:/myapp/public
+      - tmp-data:/myapp/tmp
+    ports:
+      - 80:80
+volumes:
+  public-data:
+  tmp-data:
+  log-data:
