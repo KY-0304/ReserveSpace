@@ -21,3 +21,6 @@ COPY Gemfile.lock ${APP_HOME}/Gemfile.lock
 RUN bundle install
 
 COPY . ${APP_HOME}
+
+RUN mkdir -p tmp/sockets
+RUN mkdir -p tmp/pids
