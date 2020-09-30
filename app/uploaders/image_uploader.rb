@@ -13,7 +13,11 @@ class ImageUploader < CarrierWave::Uploader::Base
     process resize_to_fill: [50, 50]
   end
 
-  storage :file
+  if Rails.env.production?
+    storage :fog
+  else
+    storage :file
+  end
 
   # テスト環境では独自のパスで保存する設定
   def store_dir
