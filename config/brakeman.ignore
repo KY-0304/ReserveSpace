@@ -21,6 +21,22 @@
       "note": ""
     },
     {
+      "warning_type": "Missing Encryption",
+      "warning_code": 109,
+      "fingerprint": "6a26086cd2400fbbfb831b2f8d7291e320bcc2b36984d2abc359e41b3b63212b",
+      "check_name": "ForceSSL",
+      "message": "The application does not force use of HTTPS: `config.force_ssl` is not enabled",
+      "file": "config/environments/production.rb",
+      "line": 50,
+      "link": "https://brakemanscanner.org/docs/warning_types/missing_encryption/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "High",
+      "note": ""
+    },
+    {
       "warning_type": "Unscoped Find",
       "warning_code": 82,
       "fingerprint": "7343675219c2d95269ea81a529deef9cd7b24f38d0e6bbd3bf3bed6aaee3f5d3",
@@ -41,6 +57,6 @@
       "note": ""
     }
   ],
-  "updated": "2020-09-21 00:08:13 +0000",
+  "updated": "2020-10-02 12:10:51 +0000",
   "brakeman_version": "4.9.1"
 }
