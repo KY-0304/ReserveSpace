@@ -6,6 +6,7 @@
       - if @spaces.present?
         == render partial: 'spaces/space', collection: @spaces
       - else
-        h2.text-center.text-dark お気に入りのスペースはありません
-      .list-group
+        .col-12
+          h2.text-center.text-dark お気に入りのスペースはありません
+      div
         = link_to_next_page @spaces, '次のページ', class: "next"

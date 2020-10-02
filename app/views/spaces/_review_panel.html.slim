@@ -4,5 +4,5 @@
 .jscroll
   ul.list-group.list-group-flush
     == render partial: 'reviews/review', collection: reviews
-    li.list-group-item
+    div
       = link_to_next_page reviews, '次のページ', class: "next"
