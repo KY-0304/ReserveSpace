@@ -1,24 +1,84 @@
-# README
+# アプリケーション概要
+[ReserveSpace](https://www.reserve-space.net/)
+レンタルスペースの予約管理、決済代行サービスです。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# 機能
 
-Things you may want to cover:
+共通
+- スペース検索
+- スペース地図確認
 
-* Ruby version
+掲載者（オーナー）
+- deviseによるログイン・ログアウト・登録・編集・削除
+- スペース登録・削除・編集
+- スペース設定編集
+- 予約一覧確認
+- 予約検索
+- 予約CSV出力
+- スペースのPV確認
 
-* System dependencies
+利用者（ユーザー）
+- deviseによるログイン・ログアウト・登録・編集・削除
+- 予約作成・キャンセル
+- 予約履歴確認
+- 決済
+- お気に入り登録・削除
+- レビュー投稿・削除
 
-* Configuration
 
-* Database creation
+# 使用技術
 
-* Database initialization
+■言語
+Ruby 2.5.8
 
-* How to run the test suite
+■フレームワーク
+Ruby on Rails 5.2.4.2
 
-* Services (job queues, cache servers, search engines, etc.)
+■テスティングフレームワーク
+RSpec
 
-* Deployment instructions
+■CSSフレームワーク
+Bootstrap4
 
-* ...
+■CI
+circleCI
+
+■テンプレートエンジン
+slim
+
+■リンター
+Rubocop
+Slim-lint
+
+■セキュリティチェック
+Brakeman
+
+■API
+Pay.jp
+Google Map
+
+■インフラ
+AWS EC2
+Docker
+
+■データベース
+AWS RDS
+Postgresql 12.3
+
+■ドメイン
+AWS Route53
+
+■SSL証明書
+AWS ACM
+
+■画像保存
+AWS S3
+
+■メール
+Gmail
+
+■アプリケーションサーバー
+puma
+
+■webサーバー
+nginx
