@@ -1,11 +1,14 @@
 version: '3'
 services:
-  web:
-    build: .
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
-      - .:/reserve_space
-    ports:
-      - '3000:3000'
+      - .:/myapp
+      - public-data:/myapp/public
+      - tmp-data:/myapp/tmp
+      - log-data:/myapp/log
     environment:
       GOOGLE_MAPS_APIKEY: ${GOOGLE_MAPS_APIKEY}
       PAYJP_TEST_OPEN_KEY: ${PAYJP_TEST_OPEN_KEY}
@@ -16,12 +19,25 @@ services:
       - db
     tty: true
     stdin_open: true
-    command: bundle exec rails s -b 0.0.0.0
+    command: bundle exec puma -C config/puma.rb
+  web:
+    build:
+      context: containers/development/nginx
+    volumes:
+      - public-data:/myapp/public
+      - tmp-data:/myapp/tmp
+    ports:
+      - 80:80
   db:
     image: postgres:12.3
     volumes:
       - pgdatavol:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
+    ports:
+      - '5432:5432'
 volumes:
   pgdatavol:
+  public-data:
+  tmp-data:
+  log-data:

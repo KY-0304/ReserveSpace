@@ -1,0 +1,19 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      GOOGLE_MAPS_APIKEY: ${GOOGLE_MAPS_APIKEY}
+      PAYJP_TEST_OPEN_KEY: ${PAYJP_TEST_OPEN_KEY}
+      PAYJP_TEST_SECRET_KEY: ${PAYJP_TEST_SECRET_KEY}
+      PAYJP_CREATE_CHARGE_URL: ${PAYJP_CREATE_CHARGE_URL}
+      PAYJP_RETRIEVE_CHARGE_URL: ${PAYJP_RETRIEVE_CHARGE_URL}
+    depends_on:
+      - db
+    command: bundle exec rails s
+  db:
+    image: postgres:12.3
+    environment:
+      POSTGRES_PASSWORD: password
