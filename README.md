@@ -28,57 +28,57 @@
 
 # 使用技術
 
-■言語
+■言語  
 Ruby 2.5.8
 
-■フレームワーク
+■フレームワーク  
 Ruby on Rails 5.2.4.2
 
-■テスティングフレームワーク
+■テスティングフレームワーク  
 RSpec
 
-■CSSフレームワーク
+■CSSフレームワーク  
 Bootstrap4
 
-■CI
+■CI  
 circleCI
 
-■テンプレートエンジン
+■テンプレートエンジン  
 slim
 
-■リンター
-Rubocop
+■リンター  
+Rubocop  
 Slim-lint
 
-■セキュリティチェック
+■セキュリティチェック  
 Brakeman
 
-■API
-Pay.jp
+■API  
+Pay.jp  
 Google Map
 
-■インフラ
-AWS EC2
+■インフラ  
+AWS EC2  
 Docker
 
-■データベース
-AWS RDS
+■データベース  
+AWS RDS  
 Postgresql 12.3
 
-■ドメイン
+■ドメイン  
 AWS Route53
 
-■SSL証明書
+■SSL証明書  
 AWS ACM
 
-■画像保存
+■画像保存  
 AWS S3
 
-■メール
+■メール  
 Gmail
 
-■アプリケーションサーバー
+■アプリケーションサーバー  
 puma
 
-■webサーバー
+■webサーバー  
 nginx
