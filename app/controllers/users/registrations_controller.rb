@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
-  before_action :configure_account_update_params, only: [:update]
+  before_action :configure_sign_up_params,        only: :create
+  before_action :configure_account_update_params, only: :update
 
   def new
     super
@@ -27,7 +27,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       yield resource if block_given?
       respond_with_navigational(resource) { redirect_to after_sign_out_path_for(resource_name) }
     else
-      redirect_to root_path, alert: "完了していない予約がある為、アカウントを削除できません。"
+      redirect_to root_path, alert: "未完了の予約がある状態では、アカウントを削除できません。"
     end
   end
 

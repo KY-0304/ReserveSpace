@@ -196,7 +196,7 @@ RSpec.describe "UsersRegistrations", type: :request do
 
         it "フラッシュを返す" do
           delete user_registration_path
-          expect(flash[:alert]).to eq "完了していない予約がある為、アカウントを削除できません。"
+          expect(flash[:alert]).to eq "未完了の予約がある状態では、アカウントを削除できません。"
         end
       end
     end
