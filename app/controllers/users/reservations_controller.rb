@@ -28,7 +28,6 @@ class Users::ReservationsController < ApplicationController
     end
 
     ReservationMailer.with(user: @reservation.user, reservation: @reservation).complete.deliver_now
-
     redirect_to space_path(@reservation.space), notice: "予約が完了しました"
   end
 
@@ -44,7 +43,6 @@ class Users::ReservationsController < ApplicationController
     end
 
     ReservationMailer.with(user: reservation.user, reservation: reservation).cancel.deliver_now
-
     redirect_to users_reservations_path, notice: "予約の削除が完了しました。"
   end
 
