@@ -5,7 +5,6 @@ RUN apt-get update -qq  \
   build-essential       \
   libpq-dev             \
   nodejs                \
-  vim                   \
   fonts-liberation      \
   libappindicator3-1    \
   libasound2            \
