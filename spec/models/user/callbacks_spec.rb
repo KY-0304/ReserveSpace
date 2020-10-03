@@ -9,7 +9,7 @@ RSpec.describe User, type: :model do
 
       after { travel_back }
 
-      context "完了していない予約がある場合" do
+      context "未完了の予約がある場合" do
         let!(:reservation) { create(:reservation, :skip_validate, user: user, end_time: Time.current) }
 
         it "userを削除できない" do
@@ -19,7 +19,7 @@ RSpec.describe User, type: :model do
         end
       end
 
-      context "完了していない予約が無い場合" do
+      context "未完了の予約が無い場合" do
         let!(:reservation) { create(:reservation, :skip_validate, user: user, end_time: Time.current - 1.second) }
 
         it "userを削除できる" do

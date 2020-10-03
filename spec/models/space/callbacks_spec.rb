@@ -15,7 +15,7 @@ RSpec.describe Space, type: :model do
     describe "check_all_reservations_finished" do
       let!(:space) { create(:space) }
 
-      context "完了していない予約がある場合" do
+      context "未完了の予約がある場合" do
         let!(:reservation) { create(:reservation, :skip_validate, space: space, end_time: Time.current + 1.hour) }
 
         it "spaceを削除できない" do
@@ -25,7 +25,7 @@ RSpec.describe Space, type: :model do
         end
       end
 
-      context "完了していない予約が無い場合" do
+      context "未完了の予約が無い場合" do
         it "spaceを削除できる" do
           expect do
             space.destroy

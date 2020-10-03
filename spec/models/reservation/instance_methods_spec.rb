@@ -46,7 +46,7 @@ RSpec.describe Reservation, type: :model do
 
       after { travel_back }
 
-      it "予約開始日が後日以降の時、trueを返す" do
+      it "予約開始日が翌日以降の時、trueを返す" do
         expect(reservation1.cancelable?).to eq false
         expect(reservation2.cancelable?).to eq false
         expect(reservation3.cancelable?).to eq true
