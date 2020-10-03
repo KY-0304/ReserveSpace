@@ -39,16 +39,6 @@ RSpec.describe "Users::Favorites", type: :request do
         sign_in user
       end
 
-      it "ステータスコード302を返す" do
-        post users_favorites_path, params: params
-        expect(response.status).to eq 302
-      end
-
-      it "space_pathにリダイレクトする" do
-        post users_favorites_path, params: params
-        expect(response).to redirect_to space_path(space)
-      end
-
       it "favoriteが登録される" do
         expect do
           post users_favorites_path, params: params
@@ -77,16 +67,6 @@ RSpec.describe "Users::Favorites", type: :request do
     context "ログイン済みの場合" do
       before do
         sign_in user
-      end
-
-      it "ステータスコード302を返す" do
-        delete users_favorite_path(favorite)
-        expect(response.status).to eq 302
-      end
-
-      it "space_pathにリダイレクトする" do
-        delete users_favorite_path(favorite)
-        expect(response).to redirect_to space_path(space)
       end
 
       it "favoriteが削除される" do
