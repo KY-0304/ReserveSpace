@@ -14,7 +14,5 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
-//= require bootstrap-filestyle
 //= require activestorage
-//= require jquery.jscroll.min.js
 //= require_tree .
