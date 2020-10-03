@@ -35,8 +35,9 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  # デフォルトのURLオプションを設定
+  # deviseが送るメールのデフォルトURLオプション
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
   # 送信したメールをletter_opener_webで見れるように設定
   config.action_mailer.delivery_method = :letter_opener_web
 
@@ -63,6 +64,7 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
   # bullet設定
   config.after_initialize do
     Bullet.enable = true

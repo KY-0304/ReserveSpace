@@ -31,7 +31,7 @@ module ReserveSpace
       g.javascripts false
       g.helper false
     end
-
+    # utils/apiを読み込む設定
     config.paths.add "#{Rails.root}/app/utils/api", eager_load: true
 
     # Settings in config/environments/* take precedence over those specified here.
