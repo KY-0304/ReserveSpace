@@ -22,5 +22,6 @@ RUN bundle install
 
 COPY . ${APP_HOME}
 
+# puma起動に必要なディレクトリ作成
 RUN mkdir -p tmp/sockets
 RUN mkdir -p tmp/pids
