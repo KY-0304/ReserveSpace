@@ -198,7 +198,7 @@ RSpec.describe "OwnersRegistrations", type: :request do
 
         it "フラッシュを返す" do
           delete owner_registration_path
-          expect(flash[:alert]).to eq "現在以降に予約があるスペースがある為、アカウント削除できません。"
+          expect(flash[:alert]).to eq "未完了の予約があるスペースがある状態では、アカウント削除できません。"
         end
       end
     end
