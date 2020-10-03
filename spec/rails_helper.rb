@@ -43,6 +43,4 @@ RSpec.configure do |config|
 
   # ActiveSupportのヘルパーを使用する
   config.include ActiveSupport::Testing::TimeHelpers
-
-  config.include PayjpMocks
 end
