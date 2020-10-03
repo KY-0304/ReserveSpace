@@ -245,14 +245,14 @@ RSpec.describe "Spaces", type: :request do
       end
 
       context "現在以降に予約が無い場合" do
-        let(:start_time)  { "2020-07-01 09:00:00".in_time_zone }
-        let(:end_time)    { "2020-07-01 11:00:00".in_time_zone }
+        let(:start_time)  { "2000-01-01 09:00:00".in_time_zone }
+        let(:end_time)    { "2000-01-01 11:00:00".in_time_zone }
 
         before do
-          travel_to Time.zone.local(2020, 7, 1, 10) do
+          travel_to Time.zone.local(2000, 1, 1) do
             reservation.save
           end
-          travel_to Time.zone.local(2020, 7, 2, 10)
+          travel_to Time.zone.local(2000, 1, 2)
         end
 
         after { travel_back }
@@ -280,11 +280,11 @@ RSpec.describe "Spaces", type: :request do
       end
 
       context "現在以降に予約がある場合" do
-        let(:start_time)  { "2020-07-02 09:00:00".in_time_zone }
-        let(:end_time)    { "2020-07-02 11:00:00".in_time_zone }
+        let(:start_time)  { "2000-01-02 09:00:00".in_time_zone }
+        let(:end_time)    { "2000-01-02 11:00:00".in_time_zone }
 
         before do
-          travel_to Time.zone.local(2020, 7, 1, 10)
+          travel_to Time.zone.local(2000, 1, 1)
           reservation.save
         end
 
