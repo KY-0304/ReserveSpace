@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe Space, type: :model do
   describe "class_methods" do
     describe "users_search" do
-      let!(:space) { create(:space) }
+      let!(:space) { create_list(:space, 5) }
 
       context "パラメータがblankだった場合" do
         let(:params) { { prefecture_code: "", address_keyword: "", start_datetime: "", times: "", hourly_price: "" } }
 
         it "すべてのスペースを返す" do
-          expect(Space.users_search(params)).to eq Space.all
+          expect(Space.users_search(params)).to match_array Space.all
         end
       end
 
@@ -17,7 +17,7 @@ RSpec.describe Space, type: :model do
         let(:params) { nil }
 
         it "すべてのスペースを返す" do
-          expect(Space.users_search(params)).to eq Space.all
+          expect(Space.users_search(params)).to match_array Space.all
         end
       end
     end
