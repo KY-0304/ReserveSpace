@@ -19,6 +19,7 @@ class StaticPagesController < ApplicationController
     @search_params = search_params
   end
 
+  # 検索内容保持の目的で、viewに@search_paramsを使用しているのでrequireではなく、fetchを使用してエラーを回避
   def search_params
     params.fetch(:search, {}).permit(:prefecture_code, :address_keyword, :start_datetime, :times, :hourly_price, :capacity)
   end

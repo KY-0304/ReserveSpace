@@ -21,6 +21,7 @@ class ReservationsController < ApplicationController
       order(start_time: :desc).page(params[:page]).per(MAX_DISPLAY_RESERVATION_COUNT)
   end
 
+  # 検索内容保持の目的で、viewに@search_paramsを使用しているのでrequireではなく、fetchを使用してエラーを回避
   def search_params
     params.fetch(:search, {}).permit(:start_datetime, :end_datetime)
   end
