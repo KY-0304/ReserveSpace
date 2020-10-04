@@ -35,8 +35,6 @@ class User < ApplicationRecord
   private
 
   def check_all_reservations_finished
-    if reservations.unfinished.exists?
-      throw(:abort)
-    end
+    throw(:abort) if reservations.unfinished.exists?
   end
 end
