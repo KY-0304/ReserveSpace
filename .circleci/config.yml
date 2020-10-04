@@ -13,19 +13,19 @@ jobs:
           command: docker-compose -f ./docker-compose.ci.yml up -d
       - run:
           name: データベース作成
-          command: docker-compose exec app bin/rails db:create
+          command: docker-compose exec app rails db:create
       - run:
           name: マイグレーション
-          command: docker-compose exec app bin/rails db:migrate RAILS_ENV=test
+          command: docker-compose exec app rails db:migrate RAILS_ENV=test
       - run:
           name: slim-lint実行
-          command: docker-compose exec app bundle exec slim-lint app/views/
+          command: docker-compose exec app slim-lint app/views/
       - run:
           name: rubocop実行
-          command: docker-compose exec app bundle exec rubocop --parallel
+          command: docker-compose exec app rubocop --parallel
       - run:
           name: RSpec実行
-          command: docker-compose exec app bin/rspec
+          command: docker-compose exec app rspec
       - run:
           name: コンテナ削除
           command: docker-compose down

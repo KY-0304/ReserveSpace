@@ -12,7 +12,7 @@ services:
       PAYJP_RETRIEVE_CHARGE_URL: ${PAYJP_RETRIEVE_CHARGE_URL}
     depends_on:
       - db
-    command: bundle exec rails s
+    command: rails s
   db:
     image: postgres:12.3
     environment:
