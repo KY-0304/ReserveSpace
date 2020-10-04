@@ -9,10 +9,11 @@ services:
       - public-data:/myapp/public
       - tmp-data:/myapp/tmp
       - log-data:/myapp/log
-    command: bundle exec puma -C config/puma.rb -e production
+    command: bundle exec puma -C config/puma/production.rb -e production
   web:
     build:
-      context: containers/production/nginx
+      context: containers/nginx
+      dockerfile: Dockerfile
     volumes:
       - public-data:/myapp/public
       - tmp-data:/myapp/tmp
