@@ -2,6 +2,26 @@ require 'rails_helper'
 
 RSpec.describe Reservation, type: :model do
   describe "class_methods" do
+    describe "owners_search" do
+      let!(:reservations) { create_list(:reservation, 5, :skip_validate) }
+
+      context "パラメータがblankだった場合" do
+        let(:params) { { start_datetime: "", end_datetime: "" } }
+
+        it "すべての予約を返す" do
+          expect(Reservation.owners_search(params)).to match_array Reservation.all
+        end
+      end
+
+      context "パラメータがnilだった場合" do
+        let(:params) { nil }
+
+        it "すべての予約を返す" do
+          expect(Reservation.owners_search(params)).to match_array Reservation.all
+        end
+      end
+    end
+
     describe "duplication_in_datetime_range" do
       let!(:reservation1) do
         create(:reservation, :skip_validate, start_time: "2000-01-01 09:00:00".in_time_zone,
