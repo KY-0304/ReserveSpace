@@ -89,7 +89,7 @@ Postgresql 12.3
 **■ドメイン**  
 AWS Route53
 
-**■SSL証明書**  
+**■SSL/TLS証明書**  
 AWS ACM
 
 **■画像保存**  
