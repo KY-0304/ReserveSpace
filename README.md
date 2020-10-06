@@ -53,7 +53,7 @@
 Ruby 2.5.8
 
 **■フレームワーク**  
-Ruby on Rails 5.2.4.2
+Ruby on Rails 5.2.4.4
 
 **■テスティングフレームワーク**  
 RSpec
