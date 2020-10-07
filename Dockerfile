@@ -32,6 +32,6 @@ WORKDIR ${APP_HOME}
 COPY Gemfile ${APP_HOME}/Gemfile
 COPY Gemfile.lock ${APP_HOME}/Gemfile.lock
 
-RUN bundle install
+RUN bundle install --without production
 
 COPY . ${APP_HOME}
