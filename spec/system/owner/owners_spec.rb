@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "Owners", type: :system do
   let(:owner) do
     create(:owner, email: "test@example.com",

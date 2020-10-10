@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "OwnersRegistrations", type: :request do
   let(:owner) { create(:owner, email: "test_email@example.com", company_name: "test_company") }
 

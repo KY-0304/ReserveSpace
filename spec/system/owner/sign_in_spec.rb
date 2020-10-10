@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "OwnerSignIn", type: :system do
   let(:owner) { create(:owner) }
 

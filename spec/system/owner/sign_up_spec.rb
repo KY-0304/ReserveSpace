@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "OwnerSignUp", type: :system do
   it "掲載者はアカウント登録＆削除ができる" do
     visit root_path

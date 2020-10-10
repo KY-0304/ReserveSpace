@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Favorite, type: :model do
   describe "validation" do
     let(:favorite)       { create(:favorite) }

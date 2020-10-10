@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Space, type: :model do
   describe "class_methods" do
     describe "users_search" do

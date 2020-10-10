@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "StaticPages", type: :request do
   describe "GET #home" do
     it "ステータスコード200を返す" do

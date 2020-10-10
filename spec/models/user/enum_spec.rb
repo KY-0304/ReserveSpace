@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe User, type: :model do
   describe "enum" do
     let(:user) { create(:user) }

@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe User, type: :model do
   describe "class_methods" do
     describe "User.guest" do

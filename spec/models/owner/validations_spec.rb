@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Owner, type: :model do
   describe "validation" do
     let(:owner) { create(:owner) }

@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Reservation, type: :model do
   describe "class_methods" do
     describe "owners_search" do

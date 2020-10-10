@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "Users::Reservations", type: :request do
   let(:space)       { create(:space, hourly_price: 1000) }
   let(:user)        { create(:user) }

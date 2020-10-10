@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "Spaces", type: :system do
   let(:owner) { create(:owner) }
   let!(:space) do

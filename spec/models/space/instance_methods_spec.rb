@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Space, type: :model do
   describe "instance_methods" do
     describe "prefecture_name" do

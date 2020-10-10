@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "UserSignUp", type: :system do
   it "利用者はアカウント登録＆削除ができる" do
     visit root_path

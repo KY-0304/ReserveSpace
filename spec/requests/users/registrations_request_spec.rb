@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "UsersRegistrations", type: :request do
   let(:user) { create(:user, email: "test_email@example.com", name: "test_name") }
 

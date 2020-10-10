@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe User, type: :model do
   describe "instance_methods" do
     describe "favorite?(space)" do

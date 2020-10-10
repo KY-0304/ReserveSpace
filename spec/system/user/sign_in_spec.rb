@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "UserSignIn", type: :system do
   let(:user) { create(:user) }
 

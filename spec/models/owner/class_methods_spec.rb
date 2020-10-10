@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Owner, type: :model do
   describe "class_methods" do
     context "emailがguest@example.comのownerがDBに登録されている場合" do

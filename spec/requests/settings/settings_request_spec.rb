@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "Settings", type: :request do
   let(:owner)    { create(:owner) }
   let(:space)    { create(:space, owner: owner) }

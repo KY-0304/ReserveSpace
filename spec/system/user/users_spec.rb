@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "Users", type: :system do
   let(:user) do
     create(:user, email: "test@example.com",

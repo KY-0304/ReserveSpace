@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe User, type: :model do
   describe "callbacks" do
     describe "check_all_reservations_finished" do

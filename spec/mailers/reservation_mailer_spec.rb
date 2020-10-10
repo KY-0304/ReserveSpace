@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe ReservationMailer, type: :mailer do
   describe "complete" do
     let(:space) { create(:space, name: "ReserveSpace会議室", hourly_price: 1000) }

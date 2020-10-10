@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Reservation, type: :model do
   describe "instance_methods" do
     let(:space)       { create(:space, hourly_price: 1000) }

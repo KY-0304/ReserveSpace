@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Space, type: :model do
   describe "associations" do
     let(:space)        { create(:space) }

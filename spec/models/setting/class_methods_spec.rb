@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Setting, type: :model do
   describe "class_methods" do
     describe "reservation_unacceptable_now" do

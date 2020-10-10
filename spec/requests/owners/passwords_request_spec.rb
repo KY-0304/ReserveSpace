@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "OwnersPasswords", type: :request do
   let(:owner) { create(:owner) }
 

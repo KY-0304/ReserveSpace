@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Setting, type: :model do
   describe "validation" do
     let(:start_day) { Date.parse("2000/1/1") }

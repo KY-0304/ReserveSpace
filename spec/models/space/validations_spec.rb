@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Space, type: :model do
   describe "validations" do
     let(:space) { build(:space) }

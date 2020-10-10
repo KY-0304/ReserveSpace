@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Setting, type: :model do
   describe "callbacks" do
     describe "set_nil_in_start_date_and_end_date" do

@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Reservation, type: :model do
   describe "validation" do
     let(:user)  { create(:user) }

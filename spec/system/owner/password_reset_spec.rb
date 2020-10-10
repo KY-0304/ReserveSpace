@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "OwnerResetPassword", type: :system do
   let(:owner) { create(:owner, password: "password", password_confirmation: "password") }
 

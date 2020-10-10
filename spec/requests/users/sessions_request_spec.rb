@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "UsersSessions", type: :request do
   let(:user)  { create(:user) }
   let(:owner) { create(:owner) }

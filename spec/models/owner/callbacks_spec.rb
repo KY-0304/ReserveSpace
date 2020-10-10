@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Owner, type: :model do
   describe "callbacks" do
     describe "check_all_space_destroyed" do

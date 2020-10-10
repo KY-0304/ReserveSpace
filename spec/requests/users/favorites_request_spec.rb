@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "Users::Favorites", type: :request do
   let(:user)  { create(:user) }
   let(:space) { create(:space) }
