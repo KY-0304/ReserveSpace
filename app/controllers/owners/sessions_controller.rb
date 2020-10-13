@@ -16,12 +16,6 @@ class Owners::SessionsController < Devise::SessionsController
     super
   end
 
-  def guest_sign_in
-    owner = Owner.guest
-    sign_in owner
-    redirect_to spaces_path, notice: "ゲストオーナーとしてログインしました。"
-  end
-
   protected
 
   def configure_sign_in_params

@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
   devise_for :owners, module: 'owners'
-  devise_scope :owner do
-    post 'owners/guest_sign_in', to: 'owners/sessions#guest_sign_in'
-  end
   devise_for :users, module: 'users'
   devise_scope :user do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
@@ -20,6 +17,10 @@ Rails.application.routes.draw do
       end
     end
     resource  :setting,      only: [:edit, :update]
+  end
+
+  namespace :owners do
+    resources :guests, only: :create
   end
 
   namespace :users do
