@@ -1,12 +1,6 @@
 Rails.application.routes.draw do
   devise_for :owners, module: 'owners'
-  devise_scope :owner do
-    post 'owners/guest_sign_in', to: 'owners/sessions#guest_sign_in'
-  end
-  devise_for :users, module: 'users'
-  devise_scope :user do
-    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
-  end
+  devise_for :users,  module: 'users'
 
   root 'static_pages#home'
   get  '/search', to: 'static_pages#search'
@@ -14,17 +8,22 @@ Rails.application.routes.draw do
 
   resources :spaces do
     resources :reviews,      only: [:create, :destroy], shallow: true
+    resource  :setting,      only: [:edit, :update]
     resources :reservations, only: :index do
       collection do
         post 'search'
       end
     end
-    resource  :setting,      only: [:edit, :update]
+  end
+
+  namespace :owners do
+    resources :guests, only: :create
   end
 
   namespace :users do
     resources :reservations, only: [:index, :new, :create, :destroy], shallow: true
-    resources :favorites, only: [:index, :create, :destroy], shallow: true
+    resources :favorites,    only: [:index, :create, :destroy],       shallow: true
+    resources :guests,       only: :create
   end
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
