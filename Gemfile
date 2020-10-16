@@ -53,6 +53,7 @@ group :development do
   gem 'bullet'
   gem 'slim_lint'
   gem 'brakeman'
+  gem 'annotate'
 end
 
 group :test do
