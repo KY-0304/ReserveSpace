@@ -84,7 +84,7 @@ Docker
 
 **■データベース**  
 AWS RDS  
-Postgresql 12.3
+PostgreSQL 12.3
 
 **■ドメイン**  
 AWS Route53
