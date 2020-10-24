@@ -37,13 +37,13 @@ class Reservation < ApplicationRecord
   validates_datetime :end_time, after: :start_time
   validates_datetime :start_time, on_or_after: :now
 
-  validate :within_space_business_time
-  validate :more_one_hour
-  validate :by_fifteen_minutes
-  validate :same_day_or_next_day
+  validate :within_space_business_time,
+           :more_one_hour,
+           :by_fifteen_minutes,
+           :same_day_or_next_day,
+           :within_acceptable_date
   validate :reservation_acceptable_in_date,     if: :reservation_unacceptable_mode?
   validate :reservation_acceptable_in_same_day, if: :reject_same_day_reservation_mode?
-  validate :within_acceptable_date
 
   scope :owners_search, -> (search_params) {
     return unless search_params
