@@ -214,7 +214,7 @@ RSpec.describe "Users::Reservations", type: :request do
         before do
           WebMock.enable!
           WebMock.stub_request(:get, api_url).to_return(status: 200, body: PayjpMocks.get_charge_mock.to_json)
-          allow(ApiPayjp).to receive(:refund).and_return(true)
+          allow(PaymentApi).to receive(:refund).and_return(true)
         end
 
         after do

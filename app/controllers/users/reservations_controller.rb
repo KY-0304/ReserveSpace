@@ -23,7 +23,7 @@ class Users::ReservationsController < ApplicationController
 
     ActiveRecord::Base.transaction do
       @reservation.save!
-      charge = ApiPayjp.charge(@reservation.total_price, params['payjp-token'])
+      charge = PaymentApi.charge(@reservation.total_price, params['payjp-token'])
       @reservation.update_attributes!(charge_id: charge.id)
     end
 
@@ -38,8 +38,8 @@ class Users::ReservationsController < ApplicationController
 
     ActiveRecord::Base.transaction do
       reservation.destroy!
-      charge = ApiPayjp.get_charge(reservation.charge_id)
-      ApiPayjp.refund(charge)
+      charge = PaymentApi.get_charge(reservation.charge_id)
+      PaymentApi.refund(charge)
     end
 
     ReservationMailer.with(user: reservation.user, reservation: reservation).cancel.deliver_now

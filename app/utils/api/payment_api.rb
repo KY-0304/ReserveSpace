@@ -1,4 +1,4 @@
-class ApiPayjp
+class PaymentApi
   def self.charge(amount, token, currency: 'jpy')
     Payjp.api_key = ENV['PAYJP_TEST_SECRET_KEY']
     Payjp::Charge.create(
