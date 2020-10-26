@@ -30,4 +30,8 @@
 
 /public/uploads
 
+/public/uploads_test
+
 .env
+
+.vscode
