@@ -80,17 +80,7 @@ class Space < ApplicationRecord
 
   validate :divide_by_one_hundred
 
-  delegate :reservation_unacceptable,
-           :reservation_unacceptable=,
-           :reservation_unacceptable_start_date,
-           :reservation_unacceptable_start_date=,
-           :reservation_unacceptable_end_date,
-           :reservation_unacceptable_end_date=,
-           :reject_same_day_reservation,
-           :reject_same_day_reservation=,
-           :accepted_until_day,
-           :accepted_until_day=,
-           to: :setting
+  delegate_missing_to :setting
 
   scope :users_search, -> (search_params) {
     return unless search_params
