@@ -18,6 +18,9 @@ jobs:
           name: マイグレーション
           command: docker-compose exec app rails db:migrate RAILS_ENV=test
       - run:
+          name: brakeman実行
+          command: docker-compose exec app brakeman -A
+      - run:
           name: slim-lint実行
           command: docker-compose exec app slim-lint app/views/
       - run:
